@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f2f2f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="st0cks">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>st0cks</title>
+
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css?v=63d5ab54">
+</head>
+<body>
+<div id="prog" aria-hidden="true"></div>
+<nav class="apptabs" id="apptabs" aria-label="Hauptmenü">
+  <button type="button" data-go="heute"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V11M12 20V5M19 20v-7"/></svg><span>Ranking</span></button>
+  <button type="button" data-go="themen"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg><span>Markt</span></button>
+  <button type="button" data-go="muster"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16v11H4z"/><path d="M9 8V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M4 13h16"/></svg><span>Depot</span></button>
+  <button type="button" data-go="verlauf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l5-6 4 3 8-9"/><path d="M3 21h18"/></svg><span>Verlauf</span></button>
+  <button type="button" data-more="1" aria-haspopup="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg><span>Mehr</span></button>
+</nav>
+<div class="moreback" id="moreback" hidden></div>
+<div class="moresheet" id="moresheet" role="menu" hidden>
+  <button type="button" data-go="thesen">Alle Thesen</button>
+  <button type="button" data-go="depot" hidden>Mein Depot</button>
+  <button type="button" data-go="universum">Universum (alle Aktien)</button>
+  <button type="button" data-go="methodik">Allgemeine Infos</button>
+  <button type="button" data-theme="1">Hell / Dunkel</button>
+</div>
+
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<button id="top" type="button" aria-label="Nach oben"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="trk" cx="24" cy="24" r="21"/><circle class="pg" cx="24" cy="24" r="21"/></svg><span aria-hidden="true">↑</span></button>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1><span class="radar" aria-hidden="true"></span><span>st<em>0</em>cks</span></h1>
+      <div class="sub" id="sub"></div>
+    </div>
+    <div class="gsearch" id="gsearch" role="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+      <input id="gsq" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Aktie suchen (Name oder Kürzel)" aria-label="Aktie suchen">
+      <div class="gs-res" id="gsres" hidden></div>
+    </div>
+    <button class="icon" id="themeBtn" type="button" aria-label="Darstellung wechseln">Hell / Dunkel</button>
+  </header>
+  <div id="demo"></div>
+
+  <nav class="tabs" role="tablist" aria-label="Bereiche">
+    <span class="tabind" aria-hidden="true"></span>
+    <button role="tab" data-tab="heute" aria-selected="true">Ranking</button>
+    <button role="tab" data-tab="depot" aria-selected="false" hidden>Depot</button>
+    <button role="tab" data-tab="themen" aria-selected="false">Markt</button>
+    <button role="tab" data-tab="muster" aria-selected="false">Muster-Depot</button>
+    <button role="tab" data-tab="verlauf" aria-selected="false">Verlauf</button>
+    <button role="tab" data-tab="score" aria-selected="false" hidden>Score</button>
+    <button role="tab" data-tab="thesen" aria-selected="false">Alle Thesen</button>
+    <button role="tab" data-tab="universum" aria-selected="false">Universum</button>
+    <button role="tab" data-tab="methodik" aria-selected="false">Allgemeine Infos</button>
+  </nav>
+
+  <section id="tab-heute"></section>
+  <section id="tab-depot" hidden></section>
+  <section id="tab-thesen" hidden></section>
+  <section id="tab-score" hidden></section>
+  <section id="tab-themen" hidden></section>
+  <section id="tab-muster" hidden></section>
+  <section id="tab-universum" hidden></section>
+  <section id="tab-verlauf" hidden></section>
+  <section id="tab-methodik" class="method" hidden>
+    <h2>Allgemeine Informationen</h2>
+    <div class="stats" id="stats"></div>
+    <div id="info-dyn"></div>
+    <h2>So entsteht die Liste</h2>
+    <p>Beim Befehl <code>/radar</code> in Claude Code prüft Claude zuerst alle offenen Thesen. Danach screent er die Listen von MSCI World (Industrieländer), S&amp;P 500, Nasdaq 100, DAX, MDAX, SDAX, EURO STOXX 50 und Nikkei 225, zuerst auf High-Growth-Aktien mit hohem Kurspotenzial, danach auf Kursrückgänge und prüft die Treffer einzeln in öffentlichen Quellen (Unternehmensseite, Berichte, finanzen.net, Finviz, StockAnalysis und weitere, bei Ausfall mit Ausweichquelle).</p>
+    <p>Alle weit über 1.000 Aktien einzeln zu prüfen, ist pro Lauf nicht möglich. Deshalb merkt sich der Lauf, was er schon geprüft hat (Liste „Geprüft und verworfen" im Verlauf), und nimmt beim nächsten Mal andere Treffer. Welche Indizes im letzten Lauf wirklich gescreent wurden, steht unten auf „Heute".</p>
+    <h2>Läufe, Top 10 und Schwelle 80</h2>
+    <ul>
+      <li><b>/radar deep:</b> tiefer Lauf. Rund 50 neue Aktien werden einzeln mit vollem Score analysiert, alle bestehenden Thesen werden neu bewertet. Ab Score 80 wird eine Aktie These, sonst landet sie mit Score und Grund unter „Geprüft und verworfen“.</li>
+      <li><b>/radar update:</b> Aktualisierung um 8:00 und 17:00 Uhr: Markteinschätzung, Kurse, Meldungen und Scores der bestehenden Thesen.</li>
+      <li><b>Top 10:</b> „Ranking“ zeigt oben die echte Top 10 (Score ab 80, alle Sektoren) und per Umschalter je klassischem Sektor (GICS) die fünf besten, auch mit Score unter 80; nach Sektor und Anzahl filterbar. Alle anderen stehen unter „Alle Thesen“. Mouseover auf den Namen erklärt in drei Sätzen, was die Firma macht.</li>
+      <li><b>Schwelle 80:</b> Fällt der Score einer These unter 80, gilt sie nicht mehr als gültig. Die Änderungsbox auf „Heute“ meldet jede Unterschreitung, jede Rückkehr über 80 und jede Rangänderung in den Top 10.</li>
+      <li><b>Top 10:</b> Der Reiter „Ranking“ zeigt die zehn Thesen mit dem höchsten Score und, umschaltbar, je Sektor die besten. Chance ist der Weg bis zum durchschnittlichen Analystenziel, Risiko der Weg bis zum schwächsten Ziel. Der Score ist eine Heuristik, keine Prognose.</li>
+      <li><b>Markteinschätzung:</b> Jeder Lauf beginnt mit Marktlage, wichtigen Terminen, Sektoren, Makro, Risiken und Chancen. Der Datenstand steht dabei und ist nicht immer der heutige Tag.</li>
+    </ul>
+    <h2>Wann ist ein Einstieg interessant?</h2>
+    <p>Es gibt zwei Profile. Beide brauchen eine erklärbare, vorübergehende Ursache des Rückgangs, drei messbare Säulen mit Schwellenwert, ein Gegenargument und ein Stop-Kriterium.</p>
+    <ul>
+      <li><span class="tag hg">High Growth</span> Umsatz mindestens 20 % oder Gewinn je Aktie mindestens 30 % über Vorjahr, Wachstum stabil oder beschleunigend, Ø-Kursziel der Analysten mindestens 30 % über dem Kurs, Kurs mindestens 15 % unter dem 52-Wochen-Hoch. Diese Profile bekommen bei der Auswahl Vorrang.</li>
+      <li><b>Erholung:</b> Kurs etwa 20 bis 40 % unter dem 52-Wochen-Hoch, Umsatz und Gewinn wachsen weiter, idealerweise mit steigender Rate.</li>
+    </ul>
+    <h2>Was zeigt eine Karte?</h2>
+    <ul>
+      <li><b>Entscheidungskopf:</b> Oben in jeder Detailansicht stehen Score mit Trend, Abstand zum Hoch, Kurspotenzial, nächster Termin, dein Regel-Check, das größte Risiko, die Bedingung, die die These widerlegt, und der Datenstand (grün frisch, gelb 2 bis 3 Tage, rot älter). So siehst du in etwa 30 Sekunden, ob eine Aktie zu deiner Strategie passt.</li>
+      <li><b>Meine Regeln:</b> Auf „Heute“ unten stellst du deine Kriterien ein (zum Beispiel Score, Abstand zum Hoch, Wachstum, Positionsgröße). Die Spalte „Regeln“ zeigt, wie viele erfüllt sind. Die Werte liegen nur in deinem Browser; über „Regeln und Notizen sichern“ machst du eine Sicherung.</li>
+      <li><b>Handlungsbedarf:</b> Die Zeile ganz oben auf „Heute“ zeigt nur, was Aufmerksamkeit braucht: Score unter 80 oder stark gefallen, Zahlen in den nächsten 7 Tagen, Tagesbewegung ab 5 % bei Depotwerten, wichtige Makro-Termine in den nächsten 3 Tagen.</li>
+      <li><b>Depot-Werkzeuge:</b> Klumpenrisiko (Summe je Thema), Positionsrechner (Größe, Thema und Verlustrisiko nach einem Kauf), Quartalszahlen deiner Positionen. Das sind Rechenhilfen, keine Empfehlungen.</li>
+      <li><b>Score oben rechts:</b> Ranking-Zahl von 0 bis 100 und Rang unter den offenen Thesen. Sie ist die Summe von sieben Teilnoten: Wachstum (22), Qualität (14), Bewertung (14), Kurspotenzial (14), Einstiegslage (13), Thesenrisiko (13) und Erwartungen der Analysten (10). Die Aufschlüsselung mit Begründung steht unter „Details". Der Score ist eine Heuristik und nicht rückwirkend getestet.</li>
+      <li><b>Was das Unternehmen macht:</b> ein bis zwei Sätze direkt unter dem Namen.</li>
+      <li><b>Vorschau:</b> erscheint, wenn die nächsten Zahlen in den nächsten 14 Tagen anstehen. Mit Punkten, auf die zu achten ist, und möglichen Reaktionen.</li>
+      <li><b>Tiefenanalyse:</b> ausführlichere Einordnung mit Szenarien für die am höchsten bewerteten Aktien, aufklappbar.</li>
+      <li><b>Tagesnotiz und Themen:</b> kurze Zusammenfassung oben auf „Heute" und Branchenübersichten im Reiter „Themen".</li>
+      <li><b>Kurspotenzial-Band:</b> Das große Prozentfeld oben auf jeder Kachel. Es zeigt den Abstand zum durchschnittlichen Analysten-Kursziel, darunter den Betrag je Aktie in Euro und eine Skala mit Kurs (Punkt), Ø-Ziel (Raute) und der Spanne der Schätzungen. Grün leuchtet ab +40 %, Grün ab +20 %, Blau ab +8 %, Gelb darunter, Rot bei negativem Potenzial.</li>
+      <li><b>Auf einen Blick (im Detailfenster):</b> Karten mit den wichtigsten Kennzahlen. Jede Karte nennt den Wert, eine Einstufung (sehr gut, gut, mittel, schwach), einen Pfeil für die Entwicklung, eine kleine Verlaufslinie und einen Satz in einfachen Worten, warum der Wert gut oder schlecht ist. Darunter fasst „Das spricht dafür / dagegen" zusammen.</li>
+      <li><b>Erwartungen:</b> Neben den gemeldeten Zahlen zeigen Balken (schraffiert) und Texte, was Analysten für das laufende und das nächste Jahr erwarten. Die Erwartung fließt mit bis zu 10 Punkten in den Score ein.</li>
+      <li><b>Euro-Werte:</b> Wo möglich stehen neben Prozentwerten die absoluten Beträge in Euro. Fremdwährungen sind grob umgerechnet (1 € ≈ 1,12 US-$ (Stand 09.10.2026); 1 £ ≈ 1,19 €; 100 ¥ ≈ 0,56 €); „≈" kennzeichnet umgerechnete Werte.</li>
+      <li><b>Links im Text:</b> Namen von Aktien in der Tagesnotiz und im Lauf-Protokoll sind anklickbar und öffnen die passende Kachel.</li>
+      <li><b>Kurs 5 Jahre:</b> Chart von TradingView (lädt aus dem Internet, ohne Verbindung bleibt das Feld leer).</li>
+      <li><b>Gewinn-Treppe:</b> Gewinn je Aktie als Stufen. Standard ist <b>Kumuliert</b>: die Summe seit dem ersten gezeigten Quartal, die Zahl über der Stufe ist der aufgelaufene Wert und das Plus darunter der Gewinn der Periode. Je steiler die Treppe, desto stärker wächst der Gewinn. Umschalten auf <b>12 Monate</b> (rollierend, mit Wachstum zum Vorjahr) oder <b>Je Quartal</b>. Gestrichelt sind Schätzungen.</li>
+      <li><b>Bedienung:</b> Die Rangliste oben springt per Klick zur Karte. Unter „Thesen“ lässt sich nach High Growth filtern und nach Score, Kurspotenzial, Abstand zum Hoch oder nächsten Zahlen sortieren. Die Navigation blendet sich beim Runterscrollen aus und beim Hochscrollen wieder ein. Bei eingestellter Bewegungsreduktion im Betriebssystem entfallen die Animationen.</li>
+      <li><b>Kurspotenzial:</b> Abstand zum durchschnittlichen Kursziel der Analysten, mit niedrigster und höchster Schätzung. Das ist eine Meinung von Analysten, keine Prognose des Radars.</li>
+    </ul>
+    <h2>Wie lese ich die Kennzahlen?</h2>
+    <p>Die Stufen sind einfache Faustregeln, damit man Zahlen ohne Vorwissen einordnen kann. Sie ersetzen keine eigene Prüfung.</p>
+    <ul>
+      <li><b>Umsatzwachstum:</b> sehr gut ab 25 % pro Jahr, gut ab 12 %, mittel ab 5 %, darunter schwach. Der Gesamtmarkt wächst nur um etwa 4 bis 5 %.</li>
+      <li><b>Gewinnwachstum:</b> sehr gut ab 30 %, gut ab 15 %, mittel ab 5 %.</li>
+      <li><b>Gewinn pro 100 € Umsatz (Nettomarge):</b> sehr gut ab 20 €, gut ab 10 €, mittel ab 5 €. Große US-Firmen verdienen im Schnitt etwa 10 €.</li>
+      <li><b>Operative Marge:</b> sehr gut ab 25 %, gut ab 15 %, mittel ab 8 %. <b>Bruttomarge:</b> sehr gut ab 60 %, gut ab 40 %, mittel ab 25 %.</li>
+      <li><b>Freier Cashflow</b> (Geld, das nach allen Ausgaben übrig bleibt, in % vom Umsatz): sehr gut ab 15 %, gut ab 5 %, mittel ab 0 %.</li>
+      <li><b>Bewertung (KGV, erwartet):</b> günstig bis 18, fair bis 28, anspruchsvoll bis 45, darüber teuer. Ein PEG unter 1 wertet eine Stufe auf, ein PEG über 2 eine Stufe ab.</li>
+      <li><b>Größe (Umsatz in Euro):</b> Riese ab 50 Mrd. €, Großkonzern ab 10 Mrd. €, mittelgroß ab 2 Mrd. €, klein ab 0,5 Mrd. €.</li>
+      <li><b>Kurspotenzial:</b> sehr gut ab +40 %, gut ab +20 %, mittel ab +8 %.</li>
+      <li><b>Pfeile:</b> ▲▲ stark beschleunigt, ▲ beschleunigt, ► gleichbleibend, ▼ verlangsamt, ▼▼ stark verlangsamt.</li>
+    </ul>
+    <h2>Status und Ampel</h2>
+    <p><span class="badge b-neu">neu</span> <span class="badge b-intakt">intakt</span> <span class="badge b-beobachten">beobachten</span> <span class="badge b-verletzt">verletzt</span> <span class="badge b-geschlossen">geschlossen</span></p>
+    <p><span class="dot gruen"></span> Säule erfüllt &nbsp; <span class="dot gelb"></span> wackelt &nbsp; <span class="dot rot"></span> gebrochen &nbsp; <span class="dot unbekannt"></span> nicht belegbar</p>
+    <h2>Grenzen</h2>
+    <ul>
+      <li>Die Zahlen stammen aus Web-Recherche, nicht aus einem Datenfeed. Sie können veraltet oder falsch sein, deshalb steht bei jeder Säule Quelle und Datum.</li>
+      <li>Für Europa und Japan gibt es keinen frei abrufbaren Screener mit 52-Wochen-Hoch. Dort ist die Vorauswahl gröber als bei US-Aktien.</li>
+      <li>Erwartungen sind Durchschnittswerte von Analysten (StockAnalysis). Ob eine Firma die Erwartungen je Quartal übertroffen oder verfehlt hat, liegt dem Radar nicht systematisch vor. Stattdessen vergleicht die Seite das erwartete mit dem zuletzt gemeldeten Wachstum.</li>
+      <li>Euro-Werte sind Näherungen mit festen Kursen und weichen vom Tageskurs ab.</li>
+      <li>Die Auswahlregeln sind nicht rückwirkend getestet. Die Historie zeigt mit der Zeit, ob sie taugen.</li>
+    </ul>
+  </section>
+
+  <p class="disclaimer">Recherche, keine Anlageberatung. Alle Angaben ohne Gewähr; vor einer Entscheidung die verlinkten Quellen prüfen. Kurscharts: TradingView.</p>
+</div>
+
+<script id="radar-prices" type="application/json">null</script>
+<script id="radar-universe" type="application/json">null</script>
+<script id="radar-markt" type="application/json">null</script>
+<script id="radar-plain" type="application/json">null</script>
+<script id="radar-crash" type="application/json">null</script>
+<script id="radar-faktor" type="application/json">null</script>
+<script id="radar-trader" type="application/json">null</script>
+<script id="radar-logos" type="application/json">null</script>
+<script id="radar-backtest" type="application/json">null</script>
+<script id="radar-status" type="application/json">null</script>
+<script id="radar-depot" type="application/json">
+null
+</script>
+<script id="radar-data" type="application/json">null</script>
+
+
+
+
+<div id="st-splash" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;background:var(--bg);color:var(--muted);font:15px system-ui;z-index:9999"><img src="icon.png" width="72" height="72" alt="" style="border-radius:16px"><span id="st-msg">Lade st0cks …</span></div>
+<script src="config.js"></script>
+<script src="loader.js?v=63d5ab54"></script>
+</body>
+</html>
