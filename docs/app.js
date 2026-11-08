@@ -1,4 +1,3 @@
-
 (function () {
   "use strict";
   var data;
@@ -3250,9 +3249,7 @@
   show(startTab, false);
   onScroll();
 })();
-
 ;
-
 (function () {
   var mq = window.matchMedia("(max-width: 760px)");
   var bar = document.getElementById("apptabs"), sheet = document.getElementById("moresheet"), back = document.getElementById("moreback");
@@ -3321,9 +3318,7 @@
     if (j >= 0 && j < names.length) go(names[j]);
   }, { passive: true });
 })();
-
 ;
-
 (function () {
   var box = document.getElementById("gsearch"), q = document.getElementById("gsq"), res = document.getElementById("gsres");
   if (!box || !q || !res) return;
@@ -3379,9 +3374,7 @@
   res.addEventListener("mousedown", function (ev) { ev.preventDefault(); });
   document.addEventListener("click", function (ev) { if (!box.contains(ev.target)) res.hidden = true; });
 })();
-
 ;
-
 (function(){
   /* Sicherung: Detailfenster nie seitlich verschoben lassen (Fokus/Tab-Wechsel/Touch) */
   function fix(e){
