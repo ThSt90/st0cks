@@ -1,3 +1,4 @@
+
 (function () {
   "use strict";
   var data;
@@ -1630,7 +1631,7 @@
 
   function renderHeader() {
     var d = latestDate();
-    document.getElementById("sub").textContent = "Hallo Thomas 👋 · " + (d ? "Letzter Lauf: " + date(d) : "Noch kein Lauf. Starte in Claude Code den Befehl /radar.");
+    document.getElementById("sub").textContent = d ? "Letzter Lauf: " + date(d) : "Noch kein Lauf. Starte in Claude Code den Befehl /radar.";
     if (data.demo) document.getElementById("demo").innerHTML = '<div class="demo-banner">DEMO mit erfundenen Beispieldaten. Keine echten Unternehmen, keine Empfehlung.</div>';
     var open = theses.filter(isOpen);
     var broken = open.filter(function (t) { return status(t) === "verletzt"; });
@@ -3249,7 +3250,9 @@
   show(startTab, false);
   onScroll();
 })();
+
 ;
+
 (function () {
   var mq = window.matchMedia("(max-width: 760px)");
   var bar = document.getElementById("apptabs"), sheet = document.getElementById("moresheet"), back = document.getElementById("moreback");
@@ -3318,7 +3321,9 @@
     if (j >= 0 && j < names.length) go(names[j]);
   }, { passive: true });
 })();
+
 ;
+
 (function () {
   var box = document.getElementById("gsearch"), q = document.getElementById("gsq"), res = document.getElementById("gsres");
   if (!box || !q || !res) return;
@@ -3374,7 +3379,9 @@
   res.addEventListener("mousedown", function (ev) { ev.preventDefault(); });
   document.addEventListener("click", function (ev) { if (!box.contains(ev.target)) res.hidden = true; });
 })();
+
 ;
+
 (function(){
   /* Sicherung: Detailfenster nie seitlich verschoben lassen (Fokus/Tab-Wechsel/Touch) */
   function fix(e){

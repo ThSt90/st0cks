@@ -1,3 +1,4 @@
+
 :root {
   --bg: #f2f2f2; --surface: #ffffff; --surface-2: #ececed; --text: #1c1c1e; --muted: #5f6064;
   --line: #dcdcdf; --accent: #3d6a5b; --accent-soft: #e4eae7;
@@ -1203,3 +1204,4 @@ ul.lg-rules { margin: 6px 0 0; padding-left: 18px; font-size: 13px; color: var(-
 .tile .vbadge { font-size: 15px; padding: 7px 12px; }
 #apptabs button[hidden], .moresheet button[hidden] { display: none !important; }
 .t-pot.pot-stale { filter: grayscale(1); opacity: .7; box-shadow: none; }
+
