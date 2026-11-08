@@ -1,3 +1,4 @@
+
 (function () {
   "use strict";
   var data;
@@ -989,10 +990,12 @@
     var sc = scoreTotal(t);
     if (smallScr()) {
       var stopN = s === "verletzt" ? '<div class="kv" style="color:var(--red)"><b style="color:var(--red)">Vorsicht</b>Die Begründung für die Aufnahme gilt nicht mehr. Prüfe, ob du die Aktie weiter beobachten willst.</div>' : "";
+      var mehr = '<section class="mobinfo" aria-label="Unternehmen">' + uRow("Was das Unternehmen macht", PL.was || t.about) + uRow("Geschäftsmodell", dsec("Geschäftsmodell und Wettbewerb")) + uRow("Was ist mit dem Kurs passiert?", PL.kurs) + "</section>" + proCon(t) + compBlock(t) + sec("Meine Notiz", journalBlock(t), false) + anaLink;
       var panes = [
-        ["Überblick", ueber + stopN + sec("Meine Notiz", journalBlock(t), false)],
-        ["Kurs", chartBlock(t) + dropsFold(t, true) + momBlock(t)],
-        ["Zahlen", growthBlock(t) + kpiBlock(t, true, true) + stairBlock(t) + previewBlock(t) + cat]
+        ["These", theseBlock(t)],
+        ["Einstieg", einstiegBlock(t) + chartBlock(t) + momBlock(t) + dropsFold(t, false)],
+        ["Zahlen", (t.preview && daysTo(t.preview.date) >= 0 ? previewBlock(t) : "") + growthBlock(t) + kpiBlock(t, true, true) + stairBlock(t) + cat + (t.preview && !(daysTo(t.preview.date) >= 0) ? previewBlock(t) : "")],
+        ["Mehr", mehr]
       ];
       return '<header class="d-head"><div><h2 id="dlg-title">' + logo(t) + esc(t.name || t.ticker) + '</h2><div class="meta">' + esc(t.ticker) + (t.sector ? " · " + esc(t.sector) : "") + '</div>' +
         '<div class="t-badges"><span class="badge b-' + s + '">' + s + "</span>" + (isHG(t) ? '<span class="tag hg">High Growth</span>' : "") + (isAccel(t) ? '<span class="tag accel">▲ beschleunigt</span>' : "") + "</div></div>" +
@@ -1003,7 +1006,7 @@
 
     return '<header class="d-head"><div><h2 id="dlg-title">' + logo(t) + esc(t.name || t.ticker) + '</h2><div class="meta">' + esc(t.ticker) + " · " + esc(t.index) + (t.sector ? " · " + esc(t.sector) : "") + '</div>' +
       '<div class="t-badges"><span class="badge b-' + s + '">' + s + "</span>" + (isHG(t) ? '<span class="tag hg">High Growth</span>' : "") + (isAccel(t) ? '<span class="tag accel">▲ beschleunigt</span>' : "") + "</div></div>" +
-      (sc == null ? "" : scorePill(t)) + "</header>" + ueber +
+      (sc == null ? "" : scorePill(t)) + "</header>" + theseBlock(t) + ueber +
       (s === "verletzt" ? '<div class="kv" style="color:var(--red)"><b style="color:var(--red)">Vorsicht</b>Die Begründung für die Aufnahme gilt nicht mehr. Prüfe, ob du die Aktie weiter beobachten willst.</div>' : "") +
       dropsFold(t) + '<div class="dgrid" style="grid-template-columns:1fr">' + chartBlock(t) + momBlock(t) + "</div>" + growthBlock(t) + kpiBlock(t) +
       '<div class="prices"><div><span>Kurs ' + date(l.date) + "</span><b>" + money(l.price, t.currency) + "</b>" + eSub(l.price, t.currency) + "</div><div><span>bei Aufnahme " + date(e.date) + "</span><b>" + money(e.price, t.currency) + "</b>" + eSub(e.price, t.currency) + "</div>" +
@@ -1227,12 +1230,12 @@
       return;
     }
     if ((ev.key === "Enter" || ev.key === " ") && !modalOpen) {
-      var tl = ev.target.closest && ev.target.closest(".tile[data-open], .dtile[data-open]");
+      var tl = ev.target.closest && ev.target.closest(".tile[data-open], .dtile[data-open], .dz-r[data-open]");
       if (tl && ev.target === tl) { ev.preventDefault(); openDetail(tl.getAttribute("data-open"), tl); }
     }
   });
   document.addEventListener("click", function (ev) {
-    var tl = ev.target.closest && ev.target.closest(".tile[data-open], .dtile[data-open]");
+    var tl = ev.target.closest && ev.target.closest(".tile[data-open], .dtile[data-open], .dz-r[data-open]");
     if (tl && !modalOpen) { openDetail(tl.getAttribute("data-open"), tl); return; }
     var gm = ev.target.closest && ev.target.closest("[data-gm]");
     if (gm) {
@@ -1437,7 +1440,8 @@
       var W2 = 320, H2 = 64, pts = hist.map(function (x, i) { return (i / (hist.length - 1) * W2).toFixed(1) + "," + (H2 - x[1] / 100 * H2).toFixed(1); }).join(" ");
       spark = '<svg class="crs" viewBox="0 0 ' + W2 + " " + H2 + '" preserveAspectRatio="none"><line x1="0" x2="' + W2 + '" y1="' + (H2 - 0.45 * H2) + '" y2="' + (H2 - 0.45 * H2) + '" class="cr-rot"/><line x1="0" x2="' + W2 + '" y1="' + (H2 - 0.2 * H2) + '" y2="' + (H2 - 0.2 * H2) + '" class="cr-gelb"/><polyline points="' + pts + '" pathLength="1"/></svg><div class="crg-l"><span>' + esc(hist[0][0].slice(0, 4)) + "</span><span>Gesamtindex der letzten 10 Jahre</span><span>" + esc(hist[hist.length - 1][0].slice(0, 4)) + "</span></div>";
     }
-    return '<section class="box mx mo" id="mkc"><div class="mk-h"><h2>Crash-Radar</h2><span class="mood m-' + (n.level === "rot" ? "negativ" : n.level === "gelb" ? "vorsichtig" : "positiv") + '">' + L[0] + "</span></div>" +
+    var stl = agoD(C.asof) > 7;
+    return (stl ? '<div class="stale-note"><b>Veraltet:</b> Crash-Radar vom ' + date(C.asof) + " (" + ageWord(C.asof) + "). Die Werte und der Satz „investiert bleiben“ gelten nicht mehr. Aktuell ist die Marktampel auf Lage.</div>" : "") + '<section class="box mx mo' + (stl ? " is-stale" : "") + '" id="mkc"><div class="mk-h"><h2>Crash-Radar</h2><span class="mood m-' + (n.level === "rot" ? "negativ" : n.level === "gelb" ? "vorsichtig" : "positiv") + '">' + L[0] + "</span></div>" +
       '<p class="mkv-p">Gesamtindex <b class="cnt" data-cnt="' + (n.composite || 0) + '">' + (n.composite || 0) + "</b> von 100. In Monaten mit diesem Stand fiel der S&P 500 in den 12 Monaten danach in " + (lv.p_severe == null ? "–" : nf1.format(lv.p_severe)) + " % der Fälle um 15 % oder mehr" + (base != null ? " (in allen Monaten: " + nf1.format(base) + " %)" : "") + ". " + (act.length ? "Aktiv: " + esc(act.map(function (s) { return (CR_LAB[s.id] || [s.id])[0]; }).join(", ")) + "." : "Kein Signal aktiv.") + mxQ("Zehn Warnsignale aus S&P 500, Nasdaq 100, VIX und Zinskurve, jeweils gewichtet danach, wie oft ihnen seit 1985 ein schwerer Rückgang folgte. Die Gewichte stammen nur aus Daten, die zum jeweiligen Zeitpunkt schon bekannt waren. " + (C.source || "") + ". Kleine Stichprobe (7 Rückgänge ab 15 %), Monatsschlüsse, keine Prognose.", "Wie der Crash-Radar rechnet") + "</p>" + gauge +
       '<div class="mkv-kp">' + tr(n.spx, "S&P 500") + tr(n.ndx, "Nasdaq 100") + '<div class="mkv-k ' + (n.curve != null && n.curve < 0 ? "down" : "n") + '"><span>Zinskurve</span><b>' + (n.curve == null ? "–" : (n.curve >= 0 ? "+" : "−") + nf1.format(Math.abs(n.curve))) + "</b><em>10 J. minus 3 Mon.</em></div></div>" +
       '<div class="mkv-trig"><b>Ausstiegsregel mit Beleg</b><ul><li>Regel: Aussteigen, wenn der Index einen Monat unter seiner 10-Monats-Linie schließt; wieder einsteigen, wenn er darüber schließt.</li>' +
@@ -1557,7 +1561,7 @@
     var rl = function (a) { return a.map(function (x) { return "<div><b>" + esc(x[0]) + "</b><span>" + esc(x[1]) + "</span></div>"; }).join(""); };
     var trig = Array.isArray(OUTLOOK.triggers) && OUTLOOK.triggers.length ? '<div class="mkv-trig"><b>Das ändert die Lage</b><ul>' + OUTLOOK.triggers.map(function (z) { return "<li>" + esc(z) + "</li>"; }).join("") + "</ul></div>" : "";
     var imp = OUTLOOK.impact ? '<div class="mkv-imp"><b>Für deine Thesen</b><p>' + esc(OUTLOOK.impact) + "</p></div>" : "";
-    out += '<section class="box mx" id="mko"><div class="mk-h"><h2>Ausblick ' + esc(OUTLOOK.day.split(" (")[0]) + "</h2></div>" +
+    out += '<section class="box mx" id="mko"><div class="mk-h"><h2>Ausblick ' + esc(OUTLOOK.day.split(" (")[0]) + "</h2></div>" + (agoD(OUTLOOK.asof) > 1 ? '<div class="stale-note">Stand ' + date(OUTLOOK.asof) + ": Der Text beschreibt die Lage von damals. Aktuelle Ampel und Termine stehen auf Lage.</div>" : "") +
       '<h4 class="mx-h4">Rückblick</h4><p class="mkv-p">' + esc(OUTLOOK.recap) + "</p>" +
       '<h4 class="mx-h4">Szenarien <span>grobe Gewichtung, auf 100 % normiert, keine Wahrscheinlichkeit</span></h4><div class="scn">' + scn + "</div>" +
       trig + (trig ? "" : '<p class="cap">' + esc(OUTLOOK.levels) + "</p>") + imp +
@@ -1579,7 +1583,7 @@
     theses.forEach(function (t) { if (t.ticker) mine[String(t.ticker).split(/[.:]/)[0].toUpperCase()] = 1; });
     var down = v.rows.filter(function (x) { return x[3] <= -2; }).length;
     var vrows = vtop.map(function (x) { return '<div class="fl-r fl-vr"><span><b>' + esc(x[1]) + "</b>" + (mine[x[0]] ? ' <em class="fl-in">Radar</em>' : "") + '</span><span class="fl-t"><i class="vol" style="width:' + (x[2] / mxv * 100).toFixed(0) + '%"></i></span><b>' + nf1.format(x[2]) + ' Mio.</b><em class="' + (x[3] >= 0 ? "up" : "dn") + '">' + nf(x[3]) + " %</em></div>"; }).join("");
-    out += '<details class="box mx mkv-fold fl" id="mkf"><summary><b>Geldfluss</b><span class="meta">Fonds und Handelsvolumen · Stand ' + date(F.asof).slice(0, 6) + (tech ? " · Tech " + nf(tech[1]) + " Mrd. $" : "") + "</span></summary>" +
+    out += '<details class="box mx mkv-fold fl' + (agoD(F.asof) > 7 ? " is-stale" : "") + '" id="mkf"><summary><b>Geldfluss</b><span class="meta">Fonds und Handelsvolumen · Stand ' + date(F.asof).slice(0, 6) + (agoD(F.asof) > 7 ? " · veraltet" : "") + (tech ? " · Tech " + nf(tech[1]) + " Mrd. $" : "") + "</span></summary>" +
       '<h4 class="mx-h4">US-Aktienfonds: ' + nf(F.funds.total) + " Mrd. $ in der " + esc(F.funds.week.toLowerCase()) + mxQ(F.funds.note + " Quelle: " + F.funds.src + ".", "Fondsflüsse") + "</h4>" + bars(F.funds.rows, "Mrd. $") +
       '<h4 class="mx-h4">Meistgehandelt am ' + date(v.date).slice(0, 6) + mxQ(down + " von " + v.rows.length + " Titeln fielen um mehr als 2 %. Viel Volumen bei fallendem Kurs heißt meist Verkaufsdruck, nicht Kaufinteresse. Das Volumen sagt nicht, wer kauft oder verkauft. Quelle: " + v.src + ". Nur dieser Handelstag ist belegt.", "Handelsvolumen") + "</h4>" + vrows +
       '<details class="thm-src"><summary>Alle 20 Aktien, ETFs nach Sektor und Institutionelle</summary>' + flowPane() + "</details></details>";
@@ -1795,7 +1799,7 @@
   function verdictRow(t) {
     var r = verdict(t), MEAN = { Chance: "Alle deine Regeln sind erfüllt. Ein Prüfauftrag, keine Kaufempfehlung.", Beobachten: "Nicht alle Regeln sind erfüllt. Rot markiert, was fehlt.", Vorsicht: "Die Begründung für die Aufnahme gilt nicht mehr oder der Score ist sehr niedrig." };
     var li = r.ch.map(function (c) { return '<li class="' + (c.ok === true ? "ok" : c.ok === false ? "no" : "na") + '">' + (c.ok === true ? "✓ " : c.ok === false ? "✗ " : "? ") + esc(c.l) + "</li>"; }).join("");
-    return '<div class="verdict v-' + r.cls + ' vv-' + vslug(r.v) + '"><span class="vd-l">Einschätzung nach deinen Regeln</span><div class="vd-top"><b>' + r.v + '</b></div><p class="vd-m">' + MEAN[r.v] + '</p><ul class="vd-ch">' + li + '</ul><p class="vd-n">Rot = Vorsicht, Gelb = Beobachten, Grün = Chance. Die Grenzen stellst du unter Mehr → Allgemeine Infos → Meine Regeln ein.</p></div>';
+    return '<div class="verdict v-' + r.cls + ' vv-' + vslug(r.v) + '"><span class="vd-l">Einschätzung nach deinen Regeln</span><div class="vd-top"><b>' + r.v + '</b></div><p class="vd-m">' + (r.bad.length === 1 && r.ch[5].ok !== true ? "Alle Regeln zur Aktie sind erfüllt, nur die Kursziele sind älter als 2 Wochen. Erst die Kursziele prüfen, dann urteilen." : MEAN[r.v]) + '</p><ul class="vd-ch">' + li + '</ul><p class="vd-n">Rot = Vorsicht, Gelb = Beobachten, Grün = Chance. Die Grenzen stellst du unter Mehr → Allgemeine Infos → Meine Regeln ein.</p></div>';
   }
   function vslug(v) { return v === "Chance" ? "buy" : v === "Beobachten" ? "watch" : "sell"; }
   function verdictBadge(t) { var r = verdict(t); return '<div class="vbadge vv-' + vslug(r.v) + '">' + r.v + "</div>"; }
@@ -2192,9 +2196,10 @@
     if (!theses.length) {
       html = empty("Noch keine Daten", "Öffne Claude Code in diesem Ordner und tippe /radar deep. Danach erscheinen hier Markteinschätzung, Top 10 und Score-Verlauf.");
     } else {
-      html = foldRank(open);
+      html = stockListBlock() + '<details class="box mkv-fold dz-tiles"><summary><b>Kacheln mit Charts</b><span class="meta">Top 10, je Sektor, Rangliste</span></summary>' + foldRank(open);
       if (!open.length) html += empty("Keine These mit Score ab " + TH, "Alle Thesen mit niedrigerem Score stehen unter „Alle Thesen“.");
       else html += sektorBlock(open);
+      html += "</details>";
     }
     var info = rulesBox() + anaList() + coverageBlock();
     var last = lastRun();
@@ -3187,35 +3192,236 @@
     if (!st || !st.state) return "";
     return ' · <span class="lg-dot lg-' + esc(st.state) + '"></span>' + ({ gruen: "Lauf sauber", gelb: "Lauf mit Hinweisen", rot: "Lauf mit Fehlern" }[st.state] || "Lauf");
   }
+  /* ===== Entscheidungs-Ansicht (08.11.2026): feste Reihenfolge, Datenstand, These-Check ===== */
+  function isoToday() { var d = new Date(); d.setHours(12, 0, 0, 0); return d.toISOString().slice(0, 10); }
+  function agoD(d) { var n = daysTo(d); return n == null ? null : -n; }
+  function wkAgo(d) { /* Handelstage (Mo bis Fr) seit d */
+    if (!d) return null; var a = new Date(String(d).slice(0, 10) + "T12:00:00"), b = new Date(); b.setHours(12, 0, 0, 0); var n = 0;
+    while (a < b) { a.setDate(a.getDate() + 1); var w = a.getDay(); if (a < b && w !== 0 && w !== 6) n++; }
+    return n;
+  }
+  function ageWord(d) { var a = agoD(d); return a == null ? "unbekannt" : a <= 0 ? "heute" : a === 1 ? "gestern" : "vor " + a + " Tagen"; }
+  function dShort(d) { return d ? date(d).slice(0, 6) : "–"; }
+  var DZ_C = ["rot", "gelb", "gruen", "grau"], DZ_W = ["Vorsicht", "Beobachten", "In Ordnung", "Info"];
+  function dzPill(k, txt) { return '<span class="dz-pill dz-' + DZ_C[k] + '">' + esc(txt || DZ_W[k]) + "</span>"; }
+  function newestPillar(t) { var m = ""; (Array.isArray(t.pillars) ? t.pillars : []).forEach(function (p) { if (p.as_of && String(p.as_of).slice(0, 10) > m) m = String(p.as_of).slice(0, 10); }); return m || null; }
+  var NEWS_RX = /zahl|quartal|umsatz|prognose|ausblick|ergebnis|gewinnwarnung|trading-update|halbjahr|neunmonat|neun monat|jahreszahl/i;
+  /* Wann wurde die These zuletzt inhaltlich geprüft, und sind seitdem neue Zahlen erschienen? */
+  function checkInfo(t) {
+    var today = isoToday(), c = t.catalyst || {}, cd = c.date ? String(c.date).slice(0, 10) : null, pn = newestPillar(t);
+    var rv = t.review && t.review.date ? String(t.review.date).slice(0, 10) : null;
+    var lg = (Array.isArray(t.log) ? t.log : []).filter(function (x) { return x.date && /^(update|verletzt|neu)$/.test(x.type || "") && NEWS_RX.test(String(x.text || "")); }).map(function (x) { return String(x.date).slice(0, 10); }).sort();
+    var last = [rv, lg[lg.length - 1], pn].filter(Boolean).sort().pop() || null;
+    var news = cd && cd <= today ? cd : null;
+    var done = news ? !!((rv && rv >= news) || lg.some(function (d) { return d >= news; })) : true;
+    var pa = agoD(pn), old = done && pa != null && (cd && cd > today ? pa > 135 : pa > 100);
+    return { last: last, pillar: pn, news: news, missing: !done, old: old, overdue: !done || old };
+  }
+  /* Zustand der These: 0 Vorsicht, 1 Beobachten, 2 In Ordnung, 3 Info */
+  function thesisState(t) {
+    var st = status(t), ps = Array.isArray(t.pillars) ? t.pillars : [], ci = checkInfo(t);
+    var red = ps.filter(function (p) { return light(p) === "rot"; }).length, yel = ps.filter(function (p) { return light(p) === "gelb"; }).length, unk = ps.filter(function (p) { return light(p) === "unbekannt"; }).length;
+    var o = { ci: ci, red: red, yel: yel, n: ps.length };
+    var stl = ci.overdue ? " Achtung: Die Zahlen reichen nur bis " + dShort(ci.pillar) + ", neuere Quartalszahlen sind nicht eingearbeitet." : "";
+    if (st === "verletzt") { o.k = 0; o.l = "These verletzt"; o.x = "Eine Grundannahme oder das Stop-Kriterium ist gebrochen. Nach deinen Regeln: These revidieren oder Ausstieg prüfen." + stl; }
+    else if (red) { o.k = 0; o.l = "Säule gebrochen"; o.x = red + " von " + ps.length + " Grundannahmen sind nicht mehr erfüllt." + stl; }
+    else if (ci.missing) { o.k = 1; o.l = "Prüfung überfällig"; o.x = "Neue Zahlen vom " + dShort(ci.news) + " sind noch nicht eingearbeitet. Die Ampeln zeigen den Stand davor."; }
+    else if (ci.old) { o.k = 1; o.l = "Prüfung überfällig"; o.x = "Die Grundannahmen beruhen auf Zahlen bis " + dShort(ci.pillar) + ". Neuere Quartalszahlen sind nicht eingearbeitet."; }
+    else if (yel || st === "beobachten") { o.k = 1; o.l = "These wackelt"; o.x = yel ? yel + " von " + ps.length + " Grundannahmen sind nur knapp erfüllt." : "Eine Grundannahme ist unsicher (Status „beobachten“)."; }
+    else if (!ps.length || unk === ps.length) { o.k = 3; o.l = "Keine Säulen"; o.x = "Für diese Aktie sind keine messbaren Grundannahmen hinterlegt."; }
+    else { o.k = 2; o.l = "These intakt"; o.x = "Alle " + ps.length + " Grundannahmen sind erfüllt (Zahlen bis " + dShort(ci.pillar) + ")."; }
+    return o;
+  }
+  /* Urteil nach deinen Regeln mit kurzem Grund */
+  function vReasons(t) {
+    var r = verdict(t), m = mom(t), up = upside(t), p = t.potential || {}, out = [];
+    r.ch.forEach(function (c, i) {
+      if (c.ok === true) return;
+      if (i === 0) out.push("Score " + (scoreTotal(t) == null ? "fehlt" : scoreTotal(t)) + " unter " + ruleOf(RULE_DEF[0]).v);
+      else if (i === 1) out.push(up == null ? "kein Kursziel" : "Kursziel nur " + pct(up, true));
+      else if (i === 2) out.push("These verletzt");
+      else if (i === 3) out.push(c.ok == null ? "keine Säulen" : "Säule gebrochen");
+      else if (i === 4) out.push(m ? "Kurs " + nf0.format(Math.abs(m.above)) + " % unter 200-Tage-Linie" : "kein Kursverlauf");
+      else if (i === 5) out.push(p.as_of ? "Kursziele vom " + dShort(p.as_of) : "Kursziele fehlen");
+    });
+    return { v: r.v, k: r.v === "Chance" ? 2 : r.v === "Vorsicht" ? 0 : 1, why: out, onlyStale: r.bad.length === 1 && r.ch[5].ok !== true };
+  }
+  function ddHigh(t) { var l = t.last || {}; return num(l.price) && num(l.high_52w) ? (1 - l.price / l.high_52w) * 100 : null; }
+  /* ⓪ Datenstand */
+  function freshBox() {
+    var open = theses.filter(isOpen), lr = lastRun(), mk = null, rows = [];
+    try { var _m = document.getElementById("radar-markt"); mk = _m ? JSON.parse(_m.textContent) : null; } catch (e) { mk = null; }
+    var potOld = open.filter(function (t) { var a = agoD((t.potential || {}).as_of); return a == null || a > 14; }).length;
+    var due = open.filter(function (t) { return checkInfo(t).overdue; }).length;
+    function R(n, k, txt, use, core) { rows.push({ n: n, k: k, t: txt, u: use, core: core }); }
+    var kw = LAGE ? wkAgo(LAGE.asof) : null, la = lr ? agoD(lr.date) : null;
+    R("Kurse, Marktampel, Geldfluss", kw == null ? 3 : kw <= 1 ? 2 : kw <= 3 ? 1 : 0, LAGE ? "Schlusskurse vom " + dShort(LAGE.asof) + (kw === 0 ? " (letzter Handelstag)" : "") : "fehlen", "① und überall", 1);
+    R("Termine", la == null ? 3 : la <= 1 ? 2 : la <= 3 ? 1 : 0, lr ? "Lauf " + dShort(lr.date) + (lr.time ? ", " + lr.time + " Uhr" : "") : "kein Lauf", "②", 1);
+    R("Quartalszahlen in den Thesen", due === 0 ? 2 : due <= 5 ? 1 : 0, due ? due + " von " + open.length + " Aktien: neue Zahlen nicht eingearbeitet" : "alle eingearbeitet", "③, These in der Detailansicht", 1);
+    R("Kursziele der Analysten", potOld === 0 ? 2 : potOld <= open.length / 4 ? 1 : 0, potOld ? potOld + " von " + open.length + " älter als 14 Tage" : "alle höchstens 14 Tage alt", "④, Urteil, Einstieg", 1);
+    if (mk && mk.outlook && mk.outlook.asof) { var oa = agoD(mk.outlook.asof); R("Markt-Ausblick (Text)", oa <= 1 ? 2 : oa <= 3 ? 1 : 0, "Stand " + dShort(mk.outlook.asof), "Mehr → Markt-Details"); }
+    if (mk && mk.flows && mk.flows.asof) { var fa = agoD(mk.flows.asof); R("Fondsflüsse (Tabellen)", fa <= 7 ? 2 : fa <= 14 ? 1 : 0, "Stand " + dShort(mk.flows.asof), "Mehr → Markt-Details"); }
+    if (CRASH && CRASH.asof) { var ca = agoD(CRASH.asof); R("Crash-Radar", ca <= 7 ? 2 : ca <= 14 ? 1 : 0, "Stand " + dShort(CRASH.asof), "Mehr → Markt-Details"); }
+    var core = rows.filter(function (r) { return r.core; }), k = core.some(function (r) { return r.k === 0; }) ? 0 : core.some(function (r) { return r.k === 1; }) ? 1 : 2;
+    var okN = rows.filter(function (r) { return r.k === 2; }).map(function (r) { return r.n; }), badN = rows.filter(function (r) { return r.k === 0 || r.k === 1; }).map(function (r) { return r.n + " (" + r.t + ")"; });
+    var LBL = ["Teile veraltet", "Teils veraltet", "Aktuell"][k];
+    return '<section class="dz-fresh dz-box dzb-' + DZ_C[k] + '"><div class="dz-ft"><span class="dz-n0">0</span><b>Datenstand</b>' + dzPill(k === 2 ? 2 : k === 1 ? 1 : 0, LBL) + "</div>" +
+      '<p class="dz-line"><b>Aktuell:</b> ' + esc(okN.join(", ") || "nichts") + (badN.length ? '<br><b>Veraltet:</b> ' + esc(badN.join("; ")) : "") + "</p>" +
+      '<details class="lg-why"><summary>Alle Bereiche mit Stand</summary><table class="fr-t">' + rows.map(function (r) { return '<tr><td><span class="lg-dot lg-' + DZ_C[r.k] + '"></span></td><td><b>' + esc(r.n) + "</b><br><small>" + esc(r.u) + "</small></td><td>" + esc(r.t) + "</td></tr>"; }).join("") + '</table><p class="cap">Veraltete Werte sind in der App grau markiert. Kurse gelten am Wochenende ab dem letzten Handelstag als aktuell.</p></details></section>';
+  }
+  /* ② Termine der nächsten 7 Tage */
+  function termBlock(ex) {
+    var today = isoToday(), in7 = new Date(Date.now() + 7 * 864e5).toISOString().slice(0, 10), rows = [];
+    lgEvents().filter(function (e) { return e.date && e.date >= today && e.date <= in7 && !/\(vorbei\)/.test(String(e.name || "")); }).forEach(function (e) {
+      var imp = String(e.importance || "").toLowerCase(), cs = Array.isArray(e.watch) ? e.watch : [], tm = /\d{1,2}:\d{2}/.exec(String(e.time || "")), nm = String(e.name || "").replace(/\s*\((Radar-Termin|Radar-These|vorbei)\)/g, "");
+      var hit = cs.map(function (c) {
+        var th = Array.isArray(c.themes) ? c.themes : [], mine = theses.filter(function (t) { return isOpen(t) && inDepot(t) && th.indexOf(thTheme(t)) >= 0; }).map(function (t) { return nmShort(t.name); }), s = lgShare(ex, th);
+        var eff = ex.src === "dep" ? (s ? lgHit(ex, s) : "") : (mine.length ? "deine " + lgList(mine, 4) : "");
+        return "<li><b>" + esc(c.case) + ":</b> " + (eff ? '<span class="lg-hit' + (c.dir === "up" ? " up" : "") + '">' + (c.dir === "up" ? "hilft " : "trifft ") + esc(eff) + "</span>" : '<span class="meta">kaum Wirkung auf deine Aktien</span>') + "</li>";
+      }).join("");
+      var why = [e.expectation, e.why, e.effect].filter(Boolean).join(" ") + cs.map(function (c) { return " " + c.case + ": " + c.why; }).join("");
+      rows.push({ d: e.date, tm: tm ? tm[0] : "", k: imp === "hoch" ? 1 : 3, key: nm.split(/[ :]/)[0], html: "<b>" + esc(nm) + "</b>" + (hit ? '<ul class="dz-cases">' + hit + "</ul>" : "") + (why.trim() ? '<details class="lg-why"><summary>Was erwartet wird und warum es zählt</summary><p>' + esc(why.trim()) + "</p></details>" : "") });
+    });
+    var topIds = {}; topList().forEach(function (t) { topIds[t.id] = 1; });
+    theses.filter(function (t) { return isOpen(t) && (inDepot(t) || topIds[t.id]) && t.catalyst && t.catalyst.date && t.catalyst.date >= today && t.catalyst.date <= in7; }).forEach(function (t) {
+      var w0 = nmShort(t.name).split(" ")[0];
+      if (rows.some(function (r) { return r.d === t.catalyst.date && r.key === w0; })) return;
+      rows.push({ d: t.catalyst.date, tm: "", k: inDepot(t) ? 1 : 3, key: w0, html: "<b>" + (inDepot(t) ? "Dein Depot: " : "") + esc(nmShort(t.name)) + "</b> <span class='meta'>" + esc(short(t.catalyst.event || "Zahlen", 110)) + '</span> <button type="button" class="linkbtn" data-open-v="' + esc(t.id) + '">These ansehen</button>' });
+    });
+    rows.sort(function (a, b) { return (a.d + (a.tm.length < 5 ? "0" + a.tm : a.tm)).localeCompare(b.d + (b.tm.length < 5 ? "0" + b.tm : b.tm)); });
+    if (!rows.length) return '<div class="dz-box"><p class="dz-line">Keine wichtigen Termine in den nächsten 7 Tagen.</p></div>';
+    return '<div class="dz-list">' + rows.map(function (r) { return '<div class="dz-ev dz-ek' + r.k + '"><div class="dz-ed"><b>' + esc(lgDay(r.d)) + "</b>" + (r.tm ? "<small>" + r.tm + " Uhr</small>" : "") + '</div><div class="dz-eb">' + r.html + "</div></div>"; }).join("") + "</div>";
+  }
+  /* ③ Deine Aktien */
+  function myBlock() {
+    var mine = theses.filter(function (t) { return isOpen(t) && inDepot(t); }).map(function (t) { return { t: t, s: thesisState(t) }; });
+    if (!mine.length) return '<div class="dz-box"><p class="dz-line">Keine Aktie ist als „im Depot“ markiert.</p></div>';
+    var rk = { 0: 0, 1: 1, 3: 2, 2: 3 };
+    mine.sort(function (a, b) { return rk[a.s.k] - rk[b.s.k] || (scoreTotal(b.t) || 0) - (scoreTotal(a.t) || 0); });
+    var n0 = mine.filter(function (x) { return x.s.k === 0; }).length, n1 = mine.filter(function (x) { return x.s.k === 1; }).length, nd = mine.filter(function (x) { return x.s.k === 1 && x.s.ci.overdue; }).length, n2 = mine.filter(function (x) { return x.s.k === 2; }).length;
+    var parts = [];
+    if (n0) parts.push('<b class="neg">' + n0 + " mit verletzter These oder gebrochener Säule</b>");
+    if (nd) parts.push(nd + " mit überfälliger Prüfung (neue Zahlen fehlen)");
+    if (n1 - nd) parts.push((n1 - nd) + " wackeln");
+    if (n2) parts.push(n2 + " intakt");
+    return '<p class="dz-sum">' + parts.join(" · ") + '</p><div class="dz-list">' + mine.map(function (x) {
+      var t = x.t, s = x.s, sl = slog(t), a = sl[sl.length - 1], b = sl[sl.length - 2], dsc = a && b ? a.score - b.score : null, ne = nextEvt(t), nd2 = ne ? daysTo(ne.date) : null;
+      var meta = [s.ci.last ? "zuletzt geprüft " + dShort(s.ci.last) : "", nd2 != null && nd2 >= 0 && nd2 <= 45 ? "nächste Zahlen " + dShort(ne.date) : ""].filter(Boolean).join(" · ");
+      return '<div class="dz-r k' + s.k + '" data-open="' + esc(t.id) + '" role="button" tabindex="0"><span class="dz-nm">' + dzPill(s.k) + " <b>" + esc(nmShort(t.name)) + '</b></span><span class="dz-sc">' + (scoreTotal(t) == null ? "–" : scoreTotal(t)) + (dsc ? '<i class="' + (dsc > 0 ? "up" : "dn") + '">' + (dsc > 0 ? "+" : "−") + Math.abs(dsc) + "</i>" : "") + '<small>Score</small></span><span class="sub"><b>' + esc(s.l) + ":</b> " + esc(s.x) + (meta ? "<br>" + esc(meta) : "") + "</span></div>";
+    }).join("") + "</div>" + (dpos.length ? "" : '<p class="cap">Gezeigt werden die Aktien mit der Markierung „im Depot“ in den Thesen. ETFs, Rohstoffe und Beträge stehen nur in der lokalen Fassung (dashboard.html).</p>');
+  }
+  function expoFold(ex) {
+    var ks = Object.keys(ex.m).sort(function (a, b) { return ex.m[b] - ex.m[a]; }).slice(0, 5), lim = ex.src === "dep" ? limOf("maxtheme") : 40, mx = Math.max.apply(null, ks.map(function (k) { return ex.m[k]; }).concat([lim]));
+    if (!ks.length) return "";
+    return '<details class="lg-why dz-fold"><summary>' + (ex.src === "dep" ? "Wie dein Geld auf Themen verteilt ist" : "Wie die starken Aktien auf Themen verteilt sind") + '</summary><div class="lg-ex"><p class="lg-ref">Der Strich zeigt die Obergrenze je Thema (' + lim + " %). Rot = darüber.</p>" + ks.map(function (k) {
+      var v = ex.m[k], over = v > lim && k !== THEMES[6] && k !== THEMES[7];
+      return '<div class="lg-er' + (over ? " over" : "") + '"><span>' + esc(k) + '</span><span class="lg-fb"><u style="width:' + (v / mx * 100).toFixed(0) + '%"></u><em style="left:' + (lim / mx * 100).toFixed(0) + '%"></em></span><b>' + (ex.src === "dep" ? nf0.format(v) + " %" : (ex.cnt[k] || 0) + " von " + ex.n) + "</b></div>";
+    }).join("") + "</div></details>";
+  }
+  /* ④ Kandidaten */
+  function candBlock() {
+    var tl = topList().filter(function (t) { return !inDepot(t); }).slice(0, 6);
+    if (!tl.length) return '<div class="dz-box"><p class="dz-line">Keine Aktie außerhalb deines Depots hat Score ab ' + TH + ".</p></div>";
+    var nC = tl.filter(function (t) { return vReasons(t).v === "Chance"; }).length, nS = tl.filter(function (t) { return vReasons(t).onlyStale; }).length;
+    return '<p class="dz-sum">' + (nC ? nC + " erfüllen alle deine Regeln." : "Keine erfüllt gerade alle deine Regeln; der Grund steht in jeder Zeile.") + (nS ? " Bei " + nS + " fehlt nur ein frisches Kursziel." : "") + '</p><div class="dz-list">' + tl.map(function (t) {
+      var vr = vReasons(t), ts = thesisState(t), dd = ddHigh(t), up = upside(t), pa = agoD((t.potential || {}).as_of), k = ts.k === 0 ? 0 : vr.k;
+      var why = vr.v === "Chance" ? "Alle Regeln erfüllt" : vr.why.join(" · ");
+      var meta = [ts.l, dd != null ? nf0.format(dd) + " % unter Jahreshoch" : "", up != null ? "Analysten-Ziel " + pct(up, true) + (pa != null && pa > 14 ? " (veraltet)" : "") : ""].filter(Boolean).join(" · ");
+      return '<div class="dz-r k' + k + '" data-open="' + esc(t.id) + '" role="button" tabindex="0"><span class="dz-nm">' + dzPill(k, k === 0 && vr.k !== 0 ? "Vorsicht" : vr.v) + " <b>" + esc(nmShort(t.name)) + '</b></span><span class="dz-sc">' + scoreTotal(t) + '<small>Score</small></span><span class="sub"><b>' + esc(why) + "</b><br>" + esc(meta) + "</span></div>";
+    }).join("") + '</div><button type="button" class="btn lg-more" data-golage="heute">Alle Aktien als Liste</button>';
+  }
+  /* Aktien-Reiter: kompakte Liste mit Filter */
+  var SL_MODE = "80"; try { SL_MODE = sessionStorage.getItem("radar-sl") || "80"; } catch (e) { SL_MODE = "80"; }
+  function stockRows(mode) {
+    var list = theses.filter(isOpen);
+    if (mode === "depot") list = list.filter(inDepot); else if (mode === "80") list = list.filter(valid);
+    list = list.slice().sort(byScore);
+    if (!list.length) return '<div class="empty">' + (mode === "depot" ? "Keine Aktie ist als „im Depot“ markiert." : "Keine Aktie in dieser Auswahl.") + "</div>";
+    return '<div class="dz-list">' + list.map(function (t) {
+      var vr = vReasons(t), ts = thesisState(t), dd = ddHigh(t), up = upside(t), pa = agoD((t.potential || {}).as_of), ne = nextEvt(t), nd = ne ? daysTo(ne.date) : null, k = ts.k === 0 ? 0 : vr.k;
+      var why = vr.v === "Chance" ? "Alle Regeln erfüllt" : vr.why.slice(0, 3).join(" · ");
+      var meta = [ts.l, dd != null ? nf0.format(dd) + " % unter Jahreshoch" : "", up != null ? "Ziel " + pct(up, true) + (pa != null && pa > 14 ? " (veraltet)" : "") : "", nd != null && nd >= 0 && nd <= 30 ? "Zahlen " + dShort(ne.date) : ""].filter(Boolean).join(" · ");
+      return '<div class="dz-r k' + k + '" data-open="' + esc(t.id) + '" role="button" tabindex="0"><span class="dz-nm">' + dzPill(k, k === 0 && vr.k !== 0 ? "Vorsicht" : vr.v) + " <b>" + esc(nmShort(t.name)) + "</b>" + (inDepot(t) ? ' <em class="dz-dep">Depot</em>' : "") + '</span><span class="dz-sc">' + (scoreTotal(t) == null ? "–" : scoreTotal(t)) + '<small>Score</small></span><span class="sub"><b>' + esc(why) + "</b><br>" + esc(meta) + "</span></div>";
+    }).join("") + "</div>";
+  }
+  function stockListBlock() {
+    var open = theses.filter(isOpen), b = function (m, lab, n) { return '<button type="button" data-sl="' + m + '" aria-pressed="' + (SL_MODE === m) + '">' + lab + ' <span class="count">' + n + "</span></button>"; };
+    return '<h2>Aktien im Radar</h2><p class="cap" style="margin:-4px 0 10px">Sortiert nach Score. Farbe = Urteil nach deinen Regeln, dahinter der Grund, darunter der Zustand der These. Antippen öffnet These und Einstieg.</p><div class="filters dz-f">' +
+      b("depot", "Mein Depot", open.filter(inDepot).length) + b("80", "Score ab " + TH, open.filter(valid).length) + b("alle", "Alle", open.length) + '</div><div id="dz-sl">' + stockRows(SL_MODE) + "</div>";
+  }
+  document.addEventListener("click", function (ev) {
+    var b = ev.target.closest && ev.target.closest("[data-sl]"); if (!b) return;
+    SL_MODE = b.getAttribute("data-sl"); try { sessionStorage.setItem("radar-sl", SL_MODE); } catch (e) { /* optional */ }
+    Array.prototype.forEach.call(document.querySelectorAll("[data-sl]"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+    var c = document.getElementById("dz-sl"); if (c) c.innerHTML = stockRows(SL_MODE);
+  });
+  /* Detailansicht: These-Check */
+  function theseBlock(t) {
+    var s = thesisState(t), ci = s.ci, e = t.entry || {}, ps = Array.isArray(t.pillars) ? t.pillars : [];
+    var h = '<section class="th-box th-k' + s.k + '"><div class="th-top">' + dzPill(s.k) + "<b>" + esc(s.l) + "</b></div><p>" + esc(s.x) + '</p><p class="th-meta">Zuletzt inhaltlich geprüft: ' + (ci.last ? date(ci.last) + " (" + ageWord(ci.last) + ")" : "unbekannt") + (t.opened ? " · These seit " + date(t.opened) : "") + "</p></section>";
+    h += '<h4 class="th-h">Warum die Aktie im Radar ist</h4>' + (t.headline ? '<p class="th-p">' + esc(t.headline) + "</p>" : "") +
+      (Array.isArray(t.why) && t.why.length ? '<ul class="th-ul">' + t.why.slice(0, 4).map(function (w) { return "<li>" + esc(w) + "</li>"; }).join("") + "</ul>" : "") +
+      (e.date ? '<p class="th-meta">Aufgenommen am ' + date(e.date) + (num(e.price) != null ? " bei " + money(e.price, t.currency) : "") + "</p>" : "");
+    if (ps.length) h += '<h4 class="th-h">Die Grundannahmen (Säulen)</h4><div class="th-ps">' + ps.map(function (p) {
+      var li = light(p);
+      return '<div class="th-pr th-' + li + '"><span class="dot ' + li + '" title="' + esc(LIGHT_TEXT[li] || "") + '"></span><div><b>' + esc(p.name) + '</b><span class="th-rule">Grenze: ' + esc(p.rule || "–") + '</span><span class="th-cur">Ist: ' + esc(p.current || "unbekannt") + "</span><small>Stand " + (p.as_of ? date(p.as_of) : "unbekannt") + (TREND[p.trend] ? " · " + TREND[p.trend] : "") + (p.source ? " · " + link(p.source, "Quelle") : "") + "</small></div></div>";
+    }).join("") + "</div>";
+    if (t.stop) h += '<h4 class="th-h">Widerlegt, wenn …</h4><p class="th-p th-stop">' + esc(t.stop) + "</p>";
+    if (t.counter) h += '<h4 class="th-h">Stärkstes Gegenargument</h4><p class="th-p">' + esc(t.counter) + "</p>";
+    var lg = (Array.isArray(t.log) ? t.log.slice() : []).sort(function (a, b) { return String(b.date || "").localeCompare(String(a.date || "")); }).slice(0, 4);
+    if (lg.length) h += '<h4 class="th-h">Was sich zuletzt geändert hat</h4><ul class="th-log">' + lg.map(function (x) { return '<li><span class="meta">' + dShort(x.date) + "</span> " + esc(short(x.text, 280)) + (x.source ? " " + link(x.source, "Quelle") : "") + "</li>"; }).join("") + "</ul>";
+    var ne = nextEvt(t);
+    if (ne) h += '<h4 class="th-h">Nächster Termin</h4><p class="th-p"><b>' + date(ne.date) + "</b> (" + inDays(ne.date) + "): " + esc(ne.event) + (ne.exp ? '<br><span class="meta">Worauf der Markt schaut: ' + esc(ne.exp) + "</span>" : "") + (daysTo(ne.date) < 0 ? '<br><span class="meta">Dieser Termin liegt zurück; der nächste ist noch nicht eingetragen.</span>' : "") + "</p>";
+    return h;
+  }
+  /* Detailansicht: Einstieg */
+  function einstiegBlock(t) {
+    var l = t.last || {}, p = t.potential || {}, m = mom(t), up = upside(t), dd = ddHigh(t), pa = agoD(p.as_of), stale = pa == null || pa > 14;
+    var cell = function (lab, val, sub, cls) { return '<div class="ei-c' + (cls ? " " + cls : "") + '"><span>' + lab + "</span><b>" + val + "</b>" + (sub ? "<small>" + sub + "</small>" : "") + "</div>"; };
+    var g = cell("Kurs " + dShort(l.date), money(l.price, t.currency), "") +
+      cell("Abstand zum Jahreshoch", dd == null ? "–" : "−" + nf0.format(dd) + " %", dd == null ? "" : dd >= 20 && dd <= 40 ? "in der Zielzone 20 bis 40 %" : dd < 20 ? "weniger als 20 % zurückgekommen" : "mehr als 40 % zurückgekommen") +
+      cell("Kurs zur 200-Tage-Linie", m ? pct(m.above, true) : "–", m ? (m.above >= -10 ? "Regel erfüllt (höchstens −10 %)" : "Abwärtstrend, Regel nicht erfüllt") : "") +
+      cell("Analysten-Ziel Ø", up == null ? "–" : pct(up, true), (num(p.analysts) ? p.analysts + " Analysten · " : "") + (p.as_of ? "Stand " + dShort(p.as_of) + (stale ? ", veraltet" : "") : "ohne Datum"), stale ? "is-stale" : "");
+    return verdictRow(t) + '<div class="ei-g">' + g + "</div>" + (t.valuation ? '<div class="kv"><b>Bewertung</b>' + esc(t.valuation) + "</div>" : "");
+  }
+  function dkCause(e) {
+    if (e.k !== "raus" && e.k !== "rein") return ""; var x = String(e.x || "");
+    if (/^Schwelle wieder erreicht \(Score \d+\)\.?$/.test(x.trim())) return "";
+    var kurs = /Unverändert|Kurs fiel|Kurs −|Kurs stieg|Einstiegslage|Abverkauf|Ausverkauf/i.test(x) && !/Q\d-Zahlen|Quartalszahlen|Prognose|Teilnote Wachstum|Stop-Kriterium|Säule|Status verletzt/i.test(x);
+    return kurs ? '<em class="dk-c">nur Kurs</em>' : '<em class="dk-c dk-z">Zahlen/Meldung</em>';
+  }
   function renderLage() {
     var el = document.getElementById("tab-lage"); if (!el) return;
-    var amp = lgAmpel(), ex = lgExpo(), fl = lgFlows(), W = lgWarn(amp, ex), lr = lastRun();
+    var amp = lgAmpel(), ex = lgExpo(), fl = lgFlows(), W = lgWarn(amp, ex);
     var LV = { rot: ["Vorsicht", "Mehrere Warnzeichen gleichzeitig. Große Kursbewegungen sind jetzt wahrscheinlicher als sonst."],
       gelb: ["Beobachten", "Einzelne Warnzeichen. Der Markt ist anfälliger als sonst."],
       gruen: ["In Ordnung", "Keine Warnzeichen. Normale Schwankungen."], grau: ["Keine Daten", "Die Ampel erscheint nach dem nächsten Lauf."] }[amp.lvl];
-    var KT = ["Vorsicht", "Beobachten", "Chance", "Info"];
-    var h = '<div class="lg-stand">Stand: Kurse vom ' + (LAGE ? date(LAGE.asof) : "–") + ", geprüft " + (lr ? date(lr.date).slice(0, 6) + (lr.time ? " " + esc(lr.time) + " Uhr" : "") : "–") + lgStatus() + '</div><div class="lg-leg"><span><i class="lg-dot lg-rot"></i>Vorsicht</span><span><i class="lg-dot lg-gelb"></i>Beobachten</span><span><i class="lg-dot lg-gruen"></i>In Ordnung / Chance</span><span><i class="lg-dot"></i>Info</span></div>';
+    var typ = function (x) { var s = String(x.t || ""); if (x.html || /^Quartalszahlen/.test(s)) return "ev"; if (/^Anleger (ziehen|kaufen)/.test(s)) return "fl"; if (/^Zu viel in einem Korb/.test(s)) return "kl"; if (/Depot/.test(s)) return "my"; return "ca"; };
+    var wOf = function (ty) { return W.filter(function (x) { return typ(x) === ty; }); };
+    var wRow = function (x) { return '<div class="dz-w">' + dzPill(x.k, ["Vorsicht", "Beobachten", "Chance", "Info"][x.k]) + "<div><b>" + esc(x.t) + '</b><div class="lg-x">' + (x.html ? x.x : esc(x.x)) + "</div>" + (x.b ? "<small>" + esc(x.b) + "</small>" : "") + (x.why ? '<details class="lg-why"><summary>Warum?</summary><p>' + esc(x.why) + "</p></details>" : "") + "</div></div>"; };
+    var H = function (n, t, s) { return '<h2 class="dz-h"><span class="dz-n">' + n + "</span><span>" + t + (s ? "<small>" + s + "</small>" : "") + "</span></h2>"; };
+    function frow(x) { var w0 = Math.min(100, Math.abs(x.rs1) / 25 * 100); return '<div class="lg-fr"><span>' + esc(x.n) + (LG_DESC[x.n] ? "<i>" + esc(LG_DESC[x.n]) + "</i>" : "") + '</span><span class="lg-fb"><u class="' + (x.rs1 >= 0 ? "up" : "dn") + '" style="width:' + w0.toFixed(0) + '%"></u></span><b class="' + (x.rs1 >= 0 ? "up" : "dn") + '">' + sg1(x.m1) + "</b></div>"; }
+    var h = '<p class="dz-intro">Von oben nach unten prüfen: Stimmen die Daten? Wie riskant ist der Markt? Was steht an? Gilt die These deiner Aktien noch? Wo lohnt ein genauer Blick?</p>' + freshBox();
+    /* 1 Markt */
     var cnt = (amp.red ? amp.red + " von " + amp.s.length + " Fragen rot" : "") + (amp.red && amp.yel ? ", " : "") + (amp.yel ? amp.yel + " gelb" : "");
+    h += H(1, "Markt: Wie riskant ist es gerade?", "Ampel aus " + amp.s.length + " Fragen · Kurse vom " + (LAGE ? dShort(LAGE.asof) : "–"));
     h += '<section class="lg-amp lg-a-' + amp.lvl + '"><div class="lg-ah"><span class="lg-big">' + LV[0] + '</span><span class="lg-al">Markt insgesamt</span></div><p>' + LV[1] + (cnt ? " <span class='lg-cnt'>(" + cnt + ")</span>" : "") + "</p>" +
       '<ul class="lg-sig">' + amp.s.map(function (x) { return '<li><span class="lg-dot lg-' + LG_C[x.l] + '"></span><div><span class="lg-q">' + esc(x.q) + "</span> <b>" + esc(x.a) + "</b><small>" + esc(x.d) + "</small></div></li>"; }).join("") + "</ul>" +
       '<details class="lg-why"><summary>Nach welchen Regeln die Farben vergeben werden</summary><ul class="lg-rules">' + amp.s.map(function (x) { return "<li><b>" + esc(x.q) + "</b> " + esc(x.r) + "</li>"; }).join("") + "<li><b>Gesamtfarbe:</b> Rot, wenn zwei oder mehr Fragen rot sind. Gelb bei einer roten oder zwei gelben. Sonst Grün.</li></ul></details></section>";
-    h += '<h2 class="lg-h">Was jetzt wichtig ist</h2>' + (W.length ? '<div class="lg-ws">' + W.map(function (x) {
-      return '<div class="lg-w lg-k' + x.k + '"><span class="lg-tag">' + KT[x.k] + "</span><b>" + esc(x.t) + "</b><div class='lg-x'>" + (x.html ? x.x : esc(x.x)) + "</div>" + (x.b ? "<small>" + esc(x.b) + "</small>" : "") + (x.why ? '<details class="lg-why"><summary>Warum?</summary><p>' + esc(x.why) + "</p></details>" : "") + "</div>";
-    }).join("") + "</div>" : '<div class="empty"><b>Nichts Dringendes</b>Keine Warnung und kein wichtiger Termin in den nächsten 7 Tagen.</div>');
-    function frow(x) { var w0 = Math.min(100, Math.abs(x.rs1) / 25 * 100); return '<div class="lg-fr"><span>' + esc(x.n) + (LG_DESC[x.n] ? "<i>" + esc(LG_DESC[x.n]) + "</i>" : "") + '</span><span class="lg-fb"><u class="' + (x.rs1 >= 0 ? "up" : "dn") + '" style="width:' + w0.toFixed(0) + '%"></u></span><b class="' + (x.rs1 >= 0 ? "up" : "dn") + '">' + sg1(x.m1) + "</b></div>"; }
-    if (fl.all.length) h += '<h2 class="lg-h">Wohin das Geld fließt <span class="hint">letzter Monat</span></h2><div class="lg-flow"><p class="lg-ref">Gesamtmarkt (S&amp;P 500): <b>' + sg1(fl.spy && fl.spy.m1) + '</b>. <span class="up">Grün</span> = besser als der Gesamtmarkt, dort fließt Geld hin. <span class="dn">Rot</span> = schlechter, dort wird verkauft.</p><div class="lg-f2"><div><h4>Hier fließt Geld hin</h4>' + fl.inn.map(frow).join("") + "</div><div><h4>Hier wird verkauft</h4>" + fl.out.map(frow).join("") + "</div></div>" +
-      '<details class="lg-why"><summary>Alle Bereiche</summary><div class="lg-flow1">' + fl.all.map(frow).join("") + '</div><p>Gemessen an Fonds, die jeweils einen ganzen Bereich abbilden (Yahoo-Kurse vom ' + (LAGE ? date(LAGE.asof) : "–") + "). Echte Fondsflüsse sind kostenpflichtig, das hier ist eine Annäherung.</p></details></div>";
-    var ks = Object.keys(ex.m).sort(function (a, b) { return ex.m[b] - ex.m[a]; }).slice(0, 5), lim = ex.src === "dep" ? limOf("maxtheme") : 40, mx = Math.max.apply(null, ks.map(function (k) { return ex.m[k]; }).concat([lim]));
-    if (ks.length) h += '<h2 class="lg-h">' + (ex.src === "dep" ? "Wie dein Geld verteilt ist" : "Wie die starken Aktien verteilt sind") + "</h2>" + '<div class="lg-ex"><p class="lg-ref">Der Strich zeigt die Obergrenze je Thema (' + lim + " %). Rot = darüber.</p>" + ks.map(function (k) {
-      var v = ex.m[k], over = v > lim && k !== THEMES[6] && k !== THEMES[7], fs = (LG_TH[k] || []).map(lgRow).filter(Boolean)[0];
-      return '<div class="lg-er' + (over ? " over" : "") + '"><span>' + esc(k) + (fs && fs.m1 != null ? "<i class='" + (fs.rs1 >= 0 ? "up" : "dn") + "'>Bereich im letzten Monat " + sg1(fs.m1) + "</i>" : "") + '</span><span class="lg-fb"><u style="width:' + (v / mx * 100).toFixed(0) + '%"></u><em style="left:' + (lim / mx * 100).toFixed(0) + '%"></em></span><b>' + (ex.src === "dep" ? nf0.format(v) + " %" : (ex.cnt[k] || 0) + " von " + ex.n) + "</b></div>";
-    }).join("") + (ex.src === "dep" ? ((ex.m[THEMES[6]] || 0) > 20 ? '<p class="cap">Breite ETFs wie der Nasdaq 100 enthalten zusätzlich viele Technologie- und KI-Werte. Dein echter KI-Anteil ist deshalb höher als der Balken.</p>' : "") : '<p class="cap">Dein eigenes Depot sieht nur die lokale Fassung (dashboard.html).</p>') + "</div>";
-    var tl = topList().slice(0, 5);
-    if (tl.length) h += '<h2 class="lg-h">Die stärksten Aktien im Radar <span class="hint">antippen für Details</span></h2><div class="lg-top">' + tl.map(function (t) {
-      var l = t.last || {}, dd = num(l.price) && num(l.high_52w) ? (1 - l.price / l.high_52w) * 100 : null, vr = verdict(t);
-      return '<div class="dtile lg-t" data-open="' + esc(t.id) + '" tabindex="0" role="button"><span class="miniscore ' + scoreClass(scoreTotal(t)) + '" title="Score von 100">' + scoreTotal(t) + '</span><span class="lg-tn"><b>' + esc(nmShort(t.name)) + "</b><small>" + (dd != null ? nf0.format(dd) + " % unter dem Jahreshoch" : "") + (inDepot(t) ? " · im Depot" : "") + '</small></span><span class="vbadge vv-' + vslug(vr.v) + ' lg-vb">' + esc(vr.v) + "</span></div>";
-    }).join("") + '</div><button type="button" class="btn lg-more" data-golage="heute">Alle Aktien ansehen</button>';
-    h += '<p class="cap" style="margin-top:18px">Ampel und Geldfluss rechnet jeder Lauf vollständig neu aus Tageskursen (Yahoo Finance). Die Hinweise sind Prüfaufträge, keine Anlageberatung.</p>';
+    if (fl.all.length) h += '<div class="dz-box dz-fl"><p class="dz-line"><b class="up">Geld fließt hin:</b> ' + fl.inn.slice(0, 3).map(function (x) { return esc(x.n) + " " + sg1(x.m1); }).join(", ") + '<br><b class="dn">Geld fließt ab:</b> ' + fl.out.slice(0, 3).map(function (x) { return esc(x.n) + " " + sg1(x.m1); }).join(", ") +
+      '<br><span class="meta">Letzter Monat, Gesamtmarkt ' + sg1(fl.spy && fl.spy.m1) + ". Gemessen an Branchenfonds (Näherung, echte Fondsflüsse sind kostenpflichtig).</span></p>" +
+      '<details class="lg-why"><summary>Alle Bereiche</summary><div class="lg-flow1">' + fl.all.map(frow).join("") + "</div></details></div>";
+    h += wOf("fl").map(wRow).join("");
+    /* 2 Termine */
+    h += H(2, "Was in den nächsten 7 Tagen ansteht", "mit Wirkung auf deine Themen");
+    h += termBlock(ex);
+    /* 3 Deine Aktien */
+    h += H(3, "Deine Aktien: Gilt die These noch?", "Grundannahmen, Stop-Kriterium und ob neue Zahlen eingearbeitet sind");
+    h += myBlock() + wOf("my").map(wRow).join("") + wOf("kl").map(wRow).join("") + expoFold(ex);
+    /* 4 Kandidaten */
+    h += H(4, "Kandidaten: Wo lohnt ein genauer Blick?", "Score ab " + TH + ", nicht im Depot, Urteil nach deinen Regeln");
+    h += candBlock() + wOf("ca").map(wRow).join("");
+    h += '<p class="cap" style="margin-top:18px">Ampel, Geldfluss und Kurse rechnet jeder Lauf neu (Yahoo Finance). Alle Hinweise sind Prüfaufträge nach deinen Regeln, keine Anlageberatung.</p>';
     el.innerHTML = h;
   }
   document.addEventListener("click", function (ev) { var b = ev.target.closest && ev.target.closest("[data-golage]"); if (b) { show(b.getAttribute("data-golage"), true); } });
@@ -3237,7 +3443,7 @@
     var LB = { neu: "Aufgenommen", raus: "Von der Liste gefallen", rein: "Zurück auf der Liste", ende: "Beendet", nein: "Geprüft, abgelehnt" };
     var rows = E.slice(0, 25).map(function (e) {
       if (e.k === "nein") return '<li class="lg-dk-nein"><span class="lg-dd">' + date(e.d).slice(0, 6) + '</span><span class="lg-dt">' + LB.nein + "</span><span>" + e.n + " Aktien (Liste und Gründe unten im ausführlichen Verlauf)</span></li>";
-      return '<li class="lg-dk-' + e.k + '"><span class="lg-dd">' + date(e.d).slice(0, 6) + '</span><span class="lg-dt">' + LB[e.k] + '</span><span><button type="button" class="linkbtn dtile-link" data-open-v="' + esc(e.t.id) + '"><b>' + esc(short(e.t.name, 28)) + "</b></button> " + esc(short(e.x, 150)) + "</span></li>";
+      return '<li class="lg-dk-' + e.k + '"><span class="lg-dd">' + date(e.d).slice(0, 6) + '</span><span class="lg-dt">' + LB[e.k] + '</span><span>' + dkCause(e) + '<button type="button" class="linkbtn dtile-link" data-open-v="' + esc(e.t.id) + '"><b>' + esc(short(e.t.name, 28)) + "</b></button> " + esc(short(e.x, 150)) + "</span></li>";
     }).join("");
     return '<h2>Entscheidungen <span class="count">' + E.length + '</span> <span class="hint">neueste zuerst</span></h2><p class="cap" style="margin:-4px 0 10px">Warum eine Aktie aufgenommen wurde, unter ' + TH + " fiel, zurückkam oder beendet wurde. Nichts wird gelöscht.</p><ul class=\"lg-dec\">" + rows + "</ul>" + (E.length > 25 ? '<p class="cap">Ältere Einträge im ausführlichen Verlauf.</p>' : "");
   }
@@ -3249,7 +3455,9 @@
   show(startTab, false);
   onScroll();
 })();
+
 ;
+
 (function () {
   var mq = window.matchMedia("(max-width: 760px)");
   var bar = document.getElementById("apptabs"), sheet = document.getElementById("moresheet"), back = document.getElementById("moreback");
@@ -3318,7 +3526,9 @@
     if (j >= 0 && j < names.length) go(names[j]);
   }, { passive: true });
 })();
+
 ;
+
 (function () {
   var box = document.getElementById("gsearch"), q = document.getElementById("gsq"), res = document.getElementById("gsres");
   if (!box || !q || !res) return;
@@ -3374,7 +3584,9 @@
   res.addEventListener("mousedown", function (ev) { ev.preventDefault(); });
   document.addEventListener("click", function (ev) { if (!box.contains(ev.target)) res.hidden = true; });
 })();
+
 ;
+
 (function(){
   /* Sicherung: Detailfenster nie seitlich verschoben lassen (Fokus/Tab-Wechsel/Touch) */
   function fix(e){

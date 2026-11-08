@@ -4671,7 +4671,7 @@
    "about": "Entwickelt betriebswirtschaftliche Unternehmenssoftware (ERP für Finanzen, Einkauf, Personal u. a.), die zunehmend als Cloud-Abo verkauft wird.",
    "catalyst": {
     "date": null,
-    "event": "Nächste Zahlen (Q4/2026): Termin nicht gefunden"
+    "event": "Q4/2026-Zahlen voraussichtlich Ende Januar 2027, Termin nicht bestätigt"
    },
    "closed": null,
    "counter": "Wenn KI-Agenten tatsächlich die Zahl der Nutzerlizenzen senken, trifft das SAPs Preismodell strukturell; der Umstieg auf verbrauchsbasierte Preise ist unerprobt. Zudem wuchs das operative Ergebnis im Q2 langsamer als der Umsatz, die Marge stand also unter Druck.",
@@ -4987,34 +4987,45 @@
      "price": 206.65,
      "status": "intakt",
      "source": "https://finviz.com/news/405805/sap-quarterly-statement-q3-2026"
+    },
+    {
+     "date": "2026-11-08",
+     "type": "update",
+     "text": "Q3-Zahlen (21.10.) eingearbeitet: Cloud-Umsatz +25 % (währungsbereinigt), Current Cloud Backlog 24,1 Mrd. € (+26 %), Betriebsergebnis +18 %, Cloud-Prognose am oberen Ende. Alle Grundannahmen erfüllt.",
+     "price": 210.75,
+     "status": "intakt",
+     "source": "https://finviz.com/news/405805/sap-quarterly-statement-q3-2026"
     }
    ],
    "name": "SAP SE",
    "opened": "2026-10-12",
    "pillars": [
     {
-     "as_of": "2026-07-23",
-     "current": "24 % währungsbereinigt, 22 % nominal (Q2/2026)",
+     "as_of": "2026-10-21",
+     "current": "25 % währungsbereinigt, 26 % nominal (Q3/2026)",
      "light": "gruen",
      "name": "Cloud-Umsatzwachstum",
      "rule": "≥ 20 % ggü. Vorjahr (währungsbereinigt)",
-     "source": "https://www.sec.gov/Archives/edgar/data/0001000184/000110465926087251/tm2621275d1_ex99-1.htm"
+     "source": "https://finviz.com/news/405805/sap-quarterly-statement-q3-2026",
+     "trend": "stabil"
     },
     {
-     "as_of": "2026-07-23",
-     "current": "22,9 Mrd. €, +27 % (währungsbereinigt +26 %, Q2/2026)",
+     "as_of": "2026-10-21",
+     "current": "24,1 Mrd. €, +26 % währungsbereinigt (+28 % nominal, Q3/2026)",
      "light": "gruen",
      "name": "Current Cloud Backlog",
      "rule": "Wachstum ≥ 25 % ggü. Vorjahr",
-     "source": "https://www.sec.gov/Archives/edgar/data/0001000184/000110465926087251/tm2621275d1_ex99-1.htm"
+     "source": "https://finviz.com/news/405805/sap-quarterly-statement-q3-2026",
+     "trend": "stabil"
     },
     {
-     "as_of": "2026-07-23",
-     "current": "+7 % (währungsbereinigt +9 %) auf 2,74 Mrd. € (Q2/2026); Jahresprognose leicht gesenkt auf 11,8–12,2 Mrd. € (+13–17 %) wegen Zukäufen",
-     "light": "gelb",
+     "as_of": "2026-10-21",
+     "current": "+18 % (Q3/2026); Jahresprognose 11,8 bis 12,2 Mrd. € bestätigt, Cloud-Umsatz am oberen Ende der Spanne erwartet",
+     "light": "gruen",
      "name": "Non-IFRS-Betriebsergebnis",
      "rule": "Wachstum ≥ 10 % ggü. Vorjahr",
-     "source": "https://www.sec.gov/Archives/edgar/data/0001000184/000110465926087251/tm2621275d1_ex99-1.htm"
+     "source": "https://finviz.com/news/405805/sap-quarterly-statement-q3-2026",
+     "trend": "steigend"
     }
    ],
    "potential": {
@@ -15594,8 +15605,8 @@
   {
    "about": "Liefert Strom- und Kühlungstechnik, Schaltschränke und Wartungsdienste für Rechenzentren und andere kritische Anlagen.",
    "catalyst": {
-    "date": "2026-10-28",
-    "event": "Q3/2026-Zahlen (bestätigt: Vertiv hat den Termin am 14.10.2026 angekündigt; StockAnalysis nennt ebenfalls 28.10.)"
+    "date": null,
+    "event": "Q4-Zahlen voraussichtlich Februar 2027, Termin nicht bestätigt"
    },
    "closed": null,
    "counter": "Die Bewertung hängt an den Investitionen weniger Hyperscaler. Verzögern oder kürzen sie Rechenzentrumsprojekte, fällt das Wachstum, während die Aktie noch ein Wachstums-Multiple trägt. Das Management verschob Umsatz wegen „temporärer Lieferkettenfaktoren“ bei sehr großen Projekten; der Markt fürchtet laut Motley Fool, dass das nicht vorübergeht.",
@@ -16033,37 +16044,45 @@
      "price": 205.55,
      "status": "beobachten",
      "source": "https://www.webull.com/news/15825586273870848"
+    },
+    {
+     "date": "2026-11-08",
+     "type": "update",
+     "text": "Q3-Zahlen (28.10., Firmenmitteilung) eingearbeitet: Umsatz +61 % (organisch +55 %), bereinigte Betriebsmarge 25,2 %, Jahresprognose angehoben. Alle Grundannahmen erfüllt, Stop-Kriterium nicht erreicht.",
+     "price": 182.86,
+     "status": "beobachten",
+     "source": "https://www.sec.gov/Archives/edgar/data/0001674101/000162828026067707/q32026exhibit991vrt10282026.htm"
     }
    ],
    "name": "Vertiv Holdings Co",
    "opened": "2026-10-12",
    "pillars": [
     {
-     "as_of": "2026-07-29",
-     "current": "24,1 % (Q2/2026: 3.274 nach 2.638 Mio. USD, organisch 18 %); Q3-Prognose organisch +34 bis 36 %",
+     "as_of": "2026-10-28",
+     "current": "+61 % (Q3/2026: 4.313 Mio. $), organisch +55 %; Aufträge organisch über +100 %",
      "light": "gruen",
      "name": "Umsatzwachstum",
      "rule": "≥ 20 % ggü. Vorjahr",
-     "source": "https://www.sec.gov/Archives/edgar/data/0001674101/000162828026050323/q22026exhibit991vrt07292026.htm",
-     "trend": "stabil"
-    },
-    {
-     "as_of": "2026-07-29",
-     "current": "22,6 % (+4,1 Punkte, Q2/2026); Q3-Prognose 24,0 bis 25,0 %",
-     "light": "gruen",
-     "name": "Bereinigte Betriebsmarge",
-     "rule": "≥ 21 % und über dem Vorjahr",
-     "source": "https://www.sec.gov/Archives/edgar/data/0001674101/000162828026050323/q22026exhibit991vrt07292026.htm",
+     "source": "https://www.sec.gov/Archives/edgar/data/0001674101/000162828026067707/q32026exhibit991vrt10282026.htm",
      "trend": "steigend"
     },
     {
-     "as_of": "2026-07-29",
-     "current": "Q2 lag mit 3,274 Mrd. USD am unteren Ende der Spanne (3,25 bis 3,45 Mrd. USD); Q3 steht aus",
-     "light": "gelb",
+     "as_of": "2026-10-28",
+     "current": "25,2 % (Q3/2026) nach 22,3 % im Vorjahr; Jahresprognose 23,5 bis 24,5 %",
+     "light": "gruen",
+     "name": "Bereinigte Betriebsmarge",
+     "rule": "≥ 21 % und über dem Vorjahr",
+     "source": "https://www.sec.gov/Archives/edgar/data/0001674101/000162828026067707/q32026exhibit991vrt10282026.htm",
+     "trend": "steigend"
+    },
+    {
+     "as_of": "2026-10-28",
+     "current": "Q3 mit 4,31 Mrd. $ deutlich über der Grenze von 3,65 Mrd. $; Jahresprognose um 650 Mio. $ auf 14,45 bis 14,85 Mrd. $ angehoben",
+     "light": "gruen",
      "name": "Umsatz im Prognosebereich",
      "rule": "Q3-Umsatz mindestens 3,65 Mrd. USD (Untergrenze der Prognose)",
-     "source": "https://www.fool.com/investing/2026/07/29/why-shares-in-this-ai-infrastructure-stock-crashed/",
-     "trend": "stabil"
+     "source": "https://www.sec.gov/Archives/edgar/data/0001674101/000162828026067707/q32026exhibit991vrt10282026.htm",
+     "trend": "steigend"
     }
    ],
    "potential": {
@@ -16142,7 +16161,7 @@
     "total": null
    },
    "sector": "Rechenzentrums-Infrastruktur (Strom und Kühlung)",
-   "status": "beobachten",
+   "status": "intakt",
    "stop": "Der Q3-Umsatz liegt unter 3,65 Mrd. USD oder das organische Wachstum unter 25 %; oder die bereinigte Betriebsmarge fällt unter 21 %; oder die Jahresprognose wird gesenkt; oder ein großer Kunde streicht Projekte.",
    "tags": [
     "high-growth"
@@ -30588,8 +30607,8 @@
   {
    "about": "Seagate ist einer der zwei größten Hersteller von Festplatten (HDD), vor allem großer Laufwerke für Cloud-Rechenzentren (\"Massenspeicher\"). Das Unternehmen verdient am Verkauf der Laufwerke, abgerechnet zunehmend nach gespeicherter Datenmenge (Exabyte).",
    "catalyst": {
-    "date": "2026-10-27",
-    "event": "Q1 GJ27-Zahlen (von Seagate am 13.10.2026 per Business Wire bestätigt)"
+    "date": null,
+    "event": "Q2-GJ27-Zahlen voraussichtlich Ende Januar 2027, Termin nicht bestätigt"
    },
    "closed": null,
    "counter": "Festplatten sind ein Zyklusgeschäft. Die Aktie ist vom 52-Wochen-Tief (209 $) auf über 1.100 $ gestiegen, weil Laufwerke knapp waren und die Preise stiegen. Baut Toshiba wie angekündigt die Produktion aus (Ziel: Marktanteil von gut 10 % auf 30 %) oder kaufen die Cloud-Anbieter weniger, können Preise und Margen schnell fallen. In früheren Zyklen fiel der Umsatz binnen eines Jahres um 37 % (GJ23), und Seagate machte Verlust. Das niedrigste Kursziel (700 $) liegt unter dem Kurs.",
@@ -31024,37 +31043,45 @@
      "price": 557.06,
      "status": "intakt",
      "source": "https://www.sec.gov/Archives/edgar/data/0001137789/000113778926000300/stxq12027pressreleasefinan.htm"
+    },
+    {
+     "date": "2026-11-08",
+     "type": "update",
+     "text": "Q1-GJ27-Zahlen (27.10.) eingearbeitet: Umsatz 4,23 Mrd. $ (+61 %), Bruttomarge 57,3 %, bereinigtes EPS 7,68 $; Ausblick Q2 4,8 Mrd. $. Stop-Kriterium nicht erreicht.",
+     "price": 460.99,
+     "status": "intakt",
+     "source": "https://finviz.com/news/409313/seagate-technology-reports-fiscal-first-quarter-2027-financial-results"
     }
    ],
    "name": "Seagate Technology Holdings plc",
    "opened": "2026-10-13",
    "pillars": [
     {
-     "as_of": "2026-07-28",
-     "current": "48,5 % (Q4 GJ26, bis 03.07.2026: 3.629 nach 2.444 Mio. $); davor 44,1 % und 21,5 %",
+     "as_of": "2026-10-27",
+     "current": "+61 % (Q1 GJ27 bis Ende September: 4.233 nach 2.629 Mio. $)",
      "light": "gruen",
      "name": "Umsatzwachstum",
      "rule": "≥ 25 % ggü. Vorjahresquartal",
-     "source": "https://stockanalysis.com/stocks/stx/financials/?p=quarterly",
-     "trend": "stabil"
+     "source": "https://finviz.com/news/409313/seagate-technology-reports-fiscal-first-quarter-2027-financial-results",
+     "trend": "steigend"
     },
     {
-     "as_of": "2026-07-28",
-     "current": "52,3 % (Q4 GJ26) nach 46,5 % (Q3) und 37,0 % vor einem Jahr",
+     "as_of": "2026-10-27",
+     "current": "57,3 % (Q1 GJ27) nach 52,3 % (Q4 GJ26)",
      "light": "gruen",
      "name": "Bruttomarge (GAAP)",
      "rule": "≥ 45 % des Umsatzes",
-     "source": "https://stockanalysis.com/stocks/stx/financials/?p=quarterly",
-     "trend": "stabil"
+     "source": "https://finviz.com/news/409313/seagate-technology-reports-fiscal-first-quarter-2027-financial-results",
+     "trend": "steigend"
     },
     {
-     "as_of": "2026-07-28",
-     "current": "Prognose 4,1 Mrd. $ ± 0,1 Mrd., bereinigtes EPS 7,30 $ ± 0,20 (Zahlen noch nicht gemeldet)",
+     "as_of": "2026-10-27",
+     "current": "Q1 über der Prognose (4,23 Mrd. $, bereinigtes EPS 7,68 $); Ausblick Q2: 4,8 Mrd. $ ± 0,1 Mrd., EPS 9,20 $ ± 0,20",
      "light": "gruen",
      "name": "Quartalsprognose",
      "rule": "Umsatz Q1 GJ27 (bis 02.10.2026) ≥ 4,0 Mrd. $ (Untergrenze der Firmenprognose)",
-     "source": "https://investors.seagate.com/news/news-details/2026/Seagate-Technology-Reports-Fiscal-Fourth-Quarter-and-Fiscal-Year-2026-Financial-Results",
-     "trend": "stabil"
+     "source": "https://finviz.com/news/409313/seagate-technology-reports-fiscal-first-quarter-2027-financial-results",
+     "trend": "steigend"
     }
    ],
    "potential": {
@@ -37779,7 +37806,7 @@
    "index": "S&P 500 / Nasdaq 100",
    "sector": "Software und Cloud",
    "currency": "USD",
-   "status": "beobachten",
+   "status": "intakt",
    "opened": "2026-10-14",
    "closed": null,
    "depot": true,
@@ -37854,29 +37881,29 @@
     {
      "name": "Umsatzwachstum",
      "rule": "> 15 % ggü. Vorjahr",
-     "current": "17,7 % (Quartal bis Juni 2026; Vorquartal 18,3 %)",
+     "current": "18,8 % (Quartal bis September 2026: 92,3 Mrd. $; Vorquartal 17,8 %)",
      "light": "gruen",
-     "trend": "stabil",
+     "trend": "steigend",
      "source": "https://stockanalysis.com/stocks/msft/financials/?p=quarterly",
-     "as_of": "2026-06-30"
+     "as_of": "2026-09-30"
     },
     {
      "name": "Operative Marge",
      "rule": "≥ 42 % des Umsatzes",
-     "current": "45,1 % (Quartal bis Juni 2026; Vorquartal 46,3 %, Vorjahr 44,9 %; eigene Rechnung aus StockAnalysis)",
+     "current": "49,8 % (45,9 von 92,3 Mrd. $ im Quartal bis September 2026; Vorquartal 45,1 %; eigene Rechnung aus StockAnalysis)",
      "light": "gruen",
-     "trend": "stabil",
+     "trend": "steigend",
      "source": "https://stockanalysis.com/stocks/msft/financials/?p=quarterly",
-     "as_of": "2026-06-30"
+     "as_of": "2026-09-30"
     },
     {
      "name": "Nettogewinn",
      "rule": "> 10 % ggü. Vorjahr",
-     "current": "+31 % (35,8 Mrd. $ nach 27,2 Mrd. $; Vorquartal +23 %)",
+     "current": "+32 % (36,6 Mrd. $ nach 27,7 Mrd. $; Vorquartal +31 %)",
      "light": "gruen",
-     "trend": "steigend",
+     "trend": "stabil",
      "source": "https://stockanalysis.com/stocks/msft/financials/?p=quarterly",
-     "as_of": "2026-06-30"
+     "as_of": "2026-09-30"
     }
    ],
    "earnings": {
@@ -38110,8 +38137,8 @@
    "counter": "Die Investitionen in KI sind riesig (über 50 Mrd. $ im Quartal laut Unternehmensausblick) und der freie Cashflow soll laut Analysten fast halbiert werden. Zudem hängt ein großer Teil des Cloud-Auftragsbestands an OpenAI. Zahlt sich das Geld nicht aus, leiden Marge und Bewertung.",
    "stop": "Umsatzwachstum fällt in zwei Quartalen in Folge unter 12 % oder die operative Marge unter 40 %, oder der Cloud-Auftragsbestand geht wegen eines Großkunden (OpenAI) merklich zurück.",
    "catalyst": {
-    "date": "2026-10-28",
-    "event": "Zahlen zum Quartal bis September (voraussichtlich; laut StockAnalysis, von Microsoft nicht bestätigt gefunden)"
+    "date": null,
+    "event": "Nächste Zahlen (Quartal bis Dezember) voraussichtlich Ende Januar 2027, Termin nicht bestätigt"
    },
    "preview": {
     "event": "Zahlen zum 1. Geschäftsquartal 2027 (Juli bis September)",
@@ -38210,6 +38237,22 @@
      "price": 539.44,
      "status": "neu",
      "source": "https://stockanalysis.com/stocks/msft/"
+    },
+    {
+     "date": "2026-11-08",
+     "type": "update",
+     "text": "Quartalszahlen bis September 2026 (28.10.) in die Säulen eingearbeitet: Umsatz 92,3 Mrd. $ (+18,8 %), operative Marge 49,8 %, Nettogewinn +32 %. Alle drei Grundannahmen erfüllt.",
+     "price": 530.61,
+     "status": "beobachten",
+     "source": "https://stockanalysis.com/stocks/msft/financials/?p=quarterly"
+    },
+    {
+     "date": "2026-11-08",
+     "type": "update",
+     "text": "Status von „beobachten“ auf „intakt“: Alle drei Grundannahmen sind mit den Zahlen bis September 2026 erfüllt. Das geringe Kurspotenzial (Analysten +13 %) betrifft den Einstieg, nicht die These.",
+     "price": 530.61,
+     "status": "intakt",
+     "source": "https://stockanalysis.com/stocks/msft/financials/?p=quarterly"
     }
    ],
    "beta": 1.1,
@@ -40049,29 +40092,29 @@
     {
      "name": "Umsatzwachstum",
      "rule": "> 20 % ggü. Vorjahr",
-     "current": "28,0 % (Quartal bis Juni 2026; Vorquartal 33,1 %; Q3-Ausblick Mitte +22 %)",
+     "current": "26,1 % (Quartal bis September 2026: 64,6 Mrd. $; Vorquartal 28,0 %)",
      "light": "gruen",
      "trend": "fallend",
      "source": "https://stockanalysis.com/stocks/meta/financials/?p=quarterly",
-     "as_of": "2026-06-30"
+     "as_of": "2026-09-30"
     },
     {
      "name": "Operative Marge",
      "rule": "≥ 38 % des Umsatzes",
-     "current": "34,8 % (Quartal bis Juni 2026, Vorjahr 43,0 %); ohne Einmalposten etwa 40,7 % (eigene Rechnung)",
+     "current": "35,4 % (22,9 von 64,6 Mrd. $ im Quartal bis September 2026, Vorjahr 40,1 %; GAAP). Ohne Einmalposten nicht sauber belegt (laut Zweitquelle belastet eine Vergleichszahlung von 9,89 Mrd. $ den Gewinn).",
      "light": "gelb",
-     "trend": "fallend",
-     "source": "https://newsable.asianetnews.com/markets/meta-stock-tumbles-11-after-hours-soaring-ai-costs-squeeze-profits-and-soft-q3-outlook-disappoints-articleshow-orlm8ui",
-     "as_of": "2026-06-30"
+     "trend": "stabil",
+     "source": "https://stockanalysis.com/stocks/meta/financials/?p=quarterly",
+     "as_of": "2026-09-30"
     },
     {
      "name": "Freier Cashflow",
      "rule": "≥ Vorjahr (8,55 Mrd. $ im Q2/25)",
-     "current": "0,78 Mrd. $ im Quartal bis Juni 2026",
+     "current": "−1,16 Mrd. $ im Quartal bis September 2026 (Vorquartal +1,75 Mrd. $ laut StockAnalysis); Investitionen 33,9 Mrd. $ im Quartal",
      "light": "rot",
      "trend": "fallend",
-     "source": "https://newsable.asianetnews.com/markets/meta-stock-tumbles-11-after-hours-soaring-ai-costs-squeeze-profits-and-soft-q3-outlook-disappoints-articleshow-orlm8ui",
-     "as_of": "2026-06-30"
+     "source": "https://stockanalysis.com/stocks/meta/financials/cash-flow-statement/?p=quarterly",
+     "as_of": "2026-09-30"
     }
    ],
    "earnings": {
@@ -40427,6 +40470,14 @@
      "price": 630,
      "status": "beobachten",
      "source": "https://stocktwits.com/news-articles/markets/equity/meta-stock-jumps-3-after-hours-after-q3-revenue-beats-expectations-with-a-narrowed-ai-capex-outlook-and-new-non-voting-class-c-stock/cZxMhJJRBv6"
+    },
+    {
+     "date": "2026-11-08",
+     "type": "update",
+     "text": "Q3-Zahlen (21.10.) in die Säulen eingearbeitet: Umsatz +26,1 %, operative Marge 35,4 % (GAAP), freier Cashflow −1,16 Mrd. $ (erstmals negativ, Investitionen 33,9 Mrd. $). Stop-Kriterium (freier Cashflow über mehrere Quartale negativ) noch nicht erreicht, ein Quartal ist negativ.",
+     "price": 610.15,
+     "status": "beobachten",
+     "source": "https://stockanalysis.com/stocks/meta/financials/?p=quarterly"
     }
    ],
    "beta": 1.19,
@@ -41101,7 +41152,7 @@
    "index": "DAX",
    "sector": "Rüstung / Verteidigung",
    "currency": "EUR",
-   "status": "intakt",
+   "status": "verletzt",
    "opened": "2026-10-14",
    "closed": null,
    "entry": {
@@ -41173,29 +41224,29 @@
     {
      "name": "Umsatzwachstum",
      "rule": "> 20 % ggü. Vorjahr",
-     "current": "+69 % (Q2/2026: 3.289 Mio. €); Q1/2026 nur +8 %; Prognose 2026 +28 bis +31 % organisch",
+     "current": "+38 % in 9 Monaten (8.376 Mio. €), Q3 rund +32 % (3,15 Mrd. €); Jahresprognose auf rund 13,2 Mrd. € gesenkt",
      "light": "gruen",
-     "trend": "steigend",
-     "source": "https://stockanalysis.com/quote/etr/RHM/financials/?p=quarterly",
-     "as_of": "2026-10-14"
+     "trend": "fallend",
+     "source": "https://www.rheinmetall.com/de/media/news-watch/news/2026/2026-11-05-rheinmetall-pressemitteilung-quartalsmitteilung-q3",
+     "as_of": "2026-09-30"
     },
     {
      "name": "Auftragsbestand",
      "rule": "≥ 80 Mrd. € und weiter steigend",
-     "current": "über 80 Mrd. € (Q2/2026), Auftragseingang im Quartal 11,4 Mrd. €; Ziel Jahresende 100 bis 120 Mrd. €",
-     "light": "gruen",
-     "trend": "steigend",
-     "source": "https://quartr.com/events/rheinmetall-rhm-q2-2026_oqaC7FDD",
-     "as_of": "2026-08-06"
+     "current": "78,0 Mrd. € (30.09.2026, Quartalsmitteilung) nach „mehr als 80 Mrd. €“ zur Jahresmitte (Zweitquelle); Vorjahr 56,7 Mrd. €. Grenze 80 Mrd. € unterschritten.",
+     "light": "rot",
+     "trend": "fallend",
+     "source": "https://www.rheinmetall.com/de/media/news-watch/news/2026/2026-11-05-rheinmetall-pressemitteilung-quartalsmitteilung-q3",
+     "as_of": "2026-09-30"
     },
     {
      "name": "Operative Marge",
      "rule": "≥ 12 % (StockAnalysis, unbereinigt)",
-     "current": "14,4 % (Q2/2026: 475 von 3.289 Mio. €), Vorjahresquartal 11,2 %; die Firma nennt bereinigt 17,1 %",
+     "current": "16,0 % in 9 Monaten (Firmenangabe, operativ; Vorjahr 13,1 %); Jahresprognose auf rund 18,5 % gesenkt",
      "light": "gruen",
      "trend": "steigend",
-     "source": "https://stockanalysis.com/quote/etr/RHM/financials/?p=quarterly",
-     "as_of": "2026-10-14"
+     "source": "https://www.rheinmetall.com/de/media/news-watch/news/2026/2026-11-05-rheinmetall-pressemitteilung-quartalsmitteilung-q3",
+     "as_of": "2026-09-30"
     }
    ],
    "earnings": {
@@ -41503,6 +41554,22 @@
      "price": 812.7,
      "status": "intakt",
      "source": "https://www.finanztrends.de/news/rheinmetall-aktie-grossprojekte-rutschen-prognose-sinkt/"
+    },
+    {
+     "date": "2026-11-08",
+     "type": "update",
+     "text": "Q3-Quartalsmitteilung (05.11.) in die Säulen eingearbeitet: Umsatz 9 Monate +38 %, operative Marge 16,0 %, Auftragsbestand 78,0 Mrd. €.",
+     "price": 812.7,
+     "status": "intakt",
+     "source": "https://www.rheinmetall.com/de/media/news-watch/news/2026/2026-11-05-rheinmetall-pressemitteilung-quartalsmitteilung-q3"
+    },
+    {
+     "date": "2026-11-08",
+     "type": "verletzt",
+     "text": "Stop-Kriterium eingetreten: Jahresprognose gesenkt (Umsatz rund 13,2 statt 13,7 bis 14,2 Mrd. €, Marge rund 18,5 statt 19 %) und Auftragsbestand 78,0 Mrd. € unter der Grenze von 80 Mrd. € (Quartalsmitteilung 05.11.2026). Nach deinen Regeln ist die These verletzt.",
+     "price": 812.7,
+     "status": "verletzt",
+     "source": "https://www.rheinmetall.com/de/media/news-watch/news/2026/2026-11-05-rheinmetall-pressemitteilung-quartalsmitteilung-q3"
     }
    ],
    "beta": 0.48,
@@ -42089,7 +42156,7 @@
      "date": "2026-11-08",
      "time": "17:45",
      "score": 72,
-     "why": "Score von 74 auf 72: Quartal stark (Umsatz +32 %, Marge 17,5 %), aber die Jahresprognose wurde gesenkt (Umsatz rund 13,2 statt 13,7 bis 14,2 Mrd. €, Marge rund 18,5 statt 19 %), weil ein Boxer-Großauftrag und Munitionsabnahmen ins Jahr 2027 rutschen. Kursziele (Stand 21.10.) sind veraltet.",
+     "why": "Score von 74 auf 72: Quartal stark (Umsatz +32 %, Marge 17,5 %), aber die Jahresprognose wurde gesenkt (Umsatz rund 13,2 statt 13,7 bis 14,2 Mrd. €, Marge rund 18,5 statt 19 %), weil ein Boxer-Großauftrag und Munitionsabnahmen ins Jahr 2027 rutschen. Kursziele (Stand 21.10.) sind veraltet. Zudem liegt der Auftragsbestand mit 78,0 Mrd. € unter 80 Mrd. €: Stop-Kriterium eingetreten, These verletzt.",
      "why_longer": "",
      "parts": [
       {
@@ -42219,29 +42286,29 @@
     {
      "name": "Umsatzwachstum",
      "rule": "> 12 % ggü. Vorjahr",
-     "current": "+19,8 % (Q2/2026: 5.155 Mio. $); letzte 12 Monate +18,9 %; Prognose 2026 +20 bis +21 %",
+     "current": "+28,8 % (Q3/2026: 5,54 Mrd. $); Jahresprognose auf 20,6 bis 21,0 Mrd. $ angehoben",
      "light": "gruen",
      "trend": "steigend",
-     "source": "https://stockanalysis.com/stocks/eme/financials/?p=quarterly",
-     "as_of": "2026-10-14"
+     "source": "https://www.sec.gov/Archives/edgar/data/0000105634/000010563426000132/eme-ex991_2026930xq3.htm",
+     "as_of": "2026-09-30"
     },
     {
      "name": "Auftragsbestand",
      "rule": "über Vorjahr und über 15 Mrd. $",
-     "current": "17,14 Mrd. $ (30.06.2026) nach 11,91 Mrd. $ ein Jahr zuvor",
+     "current": "18,57 Mrd. $ (30.09.2026) nach 12,61 Mrd. $ ein Jahr zuvor (+47 %)",
      "light": "gruen",
      "trend": "steigend",
-     "source": "https://emcorgroup.gcs-web.com/news-releases/news-release-details/emcor-group-inc-reports-second-quarter-2026-results/",
-     "as_of": "2026-07-30"
+     "source": "https://www.sec.gov/Archives/edgar/data/0000105634/000010563426000132/eme-ex991_2026930xq3.htm",
+     "as_of": "2026-09-30"
     },
     {
      "name": "Operative Marge",
      "rule": "≥ 9 %",
-     "current": "10,6 % (Q2/2026: 547 von 5.155 Mio. $), Vorjahresquartal 9,6 %",
+     "current": "9,8 % (Q3/2026, Vorjahr 9,4 %); bereinigte Jahresprognose rund 10 %",
      "light": "gruen",
-     "trend": "steigend",
-     "source": "https://stockanalysis.com/stocks/eme/financials/?p=quarterly",
-     "as_of": "2026-10-14"
+     "trend": "stabil",
+     "source": "https://www.sec.gov/Archives/edgar/data/0000105634/000010563426000132/eme-ex991_2026930xq3.htm",
+     "as_of": "2026-09-30"
     }
    ],
    "earnings": {
@@ -42577,6 +42644,14 @@
      "price": 639.25,
      "status": "intakt",
      "source": "https://stockstory.org/us/stocks/nyse/eme/news/earnings/emcors-nyseeme-q3-2026-strong-sales-full-year-sales-guidance-is-optimistic"
+    },
+    {
+     "date": "2026-11-08",
+     "type": "update",
+     "text": "Q3-Zahlen (29.10., Firmenmitteilung) in die Säulen eingearbeitet: Umsatz +28,8 %, Auftragsbestand 18,57 Mrd. $ (+47 %), operative Marge 9,8 %, Jahresprognose angehoben.",
+     "price": 608.45,
+     "status": "intakt",
+     "source": "https://www.sec.gov/Archives/edgar/data/0000105634/000010563426000132/eme-ex991_2026930xq3.htm"
     }
    ],
    "beta": 1.12,
@@ -43316,29 +43391,29 @@
     {
      "name": "Umsatzwachstum",
      "rule": "> 12 % ggü. Vorjahr",
-     "current": "+22 % (Q2/2026: 671 Mio. €), Halbjahr +24 %; letzte 12 Monate +14,7 %",
+     "current": "+21,3 % in 9 Monaten (1,863 Mrd. €); Jahresprognose auf rund 2,8 Mrd. € angehoben (Zweitquelle mit Unternehmenszahlen)",
      "light": "gruen",
-     "trend": "steigend",
-     "source": "https://stockanalysis.com/quote/etr/HAG/financials/?p=quarterly",
-     "as_of": "2026-10-14"
+     "trend": "stabil",
+     "source": "https://goldesel.de/aktien/news/hensoldt-aktie-starke-neunmonatszahlen-treiben-jahresprognose-nach-oben",
+     "as_of": "2026-09-30"
     },
     {
      "name": "Auftragsbestand",
      "rule": "≥ 9 Mrd. € und steigend",
-     "current": "über 10 Mrd. € (Halbjahr 2026), Auftragseingang rund 2,8 Mrd. € (verdoppelt)",
+     "current": "10,367 Mrd. € (Rekord, 30.09.2026); Auftragseingang 9 Monate 3,564 Mrd. € (+77 %)",
      "light": "gruen",
      "trend": "steigend",
-     "source": "https://www.boerse-express.com/news/articles/hensoldt-aktie-auftragsbestand-klettert-auf-10356-milliarden-934848",
-     "as_of": "2026-07-31"
+     "source": "https://goldesel.de/aktien/news/hensoldt-aktie-starke-neunmonatszahlen-treiben-jahresprognose-nach-oben",
+     "as_of": "2026-09-30"
     },
     {
      "name": "Marge",
      "rule": "adjustierte EBITDA-Marge 2026 ≥ 18 % (Firmenziel 18,5 bis 19,0 %)",
-     "current": "11,8 % im 1. Halbjahr (saisonbedingt niedrig, Gewinn kommt im 4. Quartal); Ziel bestätigt",
-     "light": "gelb",
-     "trend": "stabil",
-     "source": "https://www.boerse-express.com/news/articles/hensoldt-aktie-margendruck-truebt-rekordquartal-934316",
-     "as_of": "2026-07-31"
+     "current": "Q3 20,6 %, 9 Monate 15,1 % (Vorjahr 13,7 %); Jahresziel auf rund 19 % angehoben",
+     "light": "gruen",
+     "trend": "steigend",
+     "source": "https://goldesel.de/aktien/news/hensoldt-aktie-starke-neunmonatszahlen-treiben-jahresprognose-nach-oben",
+     "as_of": "2026-09-30"
     }
    ],
    "earnings": {
@@ -43692,6 +43767,14 @@
      "date": "2026-11-08",
      "type": "update",
      "text": "Neunmonatszahlen 05.11.: Umsatz 1,863 Mrd. € (+21,3 %), bereinigtes EBITDA 281 Mio. € (+33 %), Marge 15,1 % (Q3: 20,6 %), Auftragseingang 3,564 Mrd. € (+76,7 %), Auftragsbestand 10,367 Mrd. €. Prognose angehoben: Umsatz rund 2,8 Mrd. €, Marge rund 19 %. Kurs 06.11.: 77,44 € (−6,2 %).",
+     "price": 77.44,
+     "status": "intakt",
+     "source": "https://goldesel.de/aktien/news/hensoldt-aktie-starke-neunmonatszahlen-treiben-jahresprognose-nach-oben"
+    },
+    {
+     "date": "2026-11-08",
+     "type": "update",
+     "text": "Neunmonatszahlen (05.11.) in die Säulen eingearbeitet: Umsatz +21,3 %, Auftragsbestand 10,367 Mrd. €, Marge Q3 20,6 %, Jahresziel rund 19 %. Alle drei Grundannahmen erfüllt (Zweitquelle).",
      "price": 77.44,
      "status": "intakt",
      "source": "https://goldesel.de/aktien/news/hensoldt-aktie-starke-neunmonatszahlen-treiben-jahresprognose-nach-oben"
@@ -99322,7 +99405,7 @@
    "id": "2026-11-08T17:45",
    "type": "deep",
    "slot": "abend",
-   "summary": "Deep-Lauf Sonntag 08.11.: Kurse (Schluss 06.11.), Marktampel Rot, Geldfluss und Depot erneuert; Axon (Score 74 auf 70) und Rheinmetall (74 auf 72) wegen gesenkter Prognosen niedriger, Coherent (75 auf 76) und Hensoldt (56 auf 58) höher. Keine neuen Aktien aufgenommen; Zahlen vieler anderer Thesen dieser Woche und Kursziele sind noch nicht ausgewertet.",
+   "summary": "Deep-Lauf Sonntag 08.11.: Kurse (Schluss 06.11.), Marktampel Rot, Geldfluss und Depot erneuert; Axon (Score 74 auf 70) und Rheinmetall (74 auf 72) wegen gesenkter Prognosen niedriger, Coherent (75 auf 76) und Hensoldt (56 auf 58) höher. Die Quartalszahlen von Microsoft, Meta, Emcor, Rheinmetall, Hensoldt, Seagate, Vertiv und SAP sind in die Säulen eingearbeitet; bei Rheinmetall ist das Stop-Kriterium eingetreten (Prognose gesenkt, Auftragsbestand 78 Mrd. € unter 80 Mrd. €). Keine neuen Aktien aufgenommen.",
    "new": [],
    "reviewed": [
     "isrg-intuitive-surgical",
@@ -99405,7 +99488,9 @@
     "6177-da-li-development",
     "2547-radium-life-tech"
    ],
-   "broken": [],
+   "broken": [
+    "rhm-rheinmetall"
+   ],
    "market": {
     "asof": "2026-11-06",
     "asof_note": "Datenstand: Schlusskurse Freitag 06.11.2026 (Yahoo Finance); am Wochenende kein Handel. Öl, Gold in Euro und ETF-Flüsse sind nicht erneuert (Stand Vorlauf). Zahlen dieser Woche nur für Axon, Rheinmetall, Coherent und Hensoldt ausgewertet.",
@@ -99972,7 +100057,7 @@
    "note": {
     "title": "Marktampel bleibt Rot; vier Thesen mit neuen Zahlen ausgewertet.",
     "bullets": [
-     "Axon (Score 70): Quartal verfehlt, Prognose gesenkt; Rheinmetall (72): Prognose gesenkt.",
+     "Rheinmetall: These verletzt (Prognose gesenkt, Auftragsbestand 78 Mrd. € unter 80 Mrd. €); Axon (70): Prognose gesenkt.",
      "Coherent (76): Zahlen über Erwartung; Hensoldt (58): Prognose angehoben.",
      "Depot ≈ 35.083 €; Termine: Infineon und US-Inflation am 10.11., Siemens Energy am 11.11.",
      "Nicht erneuert: Zahlen anderer Thesen dieser Woche, Kursziele, Geldfluss-Tabellen, neue Aktien."
