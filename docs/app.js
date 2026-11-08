@@ -1630,7 +1630,7 @@
 
   function renderHeader() {
     var d = latestDate();
-    document.getElementById("sub").textContent = d ? "Letzter Lauf: " + date(d) : "Noch kein Lauf. Starte in Claude Code den Befehl /radar.";
+    document.getElementById("sub").textContent = "Hallo Thomas 👋 · " + (d ? "Letzter Lauf: " + date(d) : "Noch kein Lauf. Starte in Claude Code den Befehl /radar.");
     if (data.demo) document.getElementById("demo").innerHTML = '<div class="demo-banner">DEMO mit erfundenen Beispieldaten. Keine echten Unternehmen, keine Empfehlung.</div>';
     var open = theses.filter(isOpen);
     var broken = open.filter(function (t) { return status(t) === "verletzt"; });
