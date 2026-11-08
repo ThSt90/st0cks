@@ -1,4 +1,3 @@
-
 (function () {
   "use strict";
   var data;
@@ -870,7 +869,8 @@
     var a = Math.min(lo != null ? lo : mean, pr, mean), b = Math.max(hi != null ? hi : mean, pr, mean), rg = (b - a) || 1;
     function pos(x) { return Math.max(0, Math.min(100, (x - a) / rg * 100)); }
     var rng = lo != null && hi != null ? '<i class="rng" style="left:' + pos(lo).toFixed(1) + "%;width:" + (pos(hi) - pos(lo)).toFixed(1) + '%"></i>' : "";
-    return '<div class="t-pot pot-' + potTone(up) + '" title="Abstand vom heutigen Kurs zum durchschnittlichen Kursziel der Analysten"><div class="tp-row"><div class="tp-l"><span class="tp-lab">Kurspotenzial</span><b class="tp-val">' + (up > 0 ? "+" : up < 0 ? "−" : "") + nf0.format(Math.abs(up)) + "\u00a0%" + '</b></div>' +
+    var stale = p.as_of ? (Date.now() - new Date(p.as_of).getTime()) / 864e5 > 14 : true;
+    return '<div class="t-pot pot-' + potTone(up) + (stale ? " pot-stale" : "") + '" title="Abstand vom heutigen Kurs zum durchschnittlichen Kursziel der Analysten"><div class="tp-row"><div class="tp-l"><span class="tp-lab">' + (stale ? "Kursziel (veraltet)" : "Bis zum Kursziel") + '</span><b class="tp-val">' + (up > 0 ? "+" : up < 0 ? "−" : "") + nf0.format(Math.abs(up)) + "\u00a0%" + '</b></div>' +
       '<div class="tp-r"><b>' + eu(mean - pr, cur, true) + '</b><span>je Aktie bis zum Ø-Ziel ' + eu(mean, cur) + "</span>" + (function () { var d = p.as_of ? Math.round((Date.now() - new Date(p.as_of).getTime()) / 864e5) : null; return '<span style="' + (d != null && d > 14 ? "color:var(--red);font-weight:700" : "") + '">Ziele: ' + (p.as_of ? date(p.as_of) + (d > 14 ? " · veraltet" : "") : "Datum unbekannt") + "</span>"; })() + (t.check_needed ? '<span style="color:var(--red);font-weight:700">Ursache prüfen</span>' : "") + "</div></div>" +
       '<div class="tp-bar">' + rng + '<i class="mk px" style="left:' + pos(pr).toFixed(1) + '%" title="Kurs heute"></i><i class="mk mn" style="left:' + pos(mean).toFixed(1) + '%" title="Ø-Ziel"></i></div>' +
       '<div class="tp-ends"><span>' + (lo != null ? "Tief " + eu(lo, cur) : "") + '</span><span class="lg"><i class="d1"></i>Kurs <i class="d2"></i>Ø-Ziel</span><span>' + (hi != null ? "Hoch " + eu(hi, cur) : "") + "</span></div></div>";
@@ -988,7 +988,7 @@
       sec("Säulen, Gründe und Stop-Kriterium", pillars, false) + sec("Score-Aufschlüsselung", parts, false) + sec("Score-Verlauf (letzte 20 Läufe)", scoreMini(t), false) + sec("Verlauf dieser These", log, false);
     var sc = scoreTotal(t);
     if (smallScr()) {
-      var stopN = s === "verletzt" ? '<div class="kv" style="color:var(--red)"><b style="color:var(--red)">Empfehlung</b>These revidieren / Ausstieg prüfen</div>' : "";
+      var stopN = s === "verletzt" ? '<div class="kv" style="color:var(--red)"><b style="color:var(--red)">Vorsicht</b>Die Begründung für die Aufnahme gilt nicht mehr. Prüfe, ob du die Aktie weiter beobachten willst.</div>' : "";
       var panes = [
         ["Überblick", ueber + stopN + sec("Meine Notiz", journalBlock(t), false)],
         ["Kurs", chartBlock(t) + dropsFold(t, true) + momBlock(t)],
@@ -1004,7 +1004,7 @@
     return '<header class="d-head"><div><h2 id="dlg-title">' + logo(t) + esc(t.name || t.ticker) + '</h2><div class="meta">' + esc(t.ticker) + " · " + esc(t.index) + (t.sector ? " · " + esc(t.sector) : "") + '</div>' +
       '<div class="t-badges"><span class="badge b-' + s + '">' + s + "</span>" + (isHG(t) ? '<span class="tag hg">High Growth</span>' : "") + (isAccel(t) ? '<span class="tag accel">▲ beschleunigt</span>' : "") + "</div></div>" +
       (sc == null ? "" : scorePill(t)) + "</header>" + ueber +
-      (s === "verletzt" ? '<div class="kv" style="color:var(--red)"><b style="color:var(--red)">Empfehlung</b>These revidieren / Ausstieg prüfen</div>' : "") +
+      (s === "verletzt" ? '<div class="kv" style="color:var(--red)"><b style="color:var(--red)">Vorsicht</b>Die Begründung für die Aufnahme gilt nicht mehr. Prüfe, ob du die Aktie weiter beobachten willst.</div>' : "") +
       dropsFold(t) + '<div class="dgrid" style="grid-template-columns:1fr">' + chartBlock(t) + momBlock(t) + "</div>" + growthBlock(t) + kpiBlock(t) +
       '<div class="prices"><div><span>Kurs ' + date(l.date) + "</span><b>" + money(l.price, t.currency) + "</b>" + eSub(l.price, t.currency) + "</div><div><span>bei Aufnahme " + date(e.date) + "</span><b>" + money(e.price, t.currency) + "</b>" + eSub(e.price, t.currency) + "</div>" +
       (pf != null ? '<div><span>seitdem</span><b class="' + (pf >= 0 ? "pos" : "neg") + '">' + pct(pf, true) + "</b><small>" + eu(l.price - e.price, t.currency, true) + " je Aktie</small></div>" : "") +
@@ -1772,31 +1772,32 @@
   }
   function dataFresh(t) {
     var l = t.last || {}, p = t.potential || {}, a = daysTo(l.date), b = daysTo(p.as_of);
-    return a != null && -a <= 4 && b != null && -b <= 21 && num(p.analysts) >= 5;
+    return a != null && -a <= 4 && b != null && -b <= 14 && num(p.analysts) >= 5;
   }
   function verdict(t) {
     var sc = scoreTotal(t), up = upside(t), st = status(t), m = mom(t), inD = inDepot(t), rS = ruleOf(RULE_DEF[0]), rU = ruleOf(RULE_DEF[2]);
     var ps = Array.isArray(t.pillars) ? t.pillars : [], red = ps.filter(function (x) { return light(x) === "rot"; }).length, fresh = dataFresh(t);
     var ch = [
-      { l: "Score ab " + rS.v, ok: sc == null ? null : sc >= rS.v },
-      { l: "Kurspotenzial ab " + rU.v + " %", ok: up == null ? null : up >= rU.v },
-      { l: "These intakt", ok: st !== "verletzt" },
-      { l: "keine gebrochene Säule", ok: ps.length ? red === 0 : null },
-      { l: "Kurs nicht mehr als 10 % unter der 200-Tage-Linie", ok: m ? m.above >= -10 : null },
-      { l: "Daten frisch und mit mindestens 5 Analysten", ok: fresh }
+      { l: "Score mindestens " + rS.v + " von 100", ok: sc == null ? null : sc >= rS.v },
+      { l: "Analysten sehen mindestens " + rU.v + " % Luft bis zu ihrem Kursziel", ok: up == null ? null : up >= rU.v },
+      { l: "Die Begründung für die Aufnahme gilt noch", ok: st !== "verletzt" },
+      { l: "Keine der Grundannahmen ist gebrochen", ok: ps.length ? red === 0 : null },
+      { l: "Kurs höchstens 10 % unter seinem 200-Tage-Durchschnitt", ok: m ? m.above >= -10 : null },
+      { l: "Kursziele aktuell (höchstens 2 Wochen alt, mindestens 5 Analysten)", ok: fresh }
     ];
     var bad = ch.filter(function (x) { return x.ok !== true; }).map(function (x) { return x.l; }), v, cls;
-    if (st === "verletzt" || (sc != null && sc < 55)) { v = inD ? "Verkauf prüfen" : "Meiden"; cls = "bad"; }
-    else if (!bad.length) { v = inD ? "Aufstocken" : "Kaufen"; cls = "ok"; }
+    if (st === "verletzt" || (sc != null && sc < 55)) { v = "Vorsicht"; cls = "bad"; }
+    else if (!bad.length) { v = "Chance"; cls = "ok"; }
     else if (ch[0].ok && ch[1].ok && ch[2].ok && !ch[5].ok) { v = "Beobachten"; cls = "mid"; }
-    else { v = inD ? "Halten" : "Beobachten"; cls = "mid"; }
+    else { v = "Beobachten"; cls = "mid"; }
     return { v: v, cls: cls, ch: ch, bad: bad };
   }
   function verdictRow(t) {
-    var r = verdict(t);
-    return '<div class="verdict v-' + r.cls + ' vv-' + vslug(r.v) + '"><span class="vd-l">Urteil nach deinen Regeln</span><div class="vd-top"><b>' + r.v + "</b>" + qmHtml("Das Urteil wendet nur deine eigenen, sichtbaren Regeln an (Score und Kurspotenzial unter „Meine Regeln“ einstellbar). Es ist keine persönliche Anlageberatung. Bei veralteten Daten gibt es höchstens „Beobachten“.") + "</div></div>";
+    var r = verdict(t), MEAN = { Chance: "Alle deine Regeln sind erfüllt. Ein Prüfauftrag, keine Kaufempfehlung.", Beobachten: "Nicht alle Regeln sind erfüllt. Rot markiert, was fehlt.", Vorsicht: "Die Begründung für die Aufnahme gilt nicht mehr oder der Score ist sehr niedrig." };
+    var li = r.ch.map(function (c) { return '<li class="' + (c.ok === true ? "ok" : c.ok === false ? "no" : "na") + '">' + (c.ok === true ? "✓ " : c.ok === false ? "✗ " : "? ") + esc(c.l) + "</li>"; }).join("");
+    return '<div class="verdict v-' + r.cls + ' vv-' + vslug(r.v) + '"><span class="vd-l">Einschätzung nach deinen Regeln</span><div class="vd-top"><b>' + r.v + '</b></div><p class="vd-m">' + MEAN[r.v] + '</p><ul class="vd-ch">' + li + '</ul><p class="vd-n">Rot = Vorsicht, Gelb = Beobachten, Grün = Chance. Die Grenzen stellst du unter Mehr → Allgemeine Infos → Meine Regeln ein.</p></div>';
   }
-  function vslug(v) { return v === "Aufstocken" ? "auf" : v === "Kaufen" ? "buy" : v === "Halten" ? "hold" : v === "Beobachten" ? "watch" : v === "Meiden" ? "avoid" : "sell"; }
+  function vslug(v) { return v === "Chance" ? "buy" : v === "Beobachten" ? "watch" : "sell"; }
   function verdictBadge(t) { var r = verdict(t); return '<div class="vbadge vv-' + vslug(r.v) + '">' + r.v + "</div>"; }
 
   function proCon(t) {
@@ -2191,11 +2192,11 @@
     if (!theses.length) {
       html = empty("Noch keine Daten", "Öffne Claude Code in diesem Ordner und tippe /radar deep. Danach erscheinen hier Markteinschätzung, Top 10 und Score-Verlauf.");
     } else {
-      html = runStatus() + foldRank(open);
+      html = foldRank(open);
       if (!open.length) html += empty("Keine These mit Score ab " + TH, "Alle Thesen mit niedrigerem Score stehen unter „Alle Thesen“.");
-      else html += klumpenBlock(open) + sektorBlock(open) + traderBlock();
+      else html += sektorBlock(open);
     }
-    html += termsBox(); var info = rulesBox() + anaList() + coverageBlock();
+    var info = rulesBox() + anaList() + coverageBlock();
     var last = lastRun();
     if (last) info += '<p class="meta" style="margin-top:22px">Letzter Lauf ' + date(last.date) + (last.time ? ", " + esc(last.time) + " Uhr" : "") + (last.type ? " (" + esc(last.type === "deep" ? "tief" : "Update") + ")" : "") + ": " + linkify(last.summary || "") + "</p>";
     document.getElementById("tab-heute").innerHTML = html; var idyn = document.getElementById("info-dyn"); if (idyn) idyn.innerHTML = info || "";
@@ -2659,7 +2660,7 @@
     var radar = '<div class="chgbox"><div class="boxtitle"><span>Abgleich mit dem Radar</span></div><ul>' +
       (inR.length ? "<li><b>Schon im Radar:</b> " + inR.map(function (p) { var t = thesisFor(p), sc = scoreTotal(t); return esc(p.name) + (sc != null ? " (Score " + sc + ")" : ""); }).join(", ") + ".</li>" : "") +
       (notR.length ? "<li><b>Noch nicht im Radar:</b> " + notR.map(function (p) { return esc(p.name); }).join(", ") + ". Der nächste <code>/radar deep</code> bewertet sie und nimmt sie auf.</li>" : "") +
-      "<li>ETFs und Rohstoffe werden nicht als Einzelthese bewertet.</li></ul></div>" + klumpenBox(list, tot) + calcBox(list, tot) +
+      "<li>ETFs und Rohstoffe werden nicht als Einzelthese bewertet.</li></ul></div>" + calcBox(list, tot) +
       '<div class="box" style="margin-bottom:14px"><div class="boxtitle"><span>Anstehende Quartalszahlen deiner Positionen</span><span>nächste 60 Tage</span></div>' + termsTable(termsRows(theses.filter(function (t) { return isOpen(t) && inDepot(t); }), 60)) + "</div>";
     var rows = list.map(function (p) {
       var t = thesisFor(p), sc = t ? scoreTotal(t) : null, g = p.gain_eur >= 0 ? "up" : "dn";
@@ -2675,8 +2676,9 @@
         '<div class="dt-radar">' + (t ? '<span class="miniscore ' + (sc != null ? scoreClass(sc) : "") + '">' + (sc != null ? sc : "–") + "</span><span>Radar: Score " + (sc != null ? sc : "offen") + (sc != null && sc < TH ? " (unter " + TH + ")" : "") + ". Klick öffnet die Details.</span>" : (p.kind === "aktie" ? "Noch nicht im Radar. Wird beim nächsten /radar deep bewertet." : "ETF/Rohstoff: keine Einzelaktien-Bewertung.")) + "</div></article>";
     }).join("");
     el.innerHTML = '<h2>Aktuelles Depot <span class="hint">Stand ' + date(depot.asof) + (depot.time ? ", " + esc(depot.time) + " Uhr" : "") + '</span></h2><div class="mkpi" style="margin-bottom:14px">' + kp + "</div>" +
-      '<div class="box" style="margin-bottom:14px"><div class="boxtitle"><span>Aufteilung</span></div>' + alloc + '<div class="boxtitle" style="margin-top:12px"><span>Größte Positionen</span></div>' + weights + "</div>" + radar + table +
-      '<h2 style="margin-top:22px">Kacheln <span class="count">' + list.length + '</span></h2><div class="dgrid2">' + tiles + "</div>" +
+      '<div class="box" style="margin-bottom:14px"><div class="boxtitle"><span>Aufteilung</span></div>' + alloc + '<div class="boxtitle" style="margin-top:12px"><span>Größte Positionen</span></div>' + weights + "</div>" + klumpenBox(list, tot) +
+      '<h2 style="margin-top:22px">Positionen <span class="count">' + list.length + '</span> <span class="hint">antippen für Details</span></h2><div class="dgrid2">' + tiles + "</div>" +
+      '<details class="fold arch"><summary>Mehr: Tabelle, Abgleich mit dem Radar, Positionsrechner, Termine</summary>' + radar + table + "</details>" +
       '<p class="cap" style="margin-top:14px">' + esc(depot.source || "") + " Zahlen sind ein Stand zum genannten Zeitpunkt und werden nicht automatisch aktualisiert. Information, keine Anlageberatung.</p>";
     calcUpdate();
   }
@@ -2875,14 +2877,14 @@
     if (runs.length) html += "<h2>Läufe</h2>" + '<div class="runs">' + runsDesc().map(function (r) {
       return "<div><time>" + date(r.date) + "</time><span>" + linkify(r.summary || "") + "</span></div>";
     }).join("") + "</div>";
-    el.innerHTML = html;
+    el.innerHTML = decisionsHtml() + '<details class="fold arch"><summary>Ausführlicher Verlauf: alle Einträge, Backtest, abgelehnte Aktien, Läufe</summary>' + html + "</details>";
   }
 
   // Tabs
   var nav = document.querySelector("nav.tabs");
   var tabs = Array.prototype.slice.call(nav.querySelectorAll("button"));
   var ind = nav.querySelector(".tabind");
-  var TABNAMES = ["heute", "muster", "depot", "thesen", "score", "themen", "universum", "verlauf", "methodik"];
+  var TABNAMES = ["lage", "heute", "muster", "depot", "thesen", "score", "themen", "universum", "verlauf", "methodik"];
   var indReady = false;
   function moveInd() {
     var b = tabs.filter(function (x) { return x.getAttribute("aria-selected") === "true"; })[0];
@@ -3084,15 +3086,170 @@
 
   try { var sm = localStorage.getItem("radar-stair"); if (sm === "kum" || sm === "ttm" || sm === "per") stairMode = sm; } catch (e) { /* optional */ }
   root.setAttribute("data-stair", stairMode);
-  computeRanks(); renderHeader(); renderToday(); renderDepot(); renderTheses(); renderScore(); renderThemes(); renderHistory();
-  var startTab = "heute";
-  try { var st = sessionStorage.getItem("radar-tab"); if (st === "score") st = "heute"; if (st && TABNAMES.indexOf(st) >= 0) startTab = st; } catch (e) { /* optional */ }
+  /* ===== Lage v2: einfache Sprache, feste Regeln (06.11.2026) =====
+     Farbregel überall: Rot = Vorsicht, Gelb = Beobachten, Grün = in Ordnung / Chance, Grau = Info. */
+  var LAGE = null; try { var _lgx = document.getElementById("radar-lage"); LAGE = _lgx ? JSON.parse(_lgx.textContent) : null; } catch (e) { LAGE = null; }
+  var LG_TH = {}; LG_TH[THEMES[0]] = ["SMH", "XLK"]; LG_TH[THEMES[1]] = ["XLC", "XLK"]; LG_TH[THEMES[2]] = ["XLI"]; LG_TH[THEMES[3]] = ["XLI"];
+  LG_TH[THEMES[4]] = ["XLV"]; LG_TH[THEMES[5]] = ["XLY", "XLF"]; LG_TH[THEMES[7]] = ["GLD"];
+  var LG_OF = { XLK: THEMES[0], SMH: THEMES[0], XLC: THEMES[1], XLI: THEMES[3], XLV: THEMES[4], XLY: THEMES[5], XLF: THEMES[5], XLP: THEMES[5], GLD: THEMES[7], XLB: THEMES[7] };
+  var LG_TW = {}; LG_TW[THEMES[0]] = "KI- und Chipwerten"; LG_TW[THEMES[1]] = "Software- und Internetwerten"; LG_TW[THEMES[2]] = "Rüstungswerten"; LG_TW[THEMES[3]] = "Industriewerten";
+  LG_TW[THEMES[4]] = "Gesundheitswerten"; LG_TW[THEMES[5]] = "Konsum- und Finanzwerten"; LG_TW[THEMES[6]] = "breiten ETFs"; LG_TW[THEMES[7]] = "Rohstoffen";
+  var LG_DESC = { "Technologie": "Software, Hardware, Chips", "Halbleiter": "Chiphersteller", "Kommunikation": "Internet, Medien, Telefon", "Zyklischer Konsum": "Autos, Handel, Reisen", "Finanzen": "Banken, Versicherungen", "Gesundheit": "Pharma, Medizintechnik", "Industrie": "Maschinen, Bau, Luftfahrt", "Energie": "Öl und Gas", "Rohstoffe": "Chemie, Metalle", "Basiskonsum": "Lebensmittel, Drogerie", "Versorger": "Strom, Wasser", "Immobilien": "Immobilienfirmen", "Eurozone": "Aktien Euroraum", "Japan": "Aktien Japan", "Schwellenländer": "China, Indien, Brasilien u. a.", "Gold": "Goldpreis", "US-Staatsanleihen lang": "sichere Staatsanleihen" };
+  var LG_C = ["gruen", "gelb", "rot"];
+  function lgRow(s) { var r = LAGE && Array.isArray(LAGE.rows) ? LAGE.rows : []; for (var i = 0; i < r.length; i++) if (r[i].s === s) return r[i]; return null; }
+  function sg1(v) { return v == null ? "–" : (v > 0 ? "+" : v < 0 ? "−" : "±") + nf1.format(Math.abs(v)) + " %"; }
+  function thTheme(t) { return sectorGroup(t) === "KI-Hardware" ? THEMES[0] : guessTheme(t.sector); }
+  function inDepot(t) { return !!t.depot || dpos.some(function (p) { return p.ticker && p.ticker === t.ticker; }); }
+  function nmShort(n) { return String(n || "").replace(/\s*\(.*?\)/g, "").replace(/,? (Inc\.?|Corporation|Corp\.?|Incorporated|N\.V\.|AG|SE|plc|Holdings?|Co\., Ltd\.|Ltd\.|Limited|Technology|Group)$/i, "").replace(/ (USD|EUR)$/, "").trim(); }
+  function lgList(a, n) { n = n || 5; return a.slice(0, n).join(", ") + (a.length > n ? " und " + (a.length - n) + " weitere" : ""); }
+  function lgExpo() {
+    var o = {}, names = {}, cnt = {};
+    if (dpos.length) {
+      var tot = dpos.reduce(function (a, p) { return a + (num(p.value) || 0); }, 0) || 1;
+      dpos.forEach(function (p) { var k = themeOfPos(p); o[k] = (o[k] || 0) + (num(p.value) || 0) / tot * 100; (names[k] = names[k] || []).push(nmShort(String(p.name || p.ticker).replace(/ \(Acc\)| \(A\)/g, ""))); });
+      return { src: "dep", m: o, names: names, n: dpos.length };
+    }
+    var ok = theses.filter(isOpen).filter(valid).sort(byScore);
+    ok.forEach(function (t) { var k = thTheme(t); cnt[k] = (cnt[k] || 0) + 1; o[k] = (o[k] || 0) + 100 / (ok.length || 1); (names[k] = names[k] || []).push(nmShort(t.name)); });
+    return { src: "radar", m: o, names: names, cnt: cnt, n: ok.length };
+  }
+  function lgShare(ex, ths) { return (ths || []).reduce(function (a, k) { return a + (ex.m[k] || 0); }, 0); }
+  function lgHit(ex, sh) { return ex.src === "dep" ? nf0.format(sh) + " % deines Depots" : nf0.format(sh) + " % der starken Aktien im Radar"; }
+  function lgAmpel() {
+    var s = [], spx = lgRow("^GSPC"), ndx = lgRow("^NDX"), vix = lgRow("^VIX"), tnx = lgRow("^TNX"), rsp = lgRow("RSP"), spy = lgRow("SPY");
+    function add(q, l, a, d, r) { s.push({ q: q, l: l, a: a, d: d, r: r }); }
+    function trend(x, nm, q) {
+      if (!x || x.ma200 == null) return; var v = x.ma200;
+      add(q, v < 0 ? 2 : v < 2 ? 1 : 0, v < 0 ? "Nein" : v < 2 ? "Gerade noch" : "Ja", nm + " liegt " + nf1.format(Math.abs(v)) + " % " + (v >= 0 ? "über" : "unter") + " seinem Durchschnitt der letzten 200 Tage.", "Grün: mehr als 2 % über dem 200-Tage-Durchschnitt. Gelb: knapp darüber. Rot: darunter.");
+    }
+    trend(spx, "Der S&P 500 (500 größte US-Firmen)", "Geht es mit dem US-Markt langfristig aufwärts?");
+    trend(ndx, "Der Nasdaq 100 (große Technologiewerte)", "Geht es mit den großen Technologiewerten aufwärts?");
+    if (vix && vix.px != null) add("Wie nervös sind die Anleger?", vix.px >= 25 ? 2 : vix.px >= 20 ? 1 : 0, vix.px >= 25 ? "Sehr nervös" : vix.px >= 20 ? "Unruhig" : "Ruhig", "Angst-Index VIX bei " + nf1.format(vix.px) + ". Ruhige Zeiten liegen bei 12 bis 18.", "Grün: unter 20. Gelb: 20 bis 25. Rot: ab 25.");
+    if (spx && spx.m1 != null) add("Wie lief der US-Markt im letzten Monat?", spx.m1 <= -8 ? 2 : spx.m1 <= -4 ? 1 : 0, spx.m1 <= -8 ? "Deutlich gefallen" : spx.m1 <= -4 ? "Spürbar gefallen" : spx.m1 < 0 ? "Leicht gefallen" : "Gestiegen", "S&P 500 " + sg1(spx.m1) + " in einem Monat.", "Grün: besser als −4 %. Gelb: −4 bis −8 %. Rot: mehr als −8 %.");
+    if (tnx && tnx.m1abs != null) add("Steigen die Zinsen schnell?", tnx.m1abs >= 0.4 ? 2 : tnx.m1abs >= 0.2 ? 1 : 0, tnx.m1abs >= 0.4 ? "Ja, deutlich" : tnx.m1abs >= 0.2 ? "Etwas" : tnx.m1abs < 0 ? "Nein, sie sinken" : "Nein", "Zins für 10-jährige US-Staatsanleihen: " + nf2.format(tnx.px) + " %, vor einem Monat " + nf2.format(tnx.px - tnx.m1abs) + " %.", "Steigende Zinsen machen Aktien unattraktiver. Gelb ab +0,2, Rot ab +0,4 Prozentpunkte in einem Monat.");
+    if (rsp && rsp.m1 != null && spy && spy.m1 != null) { var dlt0 = rsp.m1 - spy.m1;
+      add("Fällt der ganze Markt oder nur ein Teil?", dlt0 <= -4 ? 1 : 0, dlt0 >= 0 ? "Nur ein Teil" : dlt0 <= -4 ? "Nur noch wenige Riesen tragen den Markt" : "Breit verteilt", "Die Durchschnittsaktie kam auf " + sg1(rsp.m1) + ", der Index auf " + sg1(spy.m1) + " (letzter Monat).", "Gelb, wenn die Durchschnittsaktie mehr als 4 % hinter dem Index liegt: Dann hängt alles an wenigen großen Firmen."); }
+    var red = s.filter(function (x) { return x.l === 2; }).length, yel = s.filter(function (x) { return x.l === 1; }).length;
+    return { lvl: !s.length ? "grau" : red >= 2 ? "rot" : (red || yel >= 2) ? "gelb" : "gruen", s: s, red: red, yel: yel };
+  }
+  function lgFlows() {
+    var r = (LAGE && LAGE.rows || []).filter(function (x) { return (x.k === "sec" || x.k === "reg" || x.k === "asset") && x.rs1 != null && x.m1 != null; }).sort(function (a, b) { return b.rs1 - a.rs1; });
+    return { inn: r.filter(function (x) { return x.rs1 > 0; }).slice(0, 4), out: r.filter(function (x) { return x.rs1 < 0; }).slice(-4).reverse(), all: r, spy: lgRow("SPY") };
+  }
+  function lgEvents() { var r = runsDesc().filter(function (x) { return x.market && Array.isArray(x.market.events); })[0]; return r ? r.market.events : []; }
+  function lgDay(d) { var n = daysTo(d); if (n === 0) return "Heute"; if (n === 1) return "Morgen"; var w = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"][new Date(d + "T12:00:00").getDay()]; return w + " " + date(d).slice(0, 6); }
+  function lgWarn(amp, ex) {
+    var W = [], today = new Date().toISOString().slice(0, 10), in7 = new Date(Date.now() + 7 * 864e5).toISOString().slice(0, 10), spy = lgRow("SPY");
+    function w(k, t, x, b, why) { W.push({ k: k, t: t, x: x, b: b || "", why: why || "" }); }
+    var mkt = spy && spy.m1 != null ? ", der Gesamtmarkt " + sg1(spy.m1) : "";
+    Object.keys(ex.m).forEach(function (k) {
+      var sh = ex.m[k], etf = (LG_TH[k] || []).map(lgRow).filter(function (x) { return x && x.rs1 != null; });
+      if (sh < 20 || !etf.length) return;
+      var worst = etf.slice().sort(function (a, b) { return a.rs1 - b.rs1; })[0], best = etf.slice().sort(function (a, b) { return b.rs1 - a.rs1; })[0];
+      if (worst.rs1 <= -5) { w(0, "Anleger ziehen Geld aus " + (LG_TW[k] || k) + " ab", worst.n + " " + sg1(worst.m1) + " im letzten Monat" + mkt + "." + (worst.rsw != null && worst.rsw <= -3 ? " In der letzten Woche hat sich das verstärkt." : worst.rsw != null && worst.rsw >= 3 ? " In der letzten Woche hat es nachgelassen." : ""), "Betrifft " + lgHit(ex, sh) + ": " + lgList(ex.names[k] || []), "Läuft ein Bereich über Wochen klar schlechter als der Gesamtmarkt, verkaufen Anleger dort. Gemessen an einem Fonds, der den ganzen Bereich abbildet (Yahoo-Kurse). Vorsicht ab 5 % schlechter als der Gesamtmarkt in einem Monat."); W[W.length - 1].th = k; }
+      else if (best.rs1 >= 5) w(2, "Anleger kaufen " + (LG_TW[k] || k), best.n + " " + sg1(best.m1) + " im letzten Monat" + mkt + ".", "Betrifft " + lgHit(ex, sh), "Der Bereich läuft seit Wochen klar besser als der Gesamtmarkt.");
+    });
+    var lim = ex.src === "dep" ? limOf("maxtheme") : 40, shown = {}; W.forEach(function (x) { if (x.th) shown[x.th] = 1; });
+    Object.keys(ex.m).forEach(function (k) {
+      if (k === THEMES[6] || k === THEMES[7] || ex.m[k] <= lim) return;
+      var x = ex.src === "dep" ? nf0.format(ex.m[k]) + " % deines Depots stecken in diesem einen Thema. Deine Grenze sind " + lim + " %." : (ex.cnt[k] || 0) + " von " + ex.n + " starken Aktien im Radar gehören zu diesem Thema (" + nf0.format(ex.m[k]) + " %). Die Grenze sind " + lim + " %.";
+      w(0, "Zu viel in einem Korb: " + (LG_TW[k] || k).replace(/n$/, ""), x + " Fällt das Thema, fallen sie gemeinsam, wie am 05.11.", shown[k] ? "" : lgList(ex.names[k] || []), "Aktien aus demselben Thema reagieren auf dieselben Nachrichten. Darum gilt eine Obergrenze je Thema (Radar 40 %, Depot laut deinen Regeln).");
+    });
+    lgEvents().filter(function (e) { return e.date && e.date >= today && e.date <= in7 && (String(e.importance).toLowerCase() === "hoch" || Array.isArray(e.watch)); }).sort(function (a, b) { return String(a.date).localeCompare(String(b.date)); }).slice(0, 2).forEach(function (e) {
+      var cs = Array.isArray(e.watch) ? e.watch : [], tm = /\d{1,2}:\d{2}/.exec(String(e.time || "")), nm = String(e.name || "").replace(/\s*\((Radar-Termin|vorbei)\)/g, "");
+      var txt = cs.length ? cs.map(function (c) { var s = lgShare(ex, c.themes); return "<div class='lg-case'><b>" + esc(c.case) + ":</b> " + esc(c.why) + (s ? " <span class='lg-hit" + (c.dir === "up" ? " up" : "") + "'>" + (c.dir === "up" ? "Hilft " : "Trifft ") + lgHit(ex, s) + "</span>" : "") + "</div>"; }).join("") : esc(e.effect || e.why || "");
+      W.push({ k: 1, t: lgDay(e.date) + (tm ? ", " + tm[0] + " Uhr" : "") + ": " + nm, x: txt, b: "", why: [e.why, e.expectation].filter(Boolean).join(" "), html: true });
+    });
+    var topIds = {}; topList().forEach(function (t) { topIds[t.id] = 1; });
+    var cat = theses.filter(function (t) { return isOpen(t) && (inDepot(t) || topIds[t.id]) && t.catalyst && t.catalyst.date && t.catalyst.date >= today && t.catalyst.date <= in7; }).sort(function (a, b) { return a.catalyst.date.localeCompare(b.catalyst.date); });
+    if (cat.length) w(1, "Quartalszahlen in den nächsten 7 Tagen", cat.map(function (t) { return nmShort(t.name) + " (" + lgDay(t.catalyst.date) + (inDepot(t) ? ", im Depot" : "") + ")"; }).join(", ") + ".", "", "An Zahltagen bewegen sich einzelne Aktien oft stark. Worauf der Markt schaut, steht in der Detailansicht unter Zahlen.");
+    var mv = dpos.filter(function (p) { return num(p.day_pct) != null && Math.abs(p.day_pct) >= 5; }).sort(function (a, b) { return a.day_pct - b.day_pct; });
+    if (mv.length) w(mv[0].day_pct <= -5 ? 0 : 3, "Große Bewegungen in deinem Depot", lgList(mv.map(function (p) { return nmShort(String(p.name).replace(/ \(Acc\)/g, "")) + " " + sg1(p.day_pct); }), 4) + " (letzter Handelstag).", "", "Ab 5 % an einem Tag lohnt der Blick: Gab es eine eigene Meldung der Firma, oder hat nur der ganze Bereich nachgegeben? Die Antwort steht in der Detailansicht.");
+    var keys = runKeys();
+    if (keys.length > 1) {
+      var cur = keys[keys.length - 1], prv = keys[keys.length - 2], dn = [], up = [];
+      theses.forEach(function (t) { var h = slog(t), a = h.filter(function (x) { return x.run === cur; })[0], b = h.filter(function (x) { return x.run === prv; })[0]; if (!a || !b) return; if (b.score >= TH && a.score < TH) dn.push(nmShort(t.name)); if (b.score < TH && a.score >= TH) up.push(nmShort(t.name)); });
+      if (dn.length) w(3, dn.length + (dn.length === 1 ? " Aktie ist" : " Aktien sind") + " von der starken Liste gefallen", lgList(dn) + ".", "Gründe: Verlauf → Entscheidungen", "Auf der starken Liste stehen Aktien mit Score ab " + TH + " von 100. Der Score fasst Wachstum, Qualität, Bewertung, Kursziel der Analysten, Abstand zum Hoch, Risiken und Erwartungen zusammen.");
+      if (up.length) w(2, (up.length === 1 ? "Eine Aktie ist" : up.length + " Aktien sind") + " zurück auf der starken Liste", lgList(up) + ".", "Gründe: Verlauf → Entscheidungen", "");
+    }
+    var outs = {}; lgFlows().out.forEach(function (x) { if (LG_OF[x.s] && x.rs1 <= -5) outs[LG_OF[x.s]] = 1; });
+    lgFlows().inn.filter(function (x) { return x.rs1 >= 5 && (x.rsw == null || x.rsw >= 0) && LG_OF[x.s] && (ex.m[LG_OF[x.s]] || 0) < 10; }).slice(0, 1).forEach(function (x) {
+      w(2, "Anleger kaufen " + x.n + (LG_DESC[x.n] ? " (" + LG_DESC[x.n] + ")" : ""), x.n + " " + sg1(x.m1) + " im letzten Monat" + mkt + ". " + (ex.src === "dep" ? "Du hast dort " + nf0.format(ex.m[LG_OF[x.s]] || 0) + " %." : "Im Radar steht dort kaum eine starke Aktie."), "", "Der Bereich läuft seit Wochen klar besser als der Gesamtmarkt. Das ist ein Hinweis, wo gerade Geld hinfließt, keine Kaufempfehlung. Einzelne Aktien müssen erst geprüft werden.");
+    });
+    var ch = theses.filter(function (t) { if (!isOpen(t) || !valid(t) || status(t) !== "intakt" || outs[thTheme(t)]) return false; var l = t.last || {}, dd = num(l.price) && num(l.high_52w) ? (1 - l.price / l.high_52w) * 100 : null; return dd != null && dd >= 20 && dd <= 45; }).sort(byScore).slice(0, 3);
+    if (ch.length) w(2, "Starke Aktien mit Rücksetzer, ohne Gegenwind im Bereich", ch.map(function (t) { return nmShort(t.name) + " (Score " + scoreTotal(t) + ")"; }).join(", ") + ".", "", "Score ab " + TH + ", Begründung intakt, 20 bis 45 % unter dem Jahreshoch, und aus dem Bereich fließt gerade kein Geld ab. Ein Prüfauftrag, keine Kaufempfehlung.");
+    var cap = [3, 3, 2, 1], cn = [0, 0, 0, 0];
+    W.sort(function (a, b) { return a.k - b.k; });
+    return W.filter(function (x) { return cn[x.k]++ < cap[x.k]; });
+  }
+  function lgStatus() {
+    var st = null; try { var el = document.getElementById("radar-status"); st = el ? JSON.parse(el.textContent) : null; } catch (e) { st = null; }
+    if (!st || !st.state) return "";
+    return ' · <span class="lg-dot lg-' + esc(st.state) + '"></span>' + ({ gruen: "Lauf sauber", gelb: "Lauf mit Hinweisen", rot: "Lauf mit Fehlern" }[st.state] || "Lauf");
+  }
+  function renderLage() {
+    var el = document.getElementById("tab-lage"); if (!el) return;
+    var amp = lgAmpel(), ex = lgExpo(), fl = lgFlows(), W = lgWarn(amp, ex), lr = lastRun();
+    var LV = { rot: ["Vorsicht", "Mehrere Warnzeichen gleichzeitig. Große Kursbewegungen sind jetzt wahrscheinlicher als sonst."],
+      gelb: ["Beobachten", "Einzelne Warnzeichen. Der Markt ist anfälliger als sonst."],
+      gruen: ["In Ordnung", "Keine Warnzeichen. Normale Schwankungen."], grau: ["Keine Daten", "Die Ampel erscheint nach dem nächsten Lauf."] }[amp.lvl];
+    var KT = ["Vorsicht", "Beobachten", "Chance", "Info"];
+    var h = '<div class="lg-stand">Stand: Kurse vom ' + (LAGE ? date(LAGE.asof) : "–") + ", geprüft " + (lr ? date(lr.date).slice(0, 6) + (lr.time ? " " + esc(lr.time) + " Uhr" : "") : "–") + lgStatus() + '</div><div class="lg-leg"><span><i class="lg-dot lg-rot"></i>Vorsicht</span><span><i class="lg-dot lg-gelb"></i>Beobachten</span><span><i class="lg-dot lg-gruen"></i>In Ordnung / Chance</span><span><i class="lg-dot"></i>Info</span></div>';
+    var cnt = (amp.red ? amp.red + " von " + amp.s.length + " Fragen rot" : "") + (amp.red && amp.yel ? ", " : "") + (amp.yel ? amp.yel + " gelb" : "");
+    h += '<section class="lg-amp lg-a-' + amp.lvl + '"><div class="lg-ah"><span class="lg-big">' + LV[0] + '</span><span class="lg-al">Markt insgesamt</span></div><p>' + LV[1] + (cnt ? " <span class='lg-cnt'>(" + cnt + ")</span>" : "") + "</p>" +
+      '<ul class="lg-sig">' + amp.s.map(function (x) { return '<li><span class="lg-dot lg-' + LG_C[x.l] + '"></span><div><span class="lg-q">' + esc(x.q) + "</span> <b>" + esc(x.a) + "</b><small>" + esc(x.d) + "</small></div></li>"; }).join("") + "</ul>" +
+      '<details class="lg-why"><summary>Nach welchen Regeln die Farben vergeben werden</summary><ul class="lg-rules">' + amp.s.map(function (x) { return "<li><b>" + esc(x.q) + "</b> " + esc(x.r) + "</li>"; }).join("") + "<li><b>Gesamtfarbe:</b> Rot, wenn zwei oder mehr Fragen rot sind. Gelb bei einer roten oder zwei gelben. Sonst Grün.</li></ul></details></section>";
+    h += '<h2 class="lg-h">Was jetzt wichtig ist</h2>' + (W.length ? '<div class="lg-ws">' + W.map(function (x) {
+      return '<div class="lg-w lg-k' + x.k + '"><span class="lg-tag">' + KT[x.k] + "</span><b>" + esc(x.t) + "</b><div class='lg-x'>" + (x.html ? x.x : esc(x.x)) + "</div>" + (x.b ? "<small>" + esc(x.b) + "</small>" : "") + (x.why ? '<details class="lg-why"><summary>Warum?</summary><p>' + esc(x.why) + "</p></details>" : "") + "</div>";
+    }).join("") + "</div>" : '<div class="empty"><b>Nichts Dringendes</b>Keine Warnung und kein wichtiger Termin in den nächsten 7 Tagen.</div>');
+    function frow(x) { var w0 = Math.min(100, Math.abs(x.rs1) / 25 * 100); return '<div class="lg-fr"><span>' + esc(x.n) + (LG_DESC[x.n] ? "<i>" + esc(LG_DESC[x.n]) + "</i>" : "") + '</span><span class="lg-fb"><u class="' + (x.rs1 >= 0 ? "up" : "dn") + '" style="width:' + w0.toFixed(0) + '%"></u></span><b class="' + (x.rs1 >= 0 ? "up" : "dn") + '">' + sg1(x.m1) + "</b></div>"; }
+    if (fl.all.length) h += '<h2 class="lg-h">Wohin das Geld fließt <span class="hint">letzter Monat</span></h2><div class="lg-flow"><p class="lg-ref">Gesamtmarkt (S&amp;P 500): <b>' + sg1(fl.spy && fl.spy.m1) + '</b>. <span class="up">Grün</span> = besser als der Gesamtmarkt, dort fließt Geld hin. <span class="dn">Rot</span> = schlechter, dort wird verkauft.</p><div class="lg-f2"><div><h4>Hier fließt Geld hin</h4>' + fl.inn.map(frow).join("") + "</div><div><h4>Hier wird verkauft</h4>" + fl.out.map(frow).join("") + "</div></div>" +
+      '<details class="lg-why"><summary>Alle Bereiche</summary><div class="lg-flow1">' + fl.all.map(frow).join("") + '</div><p>Gemessen an Fonds, die jeweils einen ganzen Bereich abbilden (Yahoo-Kurse vom ' + (LAGE ? date(LAGE.asof) : "–") + "). Echte Fondsflüsse sind kostenpflichtig, das hier ist eine Annäherung.</p></details></div>";
+    var ks = Object.keys(ex.m).sort(function (a, b) { return ex.m[b] - ex.m[a]; }).slice(0, 5), lim = ex.src === "dep" ? limOf("maxtheme") : 40, mx = Math.max.apply(null, ks.map(function (k) { return ex.m[k]; }).concat([lim]));
+    if (ks.length) h += '<h2 class="lg-h">' + (ex.src === "dep" ? "Wie dein Geld verteilt ist" : "Wie die starken Aktien verteilt sind") + "</h2>" + '<div class="lg-ex"><p class="lg-ref">Der Strich zeigt die Obergrenze je Thema (' + lim + " %). Rot = darüber.</p>" + ks.map(function (k) {
+      var v = ex.m[k], over = v > lim && k !== THEMES[6] && k !== THEMES[7], fs = (LG_TH[k] || []).map(lgRow).filter(Boolean)[0];
+      return '<div class="lg-er' + (over ? " over" : "") + '"><span>' + esc(k) + (fs && fs.m1 != null ? "<i class='" + (fs.rs1 >= 0 ? "up" : "dn") + "'>Bereich im letzten Monat " + sg1(fs.m1) + "</i>" : "") + '</span><span class="lg-fb"><u style="width:' + (v / mx * 100).toFixed(0) + '%"></u><em style="left:' + (lim / mx * 100).toFixed(0) + '%"></em></span><b>' + (ex.src === "dep" ? nf0.format(v) + " %" : (ex.cnt[k] || 0) + " von " + ex.n) + "</b></div>";
+    }).join("") + (ex.src === "dep" ? ((ex.m[THEMES[6]] || 0) > 20 ? '<p class="cap">Breite ETFs wie der Nasdaq 100 enthalten zusätzlich viele Technologie- und KI-Werte. Dein echter KI-Anteil ist deshalb höher als der Balken.</p>' : "") : '<p class="cap">Dein eigenes Depot sieht nur die lokale Fassung (dashboard.html).</p>') + "</div>";
+    var tl = topList().slice(0, 5);
+    if (tl.length) h += '<h2 class="lg-h">Die stärksten Aktien im Radar <span class="hint">antippen für Details</span></h2><div class="lg-top">' + tl.map(function (t) {
+      var l = t.last || {}, dd = num(l.price) && num(l.high_52w) ? (1 - l.price / l.high_52w) * 100 : null, vr = verdict(t);
+      return '<div class="dtile lg-t" data-open="' + esc(t.id) + '" tabindex="0" role="button"><span class="miniscore ' + scoreClass(scoreTotal(t)) + '" title="Score von 100">' + scoreTotal(t) + '</span><span class="lg-tn"><b>' + esc(nmShort(t.name)) + "</b><small>" + (dd != null ? nf0.format(dd) + " % unter dem Jahreshoch" : "") + (inDepot(t) ? " · im Depot" : "") + '</small></span><span class="vbadge vv-' + vslug(vr.v) + ' lg-vb">' + esc(vr.v) + "</span></div>";
+    }).join("") + '</div><button type="button" class="btn lg-more" data-golage="heute">Alle Aktien ansehen</button>';
+    h += '<p class="cap" style="margin-top:18px">Ampel und Geldfluss rechnet jeder Lauf vollständig neu aus Tageskursen (Yahoo Finance). Die Hinweise sind Prüfaufträge, keine Anlageberatung.</p>';
+    el.innerHTML = h;
+  }
+  document.addEventListener("click", function (ev) { var b = ev.target.closest && ev.target.closest("[data-golage]"); if (b) { show(b.getAttribute("data-golage"), true); } });
+  function decisionsHtml() {
+    var E = [];
+    theses.forEach(function (t) {
+      (Array.isArray(t.log) ? t.log : []).forEach(function (l) {
+        var tx = String(l.text || "");
+        if (l.type === "neu") E.push({ d: l.date || t.opened, k: "neu", t: t, x: tx.replace(/\s*Kurs\/Kennzahlen:.*$/, "") });
+        else if (l.type === "verletzt") E.push({ d: l.date, k: "raus", t: t, x: tx });
+        else if (/Schwelle wieder erreicht/.test(tx)) E.push({ d: l.date, k: "rein", t: t, x: tx });
+        else if (l.type === "geschlossen") E.push({ d: l.date, k: "ende", t: t, x: tx });
+      });
+      if (status(t) === "geschlossen" && t.closed && !(t.log || []).some(function (l) { return l.type === "geschlossen"; })) E.push({ d: t.closed, k: "ende", t: t, x: "These beendet." });
+    });
+    var rej = {}; checked.forEach(function (c) { if (c.date) rej[c.date] = (rej[c.date] || 0) + 1; });
+    Object.keys(rej).forEach(function (d) { E.push({ d: d, k: "nein", n: rej[d] }); });
+    E.sort(function (a, b) { return String(b.d || "").localeCompare(String(a.d || "")) || ("raus,rein,neu,ende,nein".indexOf(a.k) - "raus,rein,neu,ende,nein".indexOf(b.k)); });
+    var LB = { neu: "Aufgenommen", raus: "Von der Liste gefallen", rein: "Zurück auf der Liste", ende: "Beendet", nein: "Geprüft, abgelehnt" };
+    var rows = E.slice(0, 25).map(function (e) {
+      if (e.k === "nein") return '<li class="lg-dk-nein"><span class="lg-dd">' + date(e.d).slice(0, 6) + '</span><span class="lg-dt">' + LB.nein + "</span><span>" + e.n + " Aktien (Liste und Gründe unten im ausführlichen Verlauf)</span></li>";
+      return '<li class="lg-dk-' + e.k + '"><span class="lg-dd">' + date(e.d).slice(0, 6) + '</span><span class="lg-dt">' + LB[e.k] + '</span><span><button type="button" class="linkbtn dtile-link" data-open-v="' + esc(e.t.id) + '"><b>' + esc(short(e.t.name, 28)) + "</b></button> " + esc(short(e.x, 150)) + "</span></li>";
+    }).join("");
+    return '<h2>Entscheidungen <span class="count">' + E.length + '</span> <span class="hint">neueste zuerst</span></h2><p class="cap" style="margin:-4px 0 10px">Warum eine Aktie aufgenommen wurde, unter ' + TH + " fiel, zurückkam oder beendet wurde. Nichts wird gelöscht.</p><ul class=\"lg-dec\">" + rows + "</ul>" + (E.length > 25 ? '<p class="cap">Ältere Einträge im ausführlichen Verlauf.</p>' : "");
+  }
+  document.addEventListener("click", function (ev) { var b = ev.target.closest && ev.target.closest("[data-open-v]"); if (b && !modalOpen) openDetail(b.getAttribute("data-open-v"), b); });
+
+  computeRanks(); renderHeader(); renderLage(); renderToday(); renderDepot(); renderTheses(); renderScore(); renderThemes(); renderHistory();
+  var startTab = "lage";
+  try { var st = sessionStorage.getItem("radar-tab"); if (st === "score") st = "lage"; if (st && TABNAMES.indexOf(st) >= 0) startTab = st; } catch (e) { /* optional */ }
   show(startTab, false);
   onScroll();
 })();
-
 ;
-
 (function () {
   var mq = window.matchMedia("(max-width: 760px)");
   var bar = document.getElementById("apptabs"), sheet = document.getElementById("moresheet"), back = document.getElementById("moreback");
@@ -3108,7 +3265,8 @@
     sync(); sheet.hidden = false; back.hidden = false;
   }
   function sync() {
-    var c = curTab(), inMore = ["depot", "thesen", "universum", "methodik"].indexOf(c) >= 0;
+    var c = curTab(), inMore = ["muster", "thesen", "universum", "methodik", "themen"].indexOf(c) >= 0;
+    var dbb = bar.querySelector('[data-go="depot"]'), dnb = navBtn("depot"); if (dbb) dbb.hidden = !dnb || dnb.hidden;
     Array.prototype.forEach.call(bar.querySelectorAll("button"), function (b) {
       var on = b.hasAttribute("data-more") ? inMore : b.getAttribute("data-go") === c;
       b.setAttribute("aria-current", on ? "true" : "false");
@@ -3160,9 +3318,7 @@
     if (j >= 0 && j < names.length) go(names[j]);
   }, { passive: true });
 })();
-
 ;
-
 (function () {
   var box = document.getElementById("gsearch"), q = document.getElementById("gsq"), res = document.getElementById("gsres");
   if (!box || !q || !res) return;
@@ -3218,9 +3374,7 @@
   res.addEventListener("mousedown", function (ev) { ev.preventDefault(); });
   document.addEventListener("click", function (ev) { if (!box.contains(ev.target)) res.hidden = true; });
 })();
-
 ;
-
 (function(){
   /* Sicherung: Detailfenster nie seitlich verschoben lassen (Fokus/Tab-Wechsel/Touch) */
   function fix(e){
