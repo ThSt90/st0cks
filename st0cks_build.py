@@ -32,15 +32,16 @@ shell = JS.sub("", shell)
 shell = shell.replace("<title>Aktien-Radar</title>", "<title>st0cks</title>")
 shell = shell.replace('name="apple-mobile-web-app-title" content="Radar"', 'name="apple-mobile-web-app-title" content="st0cks"')
 shell = shell.replace("<span>Aktien-<em>Radar</em></span>", "<span>st<em>0</em>cks</span>")
-head_add = ('<link rel="apple-touch-icon" href="icon.png">\n<link rel="icon" type="image/png" href="favicon.png">\n'
-            '<link rel="manifest" href="manifest.webmanifest">\n<link rel="stylesheet" href="style.css?v=%s">\n')
+head_add = ('<link rel="apple-touch-icon" href="../icon.png">\n<link rel="icon" type="image/png" href="../favicon.png">\n'
+            '<link rel="manifest" href="../manifest.webmanifest">\n<link rel="stylesheet" href="style.css?v=%s">\n')
 ver = hashlib.sha1((css + js).encode()).hexdigest()[:8]
 shell = shell.replace("</head>", (head_add % ver) + "</head>", 1)
 splash = ('<div id="st-splash" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;'
           'flex-direction:column;gap:12px;background:var(--bg);color:var(--muted);font:15px system-ui;z-index:9999">'
-          '<img src="icon.png" width="72" height="72" alt="" style="border-radius:16px"><span id="st-msg">Lade st0cks …</span></div>')
+          '<img src="../icon.png" width="72" height="72" alt="" style="border-radius:16px"><span id="st-msg">Lade st0cks …</span></div>')
 shell = shell.replace("</body>", splash + f'\n<script src="config.js"></script>\n<script src="loader.js?v={ver}"></script>\n</body>', 1)
-d = HERE / "docs"; d.mkdir(exist_ok=True)
+# Die alte Oberflaeche liegt seit dem Lean-Umbau unter docs/classic/ (docs/index.html ist die neue App, lean_build.py)
+d = HERE / "docs" / "classic"; d.mkdir(parents=True, exist_ok=True)
 (d / "index.html").write_text(shell, encoding="utf-8")
 (d / "style.css").write_text(css, encoding="utf-8")
 (d / "app.js").write_text(js, encoding="utf-8")
@@ -73,7 +74,7 @@ d = HERE / "docs"; d.mkdir(exist_ok=True)
     .catch(function (e) { fail("Daten konnten nicht geladen werden (" + e.message + ")."); });
 })();
 ''', encoding="utf-8")
-(d / "manifest.webmanifest").write_text(json.dumps({
+(HERE / "docs" / "manifest.webmanifest").write_text(json.dumps({
     "name": "st0cks", "short_name": "st0cks", "start_url": ".", "scope": ".", "display": "standalone",
     "background_color": "#111112", "theme_color": "#3d8a8e",
     "icons": [{"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},

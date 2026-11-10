@@ -3,174 +3,429 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f2f2f2" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#161413" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f2ed" media="(prefers-color-scheme: light)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="st0cks">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>st0cks</title>
-
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="style.css?v=b1613d4b">
+<style>
+:root{
+  --bg:#161413;--bg2:#1d1a1f;--surface:#201d1b;--surface2:#2a2623;--line:#38332f;--text:#efe9e2;--muted:#a79f96;
+  --accent:#9dbaa6;--accent2:#d9a79b;--accent-ink:#16201a;
+  --ok:#9dc4a8;--ok-soft:#26332b;--warn:#e3c07a;--warn-soft:#382f1c;--bad:#e59a8f;--bad-soft:#3b2724;--info:#a9b4c2;--info-soft:#262b31;
+  --glass:rgba(22,20,19,.72);--shadow:0 1px 2px rgba(0,0,0,.35),0 12px 32px rgba(0,0,0,.32);
+  --fs-s:14px;--fs-m:18px;--fs-l:34px;--r:24px;--t:.2s;
+  --font:system-ui,-apple-system,"SF Pro Text","Segoe UI",Roboto,sans-serif;
+}
+:root[data-theme="light"]{
+  --bg:#f6f2ed;--bg2:#efe6ee;--surface:#fffdfa;--surface2:#efe9e1;--line:#e2d9ce;--text:#2b2724;--muted:#6f655d;
+  --accent:#4d7a5f;--accent2:#b8786b;--accent-ink:#fff;
+  --ok:#3f6b51;--ok-soft:#e1eee5;--warn:#7d5a10;--warn-soft:#f7ecd2;--bad:#a8442f;--bad-soft:#f6e0db;--info:#4d5968;--info-soft:#e8ecf1;
+  --glass:rgba(246,242,237,.78);--shadow:0 1px 2px rgba(60,40,20,.06),0 10px 26px rgba(60,40,20,.10);
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#f6f2ed;--bg2:#efe6ee;--surface:#fffdfa;--surface2:#efe9e1;--line:#e2d9ce;--text:#2b2724;--muted:#6f655d;
+  --accent:#4d7a5f;--accent2:#b8786b;--accent-ink:#fff;
+  --ok:#3f6b51;--ok-soft:#e1eee5;--warn:#7d5a10;--warn-soft:#f7ecd2;--bad:#a8442f;--bad-soft:#f6e0db;--info:#4d5968;--info-soft:#e8ecf1;
+  --glass:rgba(246,242,237,.78);--shadow:0 1px 2px rgba(60,40,20,.06),0 10px 26px rgba(60,40,20,.10);}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font:400 var(--fs-s)/1.45 var(--font);color:var(--text);background:#0c0b0b;display:grid;place-items:center}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;min-height:44px;min-width:44px}
+.app{position:relative;width:100%;height:100dvh;overflow:hidden;
+  background:radial-gradient(120% 60% at 85% -10%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 60%),
+             radial-gradient(90% 50% at 0% 100%,color-mix(in srgb,var(--accent2) 16%,transparent),transparent 60%),
+             linear-gradient(180deg,var(--bg),var(--bg2));display:flex;flex-direction:column}
+@media (min-width:520px){.app{width:393px;height:min(852px,100dvh);border-radius:44px;box-shadow:0 0 0 10px #000,0 30px 80px rgba(0,0,0,.6)}}
+/* Kopf */
+header{padding:calc(env(safe-area-inset-top) + 10px) 16px 8px;display:flex;align-items:center;gap:10px}
+.brand{font-size:var(--fs-m);font-weight:800;letter-spacing:-.02em}
+.brand em{font-style:normal;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.title{font-size:var(--fs-m);font-weight:700}
+.sp{flex:1}
+.search{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:0 12px;height:44px;flex:1;max-width:60%}
+.search input{all:unset;flex:1;font-size:16px;min-width:0}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:4px 10px;font-size:var(--fs-s);font-weight:600;background:var(--surface2);color:var(--muted);white-space:nowrap}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.info{background:var(--info-soft);color:var(--info)}
+/* Hauptbereich */
+main{flex:1;min-height:0;position:relative}
+.screen{position:absolute;inset:0;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth;overscroll-behavior:contain;padding:0 14px;display:none;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.screen.on{display:block}
+.screen.list{scroll-snap-type:none;padding-bottom:24px}
+.tile{height:100%;scroll-snap-align:start;scroll-snap-stop:always;padding:4px 0 12px}
+.card{height:100%;background:linear-gradient(160deg,color-mix(in srgb,var(--tone,var(--accent)) 16%,var(--surface)),var(--surface) 55%);
+  border:1px solid color-mix(in srgb,var(--tone,var(--accent)) 35%,var(--line));border-radius:var(--r);box-shadow:var(--shadow);
+  padding:18px;display:flex;flex-direction:column;gap:14px;overflow:hidden;position:relative}
+.card.tap{cursor:pointer;transition:transform var(--t)}
+.card.tap:active{transform:scale(.985)}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.muted{color:var(--muted)}
+.m{font-size:var(--fs-m);font-weight:700;line-height:1.3}
+.big{font-size:var(--fs-l);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+/* Urteil */
+.verdict{display:flex;align-items:center;gap:16px}
+.ring{--p:0;--c:var(--ok);width:92px;height:92px;border-radius:50%;flex:none;display:grid;place-items:center;
+  background:conic-gradient(var(--c) calc(var(--p)*1%),var(--surface2) 0);position:relative}
+.ring::after{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--surface)}
+.ring b{position:relative;z-index:1;font-size:var(--fs-l);font-weight:800}
+.badge{display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-m);font-weight:800;padding:8px 14px;border-radius:14px}
+.gilt{--tone:var(--ok);--c:var(--ok)} .gilt .badge{background:var(--ok-soft);color:var(--ok)}
+.wackelt{--tone:var(--warn);--c:var(--warn)} .wackelt .badge{background:var(--warn-soft);color:var(--warn)}
+.widerlegt{--tone:var(--bad);--c:var(--bad)} .widerlegt .badge{background:var(--bad-soft);color:var(--bad)}
+.unbekannt{--tone:var(--info);--c:var(--info)} .unbekannt .badge{background:var(--info-soft);color:var(--info)}
+.facts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:auto}
+.fact{background:color-mix(in srgb,var(--surface2) 70%,transparent);border-radius:16px;padding:10px}
+.fact small{display:block;color:var(--muted);font-size:var(--fs-s)}
+.fact b{font-size:var(--fs-m)}
+.hint{text-align:center;color:var(--muted);font-size:var(--fs-s);margin-top:2px}
+.spark{width:100%;flex:1;min-height:64px}
+.stale{color:var(--warn)}
+/* Balken */
+.bar{display:grid;grid-template-columns:110px 1fr 56px;gap:8px;align-items:center;margin:6px 0}
+.bar .tr{height:12px;border-radius:99px;background:var(--surface2);position:relative;overflow:hidden}
+.bar .fl{position:absolute;top:0;bottom:0;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.bar .fl.neg{background:linear-gradient(90deg,var(--bad),var(--accent2))}
+.bar .fl.over{background:linear-gradient(90deg,var(--warn),var(--bad))}
+.bar span:last-child{text-align:right;font-weight:700}
+.limit{position:relative}
+/* Karten in Listen */
+.alert{border-radius:18px;padding:12px 14px;background:var(--surface2);border-left:5px solid var(--tone,var(--info));margin-bottom:10px}
+.alert.v{--tone:var(--bad)} .alert.b{--tone:var(--warn)} .alert.c{--tone:var(--ok)} .alert.i{--tone:var(--info)}
+.alert .h{font-weight:700;font-size:var(--fs-m);line-height:1.3}
+details summary{cursor:pointer;color:var(--muted);min-height:44px;display:flex;align-items:center}
+details p{margin:0 0 8px}
+.seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:3px;margin:0 14px 8px}
+.seg button{flex:1;border-radius:11px;font-weight:700;color:var(--muted);transition:background var(--t)}
+.seg button.on{background:var(--accent);color:var(--accent-ink)}
+.li{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;margin:0 0 10px}
+/* Tab-Leiste */
+nav{padding:6px 10px calc(env(safe-area-inset-bottom) + 6px);display:flex;gap:2px;background:var(--glass);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-top:1px solid var(--line)}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:14px;color:var(--muted);font-size:var(--fs-s);font-weight:600;position:relative;transition:color var(--t)}
+nav button svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav button.on{color:var(--accent)}
+nav button.on::before{content:"";position:absolute;top:-7px;width:28px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+nav .dot{position:absolute;top:4px;right:calc(50% - 20px);width:10px;height:10px;border-radius:50%;background:var(--bad);border:2px solid var(--bg)}
+/* Detail */
+#sheet{position:absolute;inset:0;z-index:20;background:var(--bg);transform:translateY(100%);transition:transform var(--t) ease-out;display:flex;flex-direction:column;touch-action:pan-y}
+#sheet.open{transform:none}
+#sheet .grab{width:44px;height:5px;border-radius:5px;background:var(--line);margin:calc(env(safe-area-inset-top) + 8px) auto 6px}
+.dh{padding:0 16px 8px}
+.dtabs{display:flex;gap:6px;padding:0 12px 8px}
+.dtabs button{flex:1;border-radius:12px;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--line);font-size:var(--fs-s)}
+.dtabs button.on{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.panes{flex:1;min-height:0;position:relative;overflow:hidden}
+.pane{position:absolute;inset:0;overflow-y:auto;padding:4px 16px calc(env(safe-area-inset-bottom) + 24px);transform:translateX(0);transition:transform var(--t),opacity var(--t);scrollbar-width:none}
+.pane.l{transform:translateX(-30px);opacity:0;pointer-events:none}
+.pane.r{transform:translateX(30px);opacity:0;pointer-events:none}
+.sec{margin:14px 0 6px;font-weight:700;font-size:var(--fs-m)}
+.matrix{position:relative;height:170px;border-radius:18px;background:
+  linear-gradient(var(--line),var(--line)) 50% 0/1px 100% no-repeat,linear-gradient(var(--line),var(--line)) 0 50%/100% 1px no-repeat,var(--surface);border:1px solid var(--line)}
+.matrix i{position:absolute;color:var(--muted);font-style:normal;font-size:var(--fs-s);padding:6px 8px}
+.matrix .pt{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);transform:translate(-50%,50%)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.two>div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px}
+.two h4{margin:0 0 6px;font-size:var(--fs-s);text-transform:uppercase;letter-spacing:.05em}
+.lamp{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.lamp.gruen{background:var(--ok)}.lamp.gelb{background:var(--warn)}.lamp.rot{background:var(--bad)}.lamp.unbekannt{background:var(--info)}
+.cols{display:flex;align-items:flex-end;gap:12px;height:120px;margin:8px 0}
+.col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px;height:100%}
+.col div{width:100%;border-radius:10px 10px 4px 4px;background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 50%,var(--accent2)))}
+.col div.est{background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--accent2) 75%,transparent) 0 6px,color-mix(in srgb,var(--accent2) 35%,transparent) 6px 12px)}
+/* Zustände */
+.skel{border-radius:var(--r);height:100%;background:linear-gradient(100deg,var(--surface) 30%,var(--surface2) 50%,var(--surface) 70%) 0 0/200% 100%;animation:sh 1.2s linear infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.state{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px}
+.state .ico{font-size:40px}
+#off{display:none;background:var(--warn-soft);color:var(--warn);text-align:center;padding:6px;font-weight:600}
+.demo{position:absolute;top:calc(env(safe-area-inset-top) + 2px);left:50%;transform:translateX(-50%);z-index:50;font-size:14px;background:var(--warn);color:#000;border-radius:99px;padding:0 10px;pointer-events:none;font-weight:700;opacity:.9}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
 <body>
-<div id="prog" aria-hidden="true"></div>
-<nav class="apptabs" id="apptabs" aria-label="Hauptmenü">
-  <button type="button" data-go="lage"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 12l4-4"/><circle cx="12" cy="12" r="1.3"/></svg><span>Lage</span></button>
-  <button type="button" data-go="heute"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V11M12 20V5M19 20v-7"/></svg><span>Aktien</span></button>
-  <button type="button" data-go="depot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16v11H4z"/><path d="M9 8V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M4 13h16"/></svg><span>Depot</span></button>
-  <button type="button" data-go="verlauf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l5-6 4 3 8-9"/><path d="M3 21h18"/></svg><span>Verlauf</span></button>
-  <button type="button" data-more="1" aria-haspopup="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg><span>Mehr</span></button>
-</nav>
-<div class="moreback" id="moreback" hidden></div>
-<div class="moresheet" id="moresheet" role="menu" hidden>
-  <div class="ms-title">Einstellungen<small>Bereiche und Darstellung</small></div>
-<div class="ms-grid">
-  <button type="button" data-go="themen"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg><b>Markt-Details</b><small>Hintergrund: Ausblick, Crash-Radar, Termine</small></button>
-  <button type="button" data-go="thesen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5z"/><path d="M9 9h6M9 13h6M9 17h3"/></svg><b>Alle Thesen</b><small>Archiv: große Kacheln</small></button>
-  <button type="button" data-go="muster"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16v11H4z"/><path d="M9 8V6h6v2"/></svg><b>Muster-Depot</b><small>Archiv: Gedankenspiel, nicht für Entscheidungen</small></button>
-  <button type="button" data-go="universum"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c3 3 3 13 0 16M12 4c-3 3-3 13 0 16"/></svg><b>Universum</b><small>Archiv: Rohdaten, selten erneuert</small></button>
-  <button type="button" data-go="methodik"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 11v5M12 8h.01"/></svg><b>Allgemeine Infos</b><small>Methode, Regeln</small></button>
-  <button type="button" data-theme="1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/></svg><b>Darstellung</b><small>Hell / Dunkel</small></button>
+<div class="app" id="app">
+  <div id="off">Kein Netz. Angezeigt wird der zuletzt geladene Stand.</div>
+  <header id="hd"></header>
+  <main id="main"></main>
+  <nav id="nav"></nav>
+  <section id="sheet" aria-modal="true" role="dialog"></section>
 </div>
-</div>
+<script>
+let DATA = null;
+const TODAY = (() => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); })();
+const $ = (s, r = document) => r.querySelector(s);
+const short = s => String(s || "").split(/[\/(]/)[0].replace(/ und .*/, "").trim();
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const nf = (v, d = 0) => v == null ? "–" : new Intl.NumberFormat("de-DE", { maximumFractionDigits: d, minimumFractionDigits: d }).format(v);
+const pct = (v, d = 0) => v == null ? "keine Daten" : (v > 0 ? "+" : v < 0 ? "−" : "") + nf(Math.abs(v), d) + " %";
+const days = d => d ? Math.round((new Date(TODAY) - new Date(d)) / 864e5) : null;
+const ago = d => { const n = days(d); return n == null ? "keine Daten" : n <= 0 ? "heute" : n === 1 ? "gestern" : "vor " + n + " Tg."; };
+const dm = d => d ? d.slice(8, 10) + "." + d.slice(5, 7) + "." : "–";
+const agoT = iso => { const m = (Date.now() - new Date(iso)) / 6e4; return m < 60 ? "vor " + Math.max(1, Math.round(m)) + " Min." : m < 1440 ? "vor " + Math.round(m / 60) + " Std." : "vor " + Math.round(m / 1440) + " Tg."; };
+const freshT = (label, iso, maxH) => { const old = !iso || (Date.now() - new Date(iso)) / 36e5 > maxH;
+  return `<span class="chip ${old ? "warn" : ""}">${old ? "⚠ " : ""}${esc(label)} ${iso ? esc(agoT(iso)) : "keine Daten"}</span>`; };
+const fresh = (label, d, maxDays) => { const n = days(d); const old = n == null || n > maxDays;
+  return `<span class="chip ${old ? "warn" : ""}" title="${esc(label)}">${old ? "⚠ " : ""}${esc(label)} ${esc(ago(d))}</span>`; };
+const STATE = new URLSearchParams(location.search).get("state"); // loading | empty | error
 
-<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
-<button id="top" type="button" aria-label="Nach oben"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="trk" cx="24" cy="24" r="21"/><circle class="pg" cx="24" cy="24" r="21"/></svg><span aria-hidden="true">↑</span></button>
-<div class="wrap">
-  <header class="top">
-    <div>
-      <h1><span class="radar" aria-hidden="true"></span><span>st<em>0</em>cks</span></h1>
-      <div class="sub" id="sub"></div>
-    </div>
-    <div class="gsearch" id="gsearch" role="search">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
-      <input id="gsq" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Aktie suchen (Name oder Kürzel)" aria-label="Aktie suchen">
-      <div class="gs-res" id="gsres" hidden></div>
-    </div>
-    <button class="icon" id="themeBtn" type="button" aria-label="Darstellung wechseln">Hell / Dunkel</button>
-  </header>
-  <div id="demo"></div>
+/* ---------- Icons ---------- */
+const IC = {
+  markt: '<svg viewBox="0 0 24 24"><path d="M3 17l5-6 4 3 8-9"/><path d="M14 5h6v6"/></svg>',
+  depot: '<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="3"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>',
+  chancen: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  verlauf: '<svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>',
+  mehr: '<svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>'
+};
+const TABS = [["markt", "Markt"], ["depot", "Depot"], ["chancen", "Chancen"], ["verlauf", "Verlauf"], ["mehr", "Mehr"]];
 
-  <nav class="tabs" role="tablist" aria-label="Bereiche">
-    <span class="tabind" aria-hidden="true"></span>
-    <button role="tab" data-tab="lage" aria-selected="true">Lage</button>
-    <button role="tab" data-tab="heute" aria-selected="false">Aktien</button>
-    <button role="tab" data-tab="depot" aria-selected="false" hidden>Depot</button>
-    <button role="tab" data-tab="verlauf" aria-selected="false">Verlauf</button>
-    <button role="tab" data-tab="themen" aria-selected="false">Markt-Details</button>
-    <button role="tab" data-tab="methodik" aria-selected="false">Allgemeine Infos</button>
-    <button role="tab" data-tab="thesen" aria-selected="false">Alle Thesen</button>
-    <button role="tab" data-tab="muster" aria-selected="false">Muster-Depot</button>
-    <button role="tab" data-tab="universum" aria-selected="false">Universum</button>
-    <button role="tab" data-tab="score" aria-selected="false" hidden>Score</button>
-  </nav>
+/* ---------- Markt: Regeln und Warnungen (alles aus lage.json, Regeln sichtbar) ---------- */
+let R = {};
+function warnings() {
+  const w = [], d = dm(DATA.lage.asof), src = "Yahoo Finance, Schlusskurse vom " + d;
+  const nd = R["^NDX"], xk = R.XLK, rsp = R.RSP, vx = R["^VIX"], sp = R["^GSPC"];
+  if (xk && rsp && xk.m1 <= -10 && rsp.m1 > 0)
+    w.push({ k: "v", h: "Anleger ziehen Geld aus Technologiewerten ab", t: `Technologie ${pct(xk.m1, 1)} im letzten Monat, der Gesamtmarkt gleichgewichtet ${pct(rsp.m1, 1)}.`,
+      why: "Regel: Technologie fällt im Monat um 10 % oder mehr, während der breite Markt steigt. Dann wechselt Geld in andere Branchen.", src, d });
+  if (nd && nd.m1 <= -8) w.push({ k: "v", h: "Nasdaq 100 deutlich unter Druck", t: `${pct(nd.m1, 1)} in einem Monat, ${nf(Math.abs(nd.hi), 1)} % unter dem Jahreshoch.`,
+      why: "Regel: Monatsverlust ab 8 % gilt als Vorsicht.", src, d });
+  if (vx && vx.m1 >= 25) w.push({ k: "b", h: "Die Schwankung am Markt nimmt zu", t: `Angstbarometer VIX bei ${nf(vx.px, 1)}, ${pct(vx.m1, 0)} im Monat.`,
+      why: "Regel: VIX steigt im Monat um 25 % oder mehr. Unter 20 gilt als ruhig, über 30 als Stress.", src, d });
+  if (sp && sp.hi > -5 && sp.ma200 > 0) w.push({ k: "i", h: "Der Gesamtmarkt hält sich", t: `S&P 500 nur ${nf(Math.abs(sp.hi), 1)} % unter dem Hoch und ${nf(sp.ma200, 1)} % über der 200-Tage-Linie.`,
+      why: "Regel: Abstand zum Hoch unter 5 % und über dem 200-Tage-Schnitt = intakter Aufwärtstrend.", src, d });
+  const c = DATA.chancen.find(v => v.verdict === "gilt" && v.dd != null && v.dd <= -25 && v.pot_pct != null && v.pot_pct >= 40);
+  if (c) w.push({ k: "c", h: `Chance: ${c.name} liegt deutlich unter dem Hoch`, t: `${pct(c.dd, 0)} zum Hoch, Analysten erwarten ${pct(c.pot_pct, 0)} (${c.pot_n} Analysten, Stand ${dm(c.pot_asof)}).`,
+      why: "Regel: These gilt (Score ab 80), Kurs mindestens 25 % unter dem Hoch, Kursziel mindestens 40 % über dem Kurs.", src: "Eigene Prüfung, Analystenziele vom " + dm(c.pot_asof), d: dm(c.px_date) });
+  return w;
+}
+const KIND = { v: "Vorsicht", b: "Beobachten", c: "Chance", i: "Info" };
 
-  <section id="tab-lage"></section>
-  <section id="tab-heute" hidden></section>
-  <section id="tab-depot" hidden></section>
-  <section id="tab-thesen" hidden></section>
-  <section id="tab-score" hidden></section>
-  <section id="tab-themen" hidden></section>
-  <section id="tab-muster" hidden></section>
-  <section id="tab-universum" hidden></section>
-  <section id="tab-verlauf" hidden></section>
-  <section id="tab-methodik" class="method" hidden>
-    <h2>Allgemeine Informationen</h2>
-    <div class="stats" id="stats"></div>
-    <div id="info-dyn"></div>
-    <h2>So entsteht die Liste</h2>
-    <p>Beim Befehl <code>/radar</code> in Claude Code prüft Claude zuerst alle offenen Thesen. Danach screent er die Listen von MSCI World (Industrieländer), S&amp;P 500, Nasdaq 100, DAX, MDAX, SDAX, EURO STOXX 50 und Nikkei 225, zuerst auf High-Growth-Aktien mit hohem Kurspotenzial, danach auf Kursrückgänge und prüft die Treffer einzeln in öffentlichen Quellen (Unternehmensseite, Berichte, finanzen.net, Finviz, StockAnalysis und weitere, bei Ausfall mit Ausweichquelle).</p>
-    <p>Alle weit über 1.000 Aktien einzeln zu prüfen, ist pro Lauf nicht möglich. Deshalb merkt sich der Lauf, was er schon geprüft hat (Liste „Geprüft und verworfen" im Verlauf), und nimmt beim nächsten Mal andere Treffer. Welche Indizes im letzten Lauf wirklich gescreent wurden, steht unten auf „Heute".</p>
-    <h2>Läufe, Top 10 und Schwelle 80</h2>
-    <ul>
-      <li><b>/radar deep:</b> tiefer Lauf. Rund 50 neue Aktien werden einzeln mit vollem Score analysiert, alle bestehenden Thesen werden neu bewertet. Ab Score 80 wird eine Aktie These, sonst landet sie mit Score und Grund unter „Geprüft und verworfen“.</li>
-      <li><b>/radar update:</b> Aktualisierung um 8:00 und 17:00 Uhr: Markteinschätzung, Kurse, Meldungen und Scores der bestehenden Thesen.</li>
-      <li><b>Top 10:</b> „Ranking“ zeigt oben die echte Top 10 (Score ab 80, alle Sektoren) und per Umschalter je klassischem Sektor (GICS) die fünf besten, auch mit Score unter 80; nach Sektor und Anzahl filterbar. Alle anderen stehen unter „Alle Thesen“. Mouseover auf den Namen erklärt in drei Sätzen, was die Firma macht.</li>
-      <li><b>Schwelle 80:</b> Fällt der Score einer These unter 80, gilt sie nicht mehr als gültig. Die Änderungsbox auf „Heute“ meldet jede Unterschreitung, jede Rückkehr über 80 und jede Rangänderung in den Top 10.</li>
-      <li><b>Top 10:</b> Der Reiter „Ranking“ zeigt die zehn Thesen mit dem höchsten Score und, umschaltbar, je Sektor die besten. Chance ist der Weg bis zum durchschnittlichen Analystenziel, Risiko der Weg bis zum schwächsten Ziel. Der Score ist eine Heuristik, keine Prognose.</li>
-      <li><b>Markteinschätzung:</b> Jeder Lauf beginnt mit Marktlage, wichtigen Terminen, Sektoren, Makro, Risiken und Chancen. Der Datenstand steht dabei und ist nicht immer der heutige Tag.</li>
-    </ul>
-    <h2>Wann ist ein Einstieg interessant?</h2>
-    <p>Es gibt zwei Profile. Beide brauchen eine erklärbare, vorübergehende Ursache des Rückgangs, drei messbare Säulen mit Schwellenwert, ein Gegenargument und ein Stop-Kriterium.</p>
-    <ul>
-      <li><span class="tag hg">High Growth</span> Umsatz mindestens 20 % oder Gewinn je Aktie mindestens 30 % über Vorjahr, Wachstum stabil oder beschleunigend, Ø-Kursziel der Analysten mindestens 30 % über dem Kurs, Kurs mindestens 15 % unter dem 52-Wochen-Hoch. Diese Profile bekommen bei der Auswahl Vorrang.</li>
-      <li><b>Erholung:</b> Kurs etwa 20 bis 40 % unter dem 52-Wochen-Hoch, Umsatz und Gewinn wachsen weiter, idealerweise mit steigender Rate.</li>
-    </ul>
-    <h2>Was zeigt eine Karte?</h2>
-    <ul>
-      <li><b>Entscheidungskopf:</b> Oben in jeder Detailansicht stehen Score mit Trend, Abstand zum Hoch, Kurspotenzial, nächster Termin, dein Regel-Check, das größte Risiko, die Bedingung, die die These widerlegt, und der Datenstand (grün frisch, gelb 2 bis 3 Tage, rot älter). So siehst du in etwa 30 Sekunden, ob eine Aktie zu deiner Strategie passt.</li>
-      <li><b>Meine Regeln:</b> Auf „Heute“ unten stellst du deine Kriterien ein (zum Beispiel Score, Abstand zum Hoch, Wachstum, Positionsgröße). Die Spalte „Regeln“ zeigt, wie viele erfüllt sind. Die Werte liegen nur in deinem Browser; über „Regeln und Notizen sichern“ machst du eine Sicherung.</li>
-      <li><b>Handlungsbedarf:</b> Die Zeile ganz oben auf „Heute“ zeigt nur, was Aufmerksamkeit braucht: Score unter 80 oder stark gefallen, Zahlen in den nächsten 7 Tagen, Tagesbewegung ab 5 % bei Depotwerten, wichtige Makro-Termine in den nächsten 3 Tagen.</li>
-      <li><b>Depot-Werkzeuge:</b> Klumpenrisiko (Summe je Thema), Positionsrechner (Größe, Thema und Verlustrisiko nach einem Kauf), Quartalszahlen deiner Positionen. Das sind Rechenhilfen, keine Empfehlungen.</li>
-      <li><b>Score oben rechts:</b> Ranking-Zahl von 0 bis 100 und Rang unter den offenen Thesen. Sie ist die Summe von sieben Teilnoten: Wachstum (22), Qualität (14), Bewertung (14), Kurspotenzial (14), Einstiegslage (13), Thesenrisiko (13) und Erwartungen der Analysten (10). Die Aufschlüsselung mit Begründung steht unter „Details". Der Score ist eine Heuristik und nicht rückwirkend getestet.</li>
-      <li><b>Was das Unternehmen macht:</b> ein bis zwei Sätze direkt unter dem Namen.</li>
-      <li><b>Vorschau:</b> erscheint, wenn die nächsten Zahlen in den nächsten 14 Tagen anstehen. Mit Punkten, auf die zu achten ist, und möglichen Reaktionen.</li>
-      <li><b>Tiefenanalyse:</b> ausführlichere Einordnung mit Szenarien für die am höchsten bewerteten Aktien, aufklappbar.</li>
-      <li><b>Tagesnotiz und Themen:</b> kurze Zusammenfassung oben auf „Heute" und Branchenübersichten im Reiter „Themen".</li>
-      <li><b>Kurspotenzial-Band:</b> Das große Prozentfeld oben auf jeder Kachel. Es zeigt den Abstand zum durchschnittlichen Analysten-Kursziel, darunter den Betrag je Aktie in Euro und eine Skala mit Kurs (Punkt), Ø-Ziel (Raute) und der Spanne der Schätzungen. Grün leuchtet ab +40 %, Grün ab +20 %, Blau ab +8 %, Gelb darunter, Rot bei negativem Potenzial.</li>
-      <li><b>Auf einen Blick (im Detailfenster):</b> Karten mit den wichtigsten Kennzahlen. Jede Karte nennt den Wert, eine Einstufung (sehr gut, gut, mittel, schwach), einen Pfeil für die Entwicklung, eine kleine Verlaufslinie und einen Satz in einfachen Worten, warum der Wert gut oder schlecht ist. Darunter fasst „Das spricht dafür / dagegen" zusammen.</li>
-      <li><b>Erwartungen:</b> Neben den gemeldeten Zahlen zeigen Balken (schraffiert) und Texte, was Analysten für das laufende und das nächste Jahr erwarten. Die Erwartung fließt mit bis zu 10 Punkten in den Score ein.</li>
-      <li><b>Euro-Werte:</b> Wo möglich stehen neben Prozentwerten die absoluten Beträge in Euro. Fremdwährungen sind grob umgerechnet (1 € ≈ 1,12 US-$ (Stand 09.10.2026); 1 £ ≈ 1,19 €; 100 ¥ ≈ 0,56 €); „≈" kennzeichnet umgerechnete Werte.</li>
-      <li><b>Links im Text:</b> Namen von Aktien in der Tagesnotiz und im Lauf-Protokoll sind anklickbar und öffnen die passende Kachel.</li>
-      <li><b>Kurs 5 Jahre:</b> Chart von TradingView (lädt aus dem Internet, ohne Verbindung bleibt das Feld leer).</li>
-      <li><b>Gewinn-Treppe:</b> Gewinn je Aktie als Stufen. Standard ist <b>Kumuliert</b>: die Summe seit dem ersten gezeigten Quartal, die Zahl über der Stufe ist der aufgelaufene Wert und das Plus darunter der Gewinn der Periode. Je steiler die Treppe, desto stärker wächst der Gewinn. Umschalten auf <b>12 Monate</b> (rollierend, mit Wachstum zum Vorjahr) oder <b>Je Quartal</b>. Gestrichelt sind Schätzungen.</li>
-      <li><b>Bedienung:</b> Die Rangliste oben springt per Klick zur Karte. Unter „Thesen“ lässt sich nach High Growth filtern und nach Score, Kurspotenzial, Abstand zum Hoch oder nächsten Zahlen sortieren. Die Navigation blendet sich beim Runterscrollen aus und beim Hochscrollen wieder ein. Bei eingestellter Bewegungsreduktion im Betriebssystem entfallen die Animationen.</li>
-      <li><b>Kurspotenzial:</b> Abstand zum durchschnittlichen Kursziel der Analysten, mit niedrigster und höchster Schätzung. Das ist eine Meinung von Analysten, keine Prognose des Radars.</li>
-    </ul>
-    <h2>Wie lese ich die Kennzahlen?</h2>
-    <p>Die Stufen sind einfache Faustregeln, damit man Zahlen ohne Vorwissen einordnen kann. Sie ersetzen keine eigene Prüfung.</p>
-    <ul>
-      <li><b>Umsatzwachstum:</b> sehr gut ab 25 % pro Jahr, gut ab 12 %, mittel ab 5 %, darunter schwach. Der Gesamtmarkt wächst nur um etwa 4 bis 5 %.</li>
-      <li><b>Gewinnwachstum:</b> sehr gut ab 30 %, gut ab 15 %, mittel ab 5 %.</li>
-      <li><b>Gewinn pro 100 € Umsatz (Nettomarge):</b> sehr gut ab 20 €, gut ab 10 €, mittel ab 5 €. Große US-Firmen verdienen im Schnitt etwa 10 €.</li>
-      <li><b>Operative Marge:</b> sehr gut ab 25 %, gut ab 15 %, mittel ab 8 %. <b>Bruttomarge:</b> sehr gut ab 60 %, gut ab 40 %, mittel ab 25 %.</li>
-      <li><b>Freier Cashflow</b> (Geld, das nach allen Ausgaben übrig bleibt, in % vom Umsatz): sehr gut ab 15 %, gut ab 5 %, mittel ab 0 %.</li>
-      <li><b>Bewertung (KGV, erwartet):</b> günstig bis 18, fair bis 28, anspruchsvoll bis 45, darüber teuer. Ein PEG unter 1 wertet eine Stufe auf, ein PEG über 2 eine Stufe ab.</li>
-      <li><b>Größe (Umsatz in Euro):</b> Riese ab 50 Mrd. €, Großkonzern ab 10 Mrd. €, mittelgroß ab 2 Mrd. €, klein ab 0,5 Mrd. €.</li>
-      <li><b>Kurspotenzial:</b> sehr gut ab +40 %, gut ab +20 %, mittel ab +8 %.</li>
-      <li><b>Pfeile:</b> ▲▲ stark beschleunigt, ▲ beschleunigt, ► gleichbleibend, ▼ verlangsamt, ▼▼ stark verlangsamt.</li>
-    </ul>
-    <h2>Status und Ampel</h2>
-    <p><span class="badge b-neu">neu</span> <span class="badge b-intakt">intakt</span> <span class="badge b-beobachten">beobachten</span> <span class="badge b-verletzt">verletzt</span> <span class="badge b-geschlossen">geschlossen</span></p>
-    <p><span class="dot gruen"></span> Säule erfüllt &nbsp; <span class="dot gelb"></span> wackelt &nbsp; <span class="dot rot"></span> gebrochen &nbsp; <span class="dot unbekannt"></span> nicht belegbar</p>
-    <h2>Grenzen</h2>
-    <ul>
-      <li>Die Zahlen stammen aus Web-Recherche, nicht aus einem Datenfeed. Sie können veraltet oder falsch sein, deshalb steht bei jeder Säule Quelle und Datum.</li>
-      <li>Für Europa und Japan gibt es keinen frei abrufbaren Screener mit 52-Wochen-Hoch. Dort ist die Vorauswahl gröber als bei US-Aktien.</li>
-      <li>Erwartungen sind Durchschnittswerte von Analysten (StockAnalysis). Ob eine Firma die Erwartungen je Quartal übertroffen oder verfehlt hat, liegt dem Radar nicht systematisch vor. Stattdessen vergleicht die Seite das erwartete mit dem zuletzt gemeldeten Wachstum.</li>
-      <li>Euro-Werte sind Näherungen mit festen Kursen und weichen vom Tageskurs ab.</li>
-      <li>Die Auswahlregeln sind nicht rückwirkend getestet. Die Historie zeigt mit der Zeit, ob sie taugen.</li>
-    </ul>
-  </section>
+/* ---------- Kachel (Aktie) ---------- */
+function spark(v) {
+  const a = v.spark; if (!a || a.length < 8) return '<div class="muted">Kursverlauf: keine Daten</div>';
+  const mn = Math.min(...a), mx = Math.max(...a), W = 320, H = 64;
+  const pts = a.map((y, i) => [i / (a.length - 1) * W, H - 6 - (y - mn) / (mx - mn || 1) * (H - 12)]);
+  const line = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
+  const up = a[a.length - 1] >= a[0], col = up ? "var(--ok)" : "var(--bad)";
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Kursverlauf 1 Jahr"><defs><linearGradient id="g${v.id}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${col}" stop-opacity=".35"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>
+  <path d="${line} L${W} ${H} L0 ${H}Z" fill="url(#g${v.id})"/><path d="${line}" fill="none" stroke="${col}" stroke-width="2.5" stroke-linejoin="round"/></svg>`;
+}
+const VT = { gilt: ["✓", "These gilt"], wackelt: ["!", "These wackelt"], widerlegt: ["✕", "These widerlegt"], unbekannt: ["?", "keine Daten"] };
+function stockTile(v) {
+  const [ic, tx] = VT[v.verdict];
+  return `<div class="tile"><div class="card tap ${v.verdict}" data-open="${esc(v.id)}">
+    <div class="row"><span class="chip info">${esc(v.gics || short(v.sector) || "Sektor: keine Daten")}</span>${v.depot ? '<span class="chip ok">Depot</span>' : ""}<span class="sp"></span>${fresh("Kurs", v.px_date, 2)}</div>
+    <div class="verdict"><div class="ring" style="--p:${v.score ?? 0}"><b>${v.score ?? "–"}</b></div>
+      <div><div class="badge"><span aria-hidden="true">${ic}</span>${tx}</div><div class="muted" style="margin-top:6px">Score von 100, ab 80 gilt die These</div></div></div>
+    <div><div class="big" style="font-size:26px">${esc(v.name)}</div><div class="muted">${esc(v.ticker)} · ${v.px_eur == null ? "Kurs: keine Daten" : "≈ " + nf(v.px_eur, 2) + " €"}</div></div>
+    <div class="m">${esc(v.reason)}</div>${mismatch(v)}
+    ${spark(v)}
+    <div class="facts">
+      <div class="fact"><small>zum Hoch</small><b>${pct(v.dd, 0)}</b></div>
+      <div class="fact"><small>Analysten</small><b class="${days(v.pot_asof) > 14 ? "stale" : ""}">${days(v.pot_asof) > 14 ? "⚠ " : ""}${pct(v.pot_pct, 0)}</b></div>
+      <div class="fact"><small>Ziel vom</small><b>${dm(v.pot_asof)}</b></div></div>
+    <div class="hint">Tippen für Details</div></div></div>`;
+}
+function mismatch(v) { const m = /(\d+)\s*% unter/.exec(v.reason || ""); if (!m || v.dd == null || Math.abs(+m[1] - Math.abs(v.dd)) <= 5) return "";
+  return `<div class="chip warn" style="white-space:normal">⚠ Text sagt ${m[1]} % unter dem Hoch, der Kurs zeigt ${pct(v.dd, 0)}: Text ist älter als der Kurs</div>`; }
+const skeleton = n => Array.from({ length: n }, () => '<div class="tile"><div class="skel"></div></div>').join("");
+const emptyState = (t, s) => `<div class="tile"><div class="card"><div class="state"><div class="ico">🔍</div><div class="m">${t}</div><div class="muted">${s}</div></div></div></div>`;
+const errorState = '<div class="tile"><div class="card" style="--tone:var(--bad)"><div class="state"><div class="ico">⚠️</div><div class="m">Daten konnten nicht geladen werden</div><div class="muted">Das liegt am Netz oder an der Datenbank, nicht an deinem Gerät. Gezeigt wird nichts Altes als frisch.</div><button class="chip bad" onclick="location.search=\'\'">Erneut versuchen</button></div></div></div>';
 
-  <p class="disclaimer">Recherche, keine Anlageberatung. Alle Angaben ohne Gewähr; vor einer Entscheidung die verlinkten Quellen prüfen. Kurscharts: TradingView.</p>
-</div>
+/* ---------- Bildschirme ---------- */
+function bars(rows, max) {
+  return rows.map(r => { const w = Math.min(Math.abs(r.m1) / max * 50, 50), neg = r.m1 < 0;
+    return `<div class="bar"><span>${esc(r.n)}</span><span class="tr"><span class="fl ${neg ? "neg" : ""}" style="${neg ? `right:50%;left:${50 - w}%` : `left:50%;right:${50 - w}%`}"></span></span><span>${pct(r.m1, 1)}</span></div>`; }).join("");
+}
+function klumpen(list) {
+  const total = list.length || 1, by = {};
+  list.forEach(v => { const k = short(v.sector) || "Ohne Sektor"; by[k] = (by[k] || 0) + 1; });
+  const ki = list.filter(v => /Halbleiter|KI|Chip|Speicher|Rechenzentr/i.test(v.sector || "")).length;
+  const rows = Object.entries(by).map(([n, c]) => ({ n, p: c / total * 100 })).sort((a, b) => b.p - a.p).slice(0, 4);
+  rows.unshift({ n: "Thema Chips/KI", p: ki / total * 100, thema: true });
+  return rows.map(r => `<div class="bar"><span>${esc(r.n)}</span><span class="tr"><span class="fl ${r.p > 40 ? "over" : ""}" style="left:0;right:${100 - r.p}%"></span></span><span class="${r.p > 40 ? "stale" : ""}">${nf(r.p, 0)} %</span></div>`).join("")
+    + `<div class="muted">Grenze 40 %. ${rows.some(r => r.p > 40) ? "⚠ Mindestens ein Bereich liegt darüber." : "Alles darunter."}</div>`;
+}
+function renderMarkt() {
+  if (STATE === "loading") return skeleton(3);
+  if (STATE === "error") return errorState;
+  const W = warnings(), nV = W.filter(x => x.k === "v").length, nB = W.filter(x => x.k === "b").length;
+  const lvl = nV >= 2 ? "v" : nV + nB >= 1 ? "b" : "c", txt = { v: "Vorsicht", b: "Beobachten", c: "In Ordnung" }[lvl], tone = { v: "bad", b: "warn", c: "ok" }[lvl];
+  const sec = DATA.lage.rows.filter(r => r.k === "sec" || r.k === "reg" || r.k === "asset").sort((a, b) => b.m1 - a.m1);
+  const top = sec.slice(0, 3), low = sec.slice(-4);
+  const src = "Yahoo Finance, Schlusskurse vom " + dm(DATA.lage.asof);
+  return `
+  <div class="tile"><div class="card" style="--tone:var(--${tone})">
+    <div class="row"><span class="chip">1 von 3 · Markt</span><span class="sp"></span>${freshT("Kurse", DATA.lage.fetched, 36)}</div>
+    <div class="big">Der Markt: ${txt}</div>
+    <div class="ring" style="--p:${lvl === "c" ? 100 : lvl === "b" ? 60 : 30};--c:var(--${tone});width:170px;height:170px;align-self:center"><b style="font-size:var(--fs-l)">${nV}V · ${nB}B</b></div>
+    <div class="m">${esc(W.find(x => x.k === "v" || x.k === "b")?.h || "Keine Warnung aktiv")}</div>
+    <div class="muted">V = Vorsicht, B = Beobachten. Ampel: zwei Vorsicht-Signale = rot, eines = gelb, keines = grün.</div>
+    <details><summary>Warum diese Farbe?</summary><p>Sechs feste Regeln auf Kursdaten (${esc(src)}). Die Regeln stehen unter jeder Warnung.</p></details>
+    <div class="facts">${["^GSPC","^NDX","^GDAXI"].map(k => R[k] ? `<div class="fact"><small>${esc(R[k].n)}</small><b>${pct(R[k].m1, 1)}</b><small>30 Tage</small></div>` : "").join("")}</div>
+    <div class="hint">Wischen für Warnungen ↓</div></div></div>
+  <div class="tile"><div class="card">
+    <div class="row"><span class="chip">1 von 3 · Frühwarnung</span><span class="sp"></span>${freshT("Stand", DATA.lage.fetched, 36)}</div>
+    <div class="m">Was heute zählt</div>
+    <div style="overflow:auto">${W.map(x => `<div class="alert ${x.k}"><div class="row"><span class="chip ${{ v: "bad", b: "warn", c: "ok", i: "info" }[x.k]}">${KIND[x.k]}</span><span class="muted">${esc(x.d)}</span></div>
+      <div class="h">${esc(x.h)}</div><div>${esc(x.t)}</div><details><summary>Warum?</summary><p>${esc(x.why)}</p><p class="muted">Quelle: ${esc(x.src)}</p></details></div>`).join("") || '<div class="muted">Keine Hinweise.</div>'}</div></div></div>
+  <div class="tile"><div class="card">
+    <div class="row"><span class="chip">1 von 3 · Geldfluss</span><span class="sp"></span>${freshT("Stand", DATA.lage.fetched, 36)}</div>
+    <div class="m">Wohin das Geld in 30 Tagen floss</div>
+    <div class="muted">Stärkste: ${top.map(r => esc(r.n)).join(", ")}. Schwächste: ${low.slice().reverse().map(r => esc(r.n)).join(", ")}.</div>
+    <div style="overflow:auto">${bars(sec.slice(0, 4).concat(sec.slice(-5)), 20)}</div>
+    <div class="muted">Fonds auf Branchen, Regionen und Anlageklassen (Näherung). Quelle: ${esc(src)}.</div></div></div>
+  <div class="tile"><div class="card">
+    <div class="row"><span class="chip">2 von 3 · Klumpen</span><span class="sp"></span><span class="chip">nach Anzahl</span></div>
+    <div class="m">Wie breit streuen deine Aktien?</div>
+    <div class="muted">Depot (${DATA.depot.length} Aktien)</div>${klumpen(DATA.depot)}
+    <div class="muted" style="margin-top:8px">Top 10 der Chancen</div>${klumpen(DATA.chancen)}</div></div>`;
+}
+function renderDepot(q) {
+  if (STATE === "loading") return skeleton(2);
+  const list = DATA.depot.filter(v => !q || (v.name + v.ticker).toLowerCase().includes(q));
+  const bad = DATA.depot.filter(v => v.verdict !== "gilt").length;
+  const head = `<div class="tile"><div class="card" style="--tone:var(--${bad ? "warn" : "ok"})">
+    <div class="row"><span class="chip">2 von 3 · Depot</span></div>
+    <div class="big">${bad} von ${DATA.depot.length}</div><div class="m">Aktien im Depot haben keine gültige These mehr oder wackeln</div>
+    <div>${DATA.depot.map(v => `<div class="row" style="margin:6px 0"><span class="lamp ${{ gilt: "gruen", wackelt: "gelb", widerlegt: "rot" }[v.verdict] || "unbekannt"}"></span><span style="flex:1">${esc(v.name)}</span><b>${v.score ?? "–"}</b></div>`).join("")}</div>
+    <div class="muted">Auf dem Handy nur Ticker und Urteil. Stückzahlen und Beträge bleiben auf deinem Rechner.</div></div></div>`;
+  return head + (list.length ? list.map(stockTile).join("") : emptyState("Nichts gefunden", "Kein Depot-Wert passt zur Suche."));
+}
+let chMode = "top";
+function renderChancen(q) {
+  if (STATE === "loading") return skeleton(3);
+  let list = chMode === "top" ? DATA.chancen : Object.values(DATA.sectors).flat().map(id => DATA.all[id]);
+  list = list.filter(v => !q || (v.name + v.ticker + (v.sector || "")).toLowerCase().includes(q));
+  const note = chMode === "top" && !q && DATA.chancen_note ? `<div class="tile"><div class="card"><div class="state"><div class="ico">⚖️</div><div class="m">${esc(DATA.chancen_note)}</div><div class="muted">Lieber weniger Treffer als ein Klumpen.</div></div></div></div>` : "";
+  return list.length ? list.map(stockTile).join("") + note : emptyState("Nichts gefunden", "Versuche einen anderen Namen oder Ticker.");
+}
+function renderVerlauf() {
+  const st = DATA.status, run = DATA.run;
+  const sline = st ? `Lauf ${esc(st.type)} gestartet ${dm(st.start.slice(0, 10))} ${esc(st.start.slice(11))} Uhr. Status: ${({ laeuft: "läuft noch oder wurde nicht beendet", gelb: "beendet, mit Hinweisen (gelb)", gruen: "sauber beendet (grün)", rot: "mit Fehlern beendet (rot)" })[st.state] || esc(st.state)}.` : "Lauf-Status: keine Daten.";
+  return `<div style="padding:4px 0"><div class="li" style="border-left:5px solid var(--warn)"><div class="m">Letzter Deep-Lauf</div><div>${sline}</div><div class="muted">Letzter gespeicherter Lauf: ${esc(run.id)} · ${esc(run.summary || "")}</div></div>
+   <div class="sec" style="margin-left:2px">Entscheidungen</div>
+   ${DATA.hist.map(x => `<div class="li"><div class="row"><span class="chip ${x.t === "neu" ? "ok" : x.t === "verletzt" ? "bad" : "info"}">${x.t === "neu" ? "aufgenommen" : x.t === "verletzt" ? "These gebrochen" : "beendet"}</span><span class="muted">${dm(x.d)}</span></div><div class="m">${esc(x.n)}</div><div class="muted">${esc(x.x)}</div></div>`).join("")}</div>`;
+}
+function renderMehr() {
+  const th = localStorage.getItem("theme") || "system";
+  return `<div style="padding:4px 0">
+  <div class="li"><div class="m">Darstellung</div><div class="seg" style="margin:8px 0 0">${["system", "light", "dark"].map(t => `<button data-theme-set="${t}" class="${th === t ? "on" : ""}">${{ system: "Automatisch", light: "Hell", dark: "Dunkel" }[t]}</button>`).join("")}</div></div>
+  <div class="li"><div class="m">Regeln</div><div>These gilt ab Score 80, wackelt von 70 bis 79, ist widerlegt darunter oder bei gebrochenem Stop-Kriterium.</div><div>Einstiegszone: bis 70 % unter dem Hoch. Ab 40 % zählt sie nur mit geprüfter Ursache.</div></div>
+  <div class="li"><div class="m">Datenstand</div><div>Kurse: ${dm(DATA.lage.asof)} · Lauf: ${esc(DATA.run.id)}</div>${DATA.status ? `<div>Letzter Deep-Lauf: ${({ laeuft: "nicht beendet", gelb: "mit Hinweisen", gruen: "sauber", rot: "mit Fehlern" })[DATA.status.state] || esc(DATA.status.state)}</div>` : ""}</div>
+  <div class="li" style="border-left:5px solid var(--warn)"><div class="m">Hinweis</div><div>Das ist Recherche nach meinen eigenen Regeln, keine Anlageberatung.</div></div></div>`;
+}
 
-<script id="radar-prices" type="application/json">null</script>
-<script id="radar-universe" type="application/json">null</script>
-<script id="radar-markt" type="application/json">null</script>
-<script id="radar-plain" type="application/json">null</script>
-<script id="radar-crash" type="application/json">null</script>
-<script id="radar-faktor" type="application/json">null</script>
-<script id="radar-trader" type="application/json">null</script>
-<script id="radar-logos" type="application/json">null</script>
-<script id="radar-backtest" type="application/json">null</script>
-<script id="radar-lage" type="application/json">null</script>
-<script id="radar-status" type="application/json">null</script>
-<script id="radar-depot" type="application/json">
-null
+/* ---------- Detail ---------- */
+const sheet = $("#sheet"); let cur = null, tabI = 0; const DT = ["Urteil", "Zahlen", "Rückgang", "Verlauf"];
+function dnum(v) { /* Erklärsätze aus Zahlen, mit Maßstab */
+  const r = v.rev3; if (!r || r.length < 3 || r[0].v == null || r[1].v == null) return "Umsatz: keine Daten.";
+  const g = (r[1].v / r[0].v - 1) * 100, g2 = r[2].v != null ? (r[2].v / r[1].v - 1) * 100 : null;
+  return `Umsatz ≈ ${nf(r[1].v, 1)} Mrd. € im letzten Geschäftsjahr, ${pct(g, 0)} zum Jahr davor. ${g > 15 ? "Das ist sehr stark (Markt: etwa 4 bis 5 %)." : g > 8 ? "Das ist gut." : g > 0 ? "Das ist mäßig." : "Das ist schwach."}${g2 != null ? ` Erwartet für das laufende Jahr: ${pct(g2, 0)} (Schätzung der Analysten).` : ""}`;
+}
+function openDetail(id) {
+  cur = DATA.all[id]; tabI = 0; const v = cur, [ic, tx] = VT[v.verdict];
+  const p = v.parts.find(x => x.n === "Thesenrisiko"), x = Math.max(0, Math.min(100, v.pot_pct ?? 0)), y = p ? p.p / p.max * 100 : null;
+  const lo = v.pot_lo, hi = v.pot_hi;
+  sheet.className = "open " + v.verdict;
+  sheet.innerHTML = `<div class="grab" aria-hidden="true"></div>
+  <div class="dh"><div class="row"><div class="badge" style="padding:4px 10px"><span>${ic}</span>${tx}</div><span class="sp"></span>${fresh("Kurs", v.px_date, 2)}</div>
+    <div class="m" style="margin-top:6px">${esc(v.name)} <span class="muted">· ${esc(v.sector || "")}</span></div></div>
+  <div class="dtabs">${DT.map((t, i) => `<button data-dt="${i}" class="${i ? "" : "on"}">${t}</button>`).join("")}</div>
+  <div class="panes">
+   <div class="pane" data-p="0"><div class="m">${esc(v.reason)}</div>
+     ${mismatch(v)}<details><summary>Zahlen hinter dem Urteil</summary><p>${esc(v.why[0] || "keine Daten")}</p></details>
+     <div class="sec">Das stützt sie / das gefährdet sie</div>
+     <div class="two"><div><h4 style="color:var(--ok)">Stützt</h4>${v.pillars.filter(p => p.l === "gruen").map(p => `<div><span class="lamp gruen"></span>${esc(p.n)}</div>`).join("") || "keine Daten"}</div>
+       <div><h4 style="color:var(--bad)">Gefährdet</h4><div>${esc(v.counter || "keine Daten")}</div></div></div>
+     <div class="sec">Chance und Risiko</div>
+     <div class="matrix" role="img" aria-label="Matrix aus Kurspotenzial und Thesen-Sicherheit"><i style="top:0;left:0">Sicher, wenig Chance</i><i style="top:0;right:0">Sicher, viel Chance</i><i style="bottom:0;left:0">Riskant</i><i style="bottom:0;right:0">Riskant, viel Chance</i>
+       ${y == null || v.pot_pct == null ? '<i style="top:50%;left:30%">keine Daten</i>' : `<span class="pt" style="left:${x}%;bottom:${y}%"></span>`}</div>
+     <div class="muted">Rechts = Analysten-Potenzial, oben = wie sicher die These laut Score ist.</div>
+     <div class="sec">Abhängigkeiten (Zölle, Zinsen, Wahlen, Regulierung)</div><div class="muted">keine Daten: Dieses Feld gibt es noch nicht. Der Lauf soll es künftig je Aktie füllen.</div>
+     <div class="sec">Das widerlegt die These</div><div>${esc(v.stop || "keine Daten")}</div></div>
+   <div class="pane r" data-p="1"><div class="m">${esc(dnum(v))}</div>
+     <div class="cols">${(v.rev3 || []).map(r => { const mx = Math.max(...v.rev3.map(z => z.v || 0)) || 1; return `<div class="col"><b>${r.v == null ? "–" : nf(r.v, 1)}</b><div class="${r.est ? "est" : ""}" style="height:${r.v == null ? 0 : r.v / mx * 80}%"></div><span class="muted">${esc(r.y)}${r.est ? " (erw.)" : ""}</span></div>`; }).join("") || '<div class="muted">keine Daten</div>'}</div>
+     <div class="muted">Umsatz in Mrd. €, schraffiert = Erwartung der Analysten.</div>
+     <div class="sec">Analysten-Ziel</div><div>${v.pot_pct == null ? "keine Daten" : `Im Schnitt ${pct(v.pot_pct, 0)} über dem Kurs (${v.pot_n} Analysten), von ${pct(lo, 0)} bis ${pct(hi, 0)}. Stand ${dm(v.pot_asof)}`}</div>
+     ${days(v.pot_asof) > 14 ? '<div class="chip warn" style="margin-top:6px">⚠ veraltet, älter als 14 Tage</div>' : ""}
+     <div class="sec">Säulen der These</div>${v.pillars.map(p => `<div style="margin:6px 0"><span class="lamp ${esc(p.l)}"></span><b>${esc(p.n)}</b>: ${esc(p.c)} ${p.tr ? `<span class="muted">(${esc(p.tr)})</span>` : ""}</div>`).join("") || '<div class="muted">keine Daten</div>'}</div>
+   <div class="pane r" data-p="2"><div class="sec" style="margin-top:4px">Warum der Kurs gefallen ist</div>${v.drop ? `<div class="li"><div class="row"><span class="chip warn">${esc(v.drop.kind)}</span><span class="muted">${dm(v.drop.date)} · ${esc(v.drop.move || "")}</span></div><div>${esc(v.drop.cause)}</div></div>` : '<div class="muted">keine Daten</div>'}
+     <div class="sec">Score in Teilen</div>${v.parts.map(p => `<div class="bar"><span>${esc(p.n)}</span><span class="tr"><span class="fl" style="left:0;right:${100 - p.p / p.max * 100}%"></span></span><span>${p.p}/${p.max}</span></div>`).join("") || '<div class="muted">keine Daten</div>'}
+     <div class="muted">Der Score ist ein grober Sortierhelfer, nicht rückwirkend getestet.</div></div>
+   <div class="pane r" data-p="3"><div class="sec" style="margin-top:4px">Warum aufgenommen, was seither war</div>${v.log.map(l => `<div class="li"><div class="row"><span class="chip info">${esc(l.t)}</span><span class="muted">${dm(l.d)}</span></div><div>${esc(l.x)}</div></div>`).join("") || '<div class="muted">keine Daten</div>'}</div>
+  </div>`;
+  sheet.querySelectorAll(".pane")[0].scrollTop = 0;
+}
+function goTab(i) {
+  if (i < 0 || i > 3) return; tabI = i;
+  sheet.querySelectorAll(".pane").forEach((p, k) => { p.classList.toggle("l", k < i); p.classList.toggle("r", k > i); });
+  sheet.querySelectorAll("[data-dt]").forEach((b, k) => b.classList.toggle("on", k === i));
+}
+function closeDetail() { sheet.classList.remove("open"); }
+/* Wischen: links/rechts = Tab, nach oben/unten = schließen (nur am Rand des Inhalts) */
+let sx, sy;
+const start = (x, y) => { sx = x; sy = y; }, end = (x, y) => {
+  if (!sheet.classList.contains("open") || sx == null) return; const dx = x - sx, dy = y - sy; sx = null;
+  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.3) goTab(tabI + (dx < 0 ? 1 : -1));
+  else if (Math.abs(dy) > 90 && Math.abs(dy) > Math.abs(dx) * 1.3) {
+    const p = sheet.querySelectorAll(".pane")[tabI], top = p.scrollTop <= 0, bot = p.scrollTop + p.clientHeight >= p.scrollHeight - 2;
+    if ((dy > 0 && top) || (dy < 0 && bot)) closeDetail();
+  }
+};
+sheet.addEventListener("touchstart", e => start(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+sheet.addEventListener("touchend", e => end(e.changedTouches[0].clientX, e.changedTouches[0].clientY));
+sheet.addEventListener("mousedown", e => start(e.clientX, e.clientY));
+sheet.addEventListener("mouseup", e => end(e.clientX, e.clientY));
+sheet.addEventListener("click", e => { const b = e.target.closest("[data-dt]"); if (b) goTab(+b.dataset.dt); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeDetail(); if (e.key === "ArrowRight") goTab(tabI + 1); if (e.key === "ArrowLeft") goTab(tabI - 1); });
+
+/* ---------- Shell ---------- */
+let tab = "markt", q = "";
+const main = $("#main");
+function draw() {
+  const hd = $("#hd");
+  const searchBox = `<label class="search"><span aria-hidden="true">⌕</span><input id="q" type="search" placeholder="Suchen" value="${esc(q)}" aria-label="Suchen"></label>`;
+  hd.innerHTML = `<span class="brand">st<em>0</em>cks</span><span class="sp"></span>` + (tab === "depot" || tab === "chancen" ? searchBox : `<span class="title">${esc(TABS.find(t => t[0] === tab)[1])}</span>`);
+  const seg = tab === "chancen" ? `<div class="seg"><button data-mode="top" class="${chMode === "top" ? "on" : ""}">Top 10</button><button data-mode="sek" class="${chMode === "sek" ? "on" : ""}">Nach Sektoren</button></div>` : "";
+  const body = { markt: renderMarkt, depot: () => renderDepot(q), chancen: () => renderChancen(q), verlauf: renderVerlauf, mehr: renderMehr }[tab]();
+  main.innerHTML = `${seg}<div class="screen on ${tab === "verlauf" || tab === "mehr" ? "list" : ""}" style="${seg ? "top:52px" : ""}" id="scr">${body}</div>`;
+  $("#nav").innerHTML = TABS.map(([k, n]) => `<button data-tab="${k}" class="${k === tab ? "on" : ""}" aria-label="${n}">${IC[k]}<span>${n}</span>${k === "depot" && DATA.depot.some(v => v.verdict === "widerlegt") ? '<i class="dot" title="Eine Depot-These ist widerlegt"></i>' : ""}</button>`).join("");
+  const qi = $("#q"); if (qi) { qi.oninput = e => { q = e.target.value.trim().toLowerCase(); const c = main.querySelector("#scr"); c.innerHTML = tab === "depot" ? renderDepot(q) : renderChancen(q); }; }
+}
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-tab]"); if (t) { tab = t.dataset.tab; q = ""; draw(); return; }
+  const m = e.target.closest("[data-mode]"); if (m) { chMode = m.dataset.mode; draw(); return; }
+  const o = e.target.closest("[data-open]"); if (o) { openDetail(o.dataset.open); return; }
+  const th = e.target.closest("[data-theme-set]"); if (th) { const v = th.dataset.themeSet; try { localStorage.setItem("theme", v); } catch (_) {} applyTheme(); draw(); }
+});
+function applyTheme() { let v = "system"; try { v = localStorage.getItem("theme") || "system"; } catch (_) {} const r = document.documentElement; v === "system" ? r.removeAttribute("data-theme") : r.setAttribute("data-theme", v); }
+const off = () => { $("#off").style.display = navigator.onLine ? "none" : "block"; };
+addEventListener("online", off); addEventListener("offline", off);
+/* ---------- Start: Daten laden (mit Zwischenspeicher fuer Offline) ---------- */
+function loadData() {
+  return fetch("lean-data.json?t=" + Date.now(), { cache: "no-store" }).then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
+    .then(txt => { try { localStorage.setItem("lean-data", txt); } catch (_) {} return { d: JSON.parse(txt), cached: false }; })
+    .catch(err => { let c = null; try { c = localStorage.getItem("lean-data"); } catch (_) {} if (c) return { d: JSON.parse(c), cached: true }; throw err; });
+}
+applyTheme(); off();
+main.innerHTML = '<div class="screen on">' + skeleton(2) + '</div>'; $("#nav").innerHTML = ""; $("#hd").innerHTML = '<span class="brand">st<em>0</em>cks</span>';
+loadData().then(({ d, cached }) => {
+  DATA = d; R = Object.fromEntries(DATA.lage.rows.map(r => [r.s, r]));
+  if (cached) { $("#off").textContent = "Keine Verbindung. Gezeigt wird der Stand vom " + dm(DATA.generated.slice(0, 10)) + " " + DATA.generated.slice(11) + " Uhr."; $("#off").style.display = "block"; }
+  draw();
+  const P = new URLSearchParams(location.search);
+  if (P.get("tab")) { tab = P.get("tab"); if (P.get("mode")) chMode = P.get("mode"); draw(); }
+  const tl = +P.get("tile") || 0; if (tl) { const s = $("#scr"); s.style.scrollBehavior = "auto"; s.scrollTop = tl * s.clientHeight; }
+  if (P.get("open") && DATA.all[P.get("open")]) { openDetail(P.get("open")); goTab(+P.get("dt") || 0); }
+}).catch(e => { main.innerHTML = '<div class="screen on">' + errorState + '</div>'; });
 </script>
-<script id="radar-data" type="application/json">null</script>
-
-
-
-
-<div id="st-splash" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;background:var(--bg);color:var(--muted);font:15px system-ui;z-index:9999"><img src="icon.png" width="72" height="72" alt="" style="border-radius:16px"><span id="st-msg">Lade st0cks …</span></div>
-<script src="config.js"></script>
-<script src="loader.js?v=b1613d4b"></script>
 </body>
 </html>
