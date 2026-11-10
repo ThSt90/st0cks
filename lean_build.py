@@ -101,8 +101,17 @@ def info(t):
     if opt:
         chancen.append("Optimistisch: " + str(opt.get("price", "")) + (" – " + first_sentence(opt.get("assumption", ""), 160) if opt.get("assumption") else ""))
     risiken = ([first_sentence(t["counter"], 220)] if t.get("counter") else []) + (["Widerlegt, wenn: " + first_sentence(t["stop"], 200)] if t.get("stop") else [])
+    if gm:
+        gm = gm.replace(" (Gegenargument der These)", "").replace("habe ich im Lauf nicht belegt", "sind nicht belegt")
     was = pl.get("was") or t.get("about")
     scen = [{"n": x.get("name"), "a": first_sentence(x.get("assumption", ""), 170), "p": eur_range(x.get("price"), (t.get("last") or {}).get("price"), t.get("currency"))} for x in deep.get("scenarios", [])[:3]]
+    _pot = t.get("potential") or {}; _px = (t.get("last") or {}).get("price")
+    if _pot.get("high") and _px:
+        _hi = (_pot["high"] / _px - 1) * 100
+        for sc_ in scen:
+            m_ = re.search(r"\+(\d+)\s*%", str(sc_.get("p") or ""))
+            if m_ and int(m_.group(1)) > _hi + 5:
+                sc_["p"] += " · über dem höchsten Analystenziel (+%d %%)" % round(_hi)
     return {"scen": scen, "scen_note": deep.get("scenario_note"), "was": was, "was1": first_sentence(was, 150) if was else None, "gm": gm, "kurs": pl.get("kurs"), "chancen": chancen, "risiken": risiken}
 
 def thesis_view(t):
@@ -119,6 +128,14 @@ def thesis_view(t):
         r = est["rev"][3:6]; ye = est.get("years", [])[3:6]
         rev3 = [{"y": y, "v": round(eur(v, re.sub(r".*?([A-Z]{3})\s*$", r"\1", est.get("unit", "Mio. EUR"))) / 1000, 1) if v is not None and eur(v, re.sub(r".*?([A-Z]{3})\s*$", r"\1", est.get("unit", "Mio. EUR"))) is not None else None,
                  "est": i == 2} for i, (y, v) in enumerate(zip(ye, r))]
+    fund = {}
+    try:
+        if est.get("fpe"): fund["fpe"] = round(est["fpe"], 1)
+        if est.get("op") and est.get("rev") and est["rev"][5] and est["op"][5] is not None: fund["om"] = round(est["op"][5] / est["rev"][5] * 100, 1)
+        if est.get("rev") and est["rev"][5] and est["rev"][4]: fund["g"] = round((est["rev"][5] / est["rev"][4] - 1) * 100, 1)
+        if est.get("fcf_cur") is not None and est.get("rev") and est["rev"][5]: fund["fcf"] = round(est["fcf_cur"] / est["rev"][5] * 100, 1)
+        fund["asof"] = est.get("as_of")
+    except Exception: pass
     pts = (prices.get(t["id"]) or {}).get("pts") or []
     spark = [p[1] for p in pts[-52:]]
     parts = [{"n": p["name"], "max": p["max"], "p": p["points"]} for p in (t.get("score") or {}).get("parts", [])]
@@ -132,7 +149,7 @@ def thesis_view(t):
         "dd": dd, "zone": zone(dd), "pot_pct": potp, "pot_asof": pot.get("as_of"), "pot_n": pot.get("analysts"),
         "pot_lo": None if not pot.get("low") or not px else round((pot["low"]/px-1)*100),
         "pot_hi": None if not pot.get("high") or not px else round((pot["high"]/px-1)*100),
-        "rev3": rev3, "spark": spark,
+        "rev3": rev3, "spark": spark, "fund": fund,
         "why": (t.get("why") or [])[:3], "counter": t.get("counter"), "stop": t.get("stop"),
         "pillars": [{"n": p["name"], "c": p.get("current"), "l": p.get("light"), "tr": p.get("trend")} for p in (t.get("pillars") or [])],
         "parts": parts, "drop": drops[0] if drops else None, "log": log,

@@ -84,10 +84,11 @@ main{flex:1;min-height:0;position:relative}
 .unbekannt{--tone:var(--info);--c:var(--info)} .unbekannt .badge{background:var(--info-soft);color:var(--info)}
 .facts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:auto}
 .fact{background:color-mix(in srgb,var(--surface2) 70%,transparent);border-radius:16px;padding:8px 10px}
-.fact small{display:block;color:var(--muted);font-size:var(--fs-s)}
+.fact small{display:block;color:var(--muted);font-size:var(--fs-s);white-space:nowrap}
+.facts+.facts{margin-top:0}.facts+.facts .fact{padding:5px 8px}
 .fact b{font-size:var(--fs-m)}
 .hint{text-align:center;color:var(--muted);font-size:var(--fs-s);margin-top:2px}
-.spark{width:100%;flex:1;min-height:0}
+.spark{width:100%;flex:1;min-height:36px}
 .stale{color:var(--warn)}
 /* Balken */
 .bar{display:grid;grid-template-columns:110px 1fr 56px;gap:8px;align-items:center;margin:6px 0}
@@ -305,7 +306,7 @@ function potBand(v) {
 }
 function stockTile(v) {
   const [ic, tx] = VT[v.verdict], A = DATA.all[v.id], kk = Object.assign({ info: A.info }, A.k), since = v.entry_price && kk.last && kk.last.price ? (kk.last.price / v.entry_price - 1) * 100 : null;
-  const z = v.catalyst && v.catalyst.date ? dm(v.catalyst.date) : "unbekannt";
+  const z = v.catalyst && v.catalyst.date ? dm(v.catalyst.date) : "offen", F = v.fund || {}, fx = (x, u) => x == null ? "–" : nf(x, 1) + u;
   return `<div class="tile"><div class="card tap ${v.verdict}" data-open="${esc(v.id)}">
     <div class="row"><span class="chip info">${esc(v.gics || short(v.sector) || "Sektor: keine Daten")}</span>${v.depot ? '<span class="chip ok">Depot</span>' : ""}<span class="sp"></span>${fresh("Kurs", v.px_date, 2)}</div>
     <div class="verdict" style="align-items:flex-start;gap:12px"><div class="ring" style="--p:${v.score ?? 0};width:68px;height:68px;flex:none"><b>${v.score ?? "–"}</b></div>
@@ -319,7 +320,11 @@ function stockTile(v) {
     <div class="facts">
       <div class="fact"><small>zum Hoch</small><b>${pct(v.dd, 0)}</b></div>
       <div class="fact"><small>Regeln</small><b>${rules(Object.assign({}, v, { k: kk })).ok} von ${rules(Object.assign({}, v, { k: kk })).total}</b></div>
-      <div class="fact"><small>Zahlen</small><b>${z}</b></div></div>
+      <div class="fact"><small>Zahlen am</small><b>${z}</b></div></div>
+    <div class="facts" title="Erwartung der Analysten für das laufende Geschäftsjahr${F.asof ? ", Stand " + dm(F.asof) : ""}">
+      <div class="fact"><small>KGV erwartet</small><b>${fx(F.fpe, "")}</b></div>
+      <div class="fact"><small>Betriebsmarge</small><b>${fx(F.om, " %")}</b></div>
+      <div class="fact"><small>Cashflow-M.</small><b>${fx(F.fcf, " %")}</b></div></div>
     </div></div>`;
 }
 function mismatch(v) { const m = /(\d+)\s*% unter/.exec(v.reason || ""); if (!m || v.dd == null || Math.abs(+m[1] - Math.abs(v.dd)) <= 5) return "";
@@ -354,9 +359,10 @@ function renderMarkt() {
   <div class="tile"><div class="card" style="--tone:var(--${tone})">
     <div class="row"><span class="chip">1 von 3 · Markt</span><span class="sp"></span>${freshT("Kurse", DATA.lage.fetched, 36)}</div>
     <div class="big">Der Markt: ${txt}</div>
-    <div class="ring" style="--p:${lvl === "c" ? 100 : lvl === "b" ? 60 : 30};--c:var(--${tone});width:170px;height:170px;align-self:center"><b style="font-size:var(--fs-l)">${nV}V · ${nB}B</b></div>
-    <div class="m">${esc(W.find(x => x.k === "v" || x.k === "b")?.h || "Keine Warnung aktiv")}</div>
-    <div class="muted">V = Vorsicht, B = Beobachten. Ampel: zwei Vorsicht-Signale = rot, eines = gelb, keines = grün.</div>
+    <div class="ring" style="--p:${lvl === "c" ? 100 : lvl === "b" ? 60 : 30};--c:var(--${tone});width:170px;height:170px;align-self:center"><b style="font-size:var(--fs-l);text-align:center;line-height:1.2">${nV + nB}<br><small style="font-size:var(--fs-s,13px);font-weight:500">${nV + nB === 1 ? "Hinweis" : "Hinweise"}</small></b></div>
+    ${W.some(x => x.k === "v" || x.k === "b") ? "" : '<div class="m">Keine Warnung aktiv</div>'}
+    ${W.filter(x => x.k === "v" || x.k === "b").slice(0, 4).map(x => `<div class="row" style="gap:8px;align-items:flex-start"><span class="chip ${x.k === "v" ? "bad" : "warn"}">${x.k === "v" ? "Vorsicht" : "Beobachten"}</span><span style="flex:1">${esc(x.h)}</span></div>`).join("")}
+    <div class="muted">Rot: zwei oder mehr Vorsicht-Hinweise. Gelb: eines. Grün: keines. Heute: ${nV} Vorsicht, ${nB} Beobachten.</div>
     <details><summary>Warum diese Farbe?</summary><p>Sechs feste Regeln auf Kursdaten (${esc(src)}). Die Regeln stehen unter jeder Warnung.</p></details>
     <div class="facts">${["^GSPC","^NDX","^GDAXI"].map(k => R[k] ? `<div class="fact"><small>${esc(R[k].n)}</small><b>${pct(R[k].m1, 1)}</b><small>30 Tage</small></div>` : "").join("")}</div>
     <div class="hint">Wischen für Warnungen ↓</div></div></div>
