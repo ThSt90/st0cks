@@ -94,6 +94,8 @@ def thesis_view(t):
 th = [t for t in h["theses"] if t.get("status") != "geschlossen"]
 views = [thesis_view(t) for t in th]
 views.sort(key=lambda v: -(v["score"] or 0))
+# Eingaben fuer die Kennzahlen-Karten (docs/kpi.js); nur im Detail (all), nicht doppelt in den Listen
+kin = {t["id"]: {k: t.get(k) for k in ("growth", "est", "kpi_notes", "potential", "last", "currency")} for t in th}
 depot = [v for v in views if v["depot"]]
 KI = re.compile(r"Halbleiter|KI|Chip|Speicher|Rechenzentr", re.I)
 def key(v): return v.get("gics") or "Ohne Sektor"
@@ -126,7 +128,7 @@ run = h["runs"][-1]
 # Zeitstempel in UTC mit Z (lage.json speichert UTC); die App rechnet auf Berliner Zeit um
 data = {
     "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "today": TODAY, "lage": {"asof": lage["asof"], "fetched": lage["fetched"] + ("" if lage["fetched"].endswith("Z") else ":00Z"), "rows": lage["rows"]},
-    "depot": depot, "chancen": chancen, "chancen_note": chancen_note, "all": {v["id"]: v for v in views}, "sectors": sectors,
+    "depot": depot, "chancen": chancen, "chancen_note": chancen_note, "all": {v["id"]: dict(v, k=kin[v["id"]]) for v in views}, "sectors": sectors,
     "hist": hist[:14], "run": {"id": run.get("id") or run.get("date"), "summary": first_sentence(run.get("summary"), 160), "type": run.get("type")},
     "status": status,
 }

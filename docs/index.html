@@ -141,6 +141,28 @@ nav .dot{position:absolute;top:4px;right:calc(50% - 20px);width:10px;height:10px
 .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px;height:100%}
 .col div{width:100%;border-radius:10px 10px 4px 4px;background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 50%,var(--accent2)))}
 .col div.est{background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--accent2) 75%,transparent) 0 6px,color-mix(in srgb,var(--accent2) 35%,transparent) 6px 12px)}
+
+/* Kennzahlen-Karten */
+.kc{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--rtc,var(--info));border-radius:18px;margin:0 0 10px}
+.kc summary{display:block;color:var(--text);list-style:none;cursor:pointer;padding:10px 12px;min-height:44px}
+.kc summary::-webkit-details-marker{display:none}
+.kc .top{display:flex;align-items:center;gap:8px}
+.kc .top b{flex:1}
+.kc .val{display:flex;align-items:center;gap:8px;margin-top:2px}
+.kc .val b{font-size:var(--fs-m);white-space:nowrap}
+.kc .val .muted{flex:1}
+.kc .spk{width:84px;height:28px;margin-left:auto;stroke:var(--rtc,var(--info));fill:none;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+.kc .body{padding:0 12px 12px}
+.kc.top{--rtc:var(--ok)} .kc.good{--rtc:color-mix(in srgb,var(--ok) 70%,var(--info))} .kc.mid{--rtc:var(--warn)} .kc.low{--rtc:var(--bad)}
+.rtc{white-space:nowrap;border-radius:99px;padding:2px 10px;font-weight:700;background:color-mix(in srgb,var(--rtc,var(--info)) 20%,transparent);color:var(--text)}
+.arr{font-weight:700} .arr.up,.arr.up2{color:var(--ok)} .arr.down,.arr.down2{color:var(--bad)}
+.kh{display:flex;gap:6px;margin:8px 0}
+.kh>div{flex:1;background:var(--surface2);border-radius:12px;padding:6px 8px;min-width:0}
+.kh i{display:block;font-style:normal;color:var(--muted)} .kh b{display:block}
+.kh u{text-decoration:none;font-weight:700} .kh u.up{color:var(--ok)} .kh u.down{color:var(--bad)}
+.kh .est{background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--accent2) 22%,transparent) 0 6px,transparent 6px 12px),var(--surface2)}
+.kn{border-radius:12px;padding:8px 10px;margin-top:8px;background:var(--warn-soft);color:var(--text)}
+.kn.einmal,.kn.kurzfristig,.kn.strukturell{background:var(--info-soft)} .kn.risiko{background:var(--bad-soft)}
 /* Zustände */
 .skel{border-radius:var(--r);height:100%;background:linear-gradient(100deg,var(--surface) 30%,var(--surface2) 50%,var(--surface) 70%) 0 0/200% 100%;animation:sh 1.2s linear infinite}
 @keyframes sh{to{background-position:-200% 0}}
@@ -159,6 +181,7 @@ nav .dot{position:absolute;top:4px;right:calc(50% - 20px);width:10px;height:10px
   <nav id="nav"></nav>
   <section id="sheet" aria-modal="true" role="dialog"></section>
 </div>
+<script src="kpi.js"></script>
 <script>
 let DATA = null;
 const TODAY = (() => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); })();
@@ -333,6 +356,38 @@ function dnum(v) { /* Erklärsätze aus Zahlen, mit Maßstab */
   const g = (r[1].v / r[0].v - 1) * 100, g2 = r[2].v != null ? (r[2].v / r[1].v - 1) * 100 : null;
   return `Umsatz ≈ ${nf(r[1].v, 1)} Mrd. € im letzten Geschäftsjahr, ${pct(g, 0)} zum Jahr davor. ${g > 15 ? "Das ist sehr stark (Markt: etwa 4 bis 5 %)." : g > 8 ? "Das ist gut." : g > 0 ? "Das ist mäßig." : "Das ist schwach."}${g2 != null ? ` Erwartet für das laufende Jahr: ${pct(g2, 0)} (Schätzung der Analysten).` : ""}`;
 }
+
+/* ---------- Kennzahlen (Auf einen Blick) ---------- */
+const NOTE_LAB = { einmal: "Einmaleffekt", kurzfristig: "wahrscheinlich kurzfristig", beobachten: "beobachten", risiko: "echtes Risiko", strukturell: "branchentypisch" };
+function kspark(vals) {
+  const v = (vals || []).map(x => (typeof x === "number" && isFinite(x) ? x : null)), pts = v.map((x, i) => x == null ? null : [i, x]).filter(Boolean);
+  if (pts.length < 2) return "";
+  const W = 84, H = 28, mn = Math.min(...pts.map(p => p[1])), mx = Math.max(...pts.map(p => p[1])), rg = (mx - mn) || 1, n = v.length;
+  const X = i => 3 + (W - 6) * i / Math.max(1, n - 1), Y = x => 3 + (H - 6) * (1 - (x - mn) / rg);
+  return `<svg class="spk" viewBox="0 0 ${W} ${H}" role="img" aria-label="Verlauf"><path d="${pts.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + " " + Y(p[1]).toFixed(1)).join(" ")}"/></svg>`;
+}
+function kpiCard(k) {
+  const rt = k.rt || "info", lab = k.lab || KPI.RT[rt], dir = k.dir && k.dir !== "na" ? k.dir : null;
+  const note = k.note ? `<div class="kn ${esc(k.note.v)}"><b>Warum? ${esc(NOTE_LAB[k.note.v] || "")}</b> ${esc(k.note.t)}</div>`
+    : rt === "low" ? '<div class="kn"><b>Warum so schwach?</b> Die Ursache liegt noch nicht vor. Der nächste Lauf ergänzt sie.</div>' : "";
+  const hist = k.h && k.h.length ? `<div class="muted">${esc(k.hl || "")}</div><div class="kh">${k.h.map(c => `<div class="${c.est ? "est" : ""}"><i>${esc(c.y)}</i><b>${esc(c.v)}</b>${c.g ? `<u class="${esc(c.c)}">${esc(c.g)}</u>` : ""}</div>`).join("")}</div>` : "";
+  return `<details class="kc ${rt}"><summary><div class="top"><b>${esc(k.title)}</b><span class="rtc">${esc(lab)}</span></div>
+    <div class="val"><b>${esc(k.val)}</b>${dir ? `<span class="arr ${dir}" title="${esc(KPI.DIRTXT[dir])}">${KPI.ARROW[dir]}</span>` : ""}${kspark(k.sp)}</div>
+    <div class="muted">${esc(k.sub || "")}</div></summary><div class="body"><div>${esc(k.text)}</div>${hist}${note}</div></details>`;
+}
+function kpiPane(v) {
+  let ks = null; try { ks = KPI.data(Object.assign({ id: v.id }, v.k || {})); } catch (_) { ks = null; }
+  if (!ks || !ks.length) return '<div class="m">Kennzahlen: keine Daten</div><div class="muted">Für diese Aktie liegen keine Umsatz- und Gewinnreihen vor.</div>';
+  const ord = { top: 0, good: 1, mid: 2, low: 3 }, by = (a, b) => (ord[a.rt] ?? 4) - (ord[b.rt] ?? 4);
+  const pros = ks.filter(k => k.pro && (k.rt === "top" || k.rt === "good")).sort(by).slice(0, 3), cons = ks.filter(k => k.con && (k.rt === "low" || (k.rt === "mid" && k.id === "pe"))).slice(0, 3);
+  const li = (a, c) => a.length ? a.map(k => `<div style="margin:4px 0">${esc(c === "p" ? k.pro : k.con)}</div>`).join("") : '<div class="muted">Nichts Auffälliges.</div>';
+  const stale = days(v.pot_asof) > 14 ? '<div class="chip warn" style="margin-bottom:8px">⚠ Kursziele älter als 14 Tage</div>' : "";
+  return `<div class="two"><div><h4 style="color:var(--ok)">Spricht dafür</h4>${li(pros, "p")}</div><div><h4 style="color:var(--bad)">Spricht dagegen</h4>${li(cons, "c")}</div></div>
+    <div class="sec">Auf einen Blick</div>${stale}<div class="muted" style="margin-bottom:8px">Stufe: sehr gut, gut, mittel, schwach. Pfeil: Tempo wird besser (▲) oder schlechter (▼). Antippen für die Erklärung. Faustregeln, keine Anlageberatung.</div>
+    ${ks.map(kpiCard).join("")}
+    <div class="sec">Säulen der These</div>${v.pillars.map(p => `<div style="margin:6px 0"><span class="lamp ${esc(p.l)}"></span><b>${esc(p.n)}</b>: ${esc(p.c)}${p.tr ? ` <span class="muted">(${esc(p.tr)})</span>` : ""}</div>`).join("") || '<div class="muted">keine Daten</div>'}
+    <div class="muted" style="margin-top:10px">Beträge in Euro, bei Fremdwährung grob umgerechnet (≈). Erwartungen: Durchschnitt der Analysten.</div>`;
+}
 function openDetail(id) {
   cur = DATA.all[id]; tabI = 0; const v = cur, [ic, tx] = VT[v.verdict];
   const p = v.parts.find(x => x.n === "Thesenrisiko"), x = Math.max(0, Math.min(100, v.pot_pct ?? 0)), y = p ? p.p / p.max * 100 : null;
@@ -354,12 +409,7 @@ function openDetail(id) {
      <div class="muted">Rechts = Analysten-Potenzial, oben = wie sicher die These laut Score ist.</div>
      <div class="sec">Abhängigkeiten (Zölle, Zinsen, Wahlen, Regulierung)</div><div class="muted">keine Daten: Dieses Feld gibt es noch nicht. Der Lauf soll es künftig je Aktie füllen.</div>
      <div class="sec">Das widerlegt die These</div><div>${esc(v.stop || "keine Daten")}</div></div>
-   <div class="pane r" data-p="1"><div class="m">${esc(dnum(v))}</div>
-     <div class="cols">${(v.rev3 || []).map(r => { const mx = Math.max(...v.rev3.map(z => z.v || 0)) || 1; return `<div class="col"><b>${r.v == null ? "–" : nf(r.v, 1)}</b><div class="${r.est ? "est" : ""}" style="height:${r.v == null ? 0 : r.v / mx * 80}%"></div><span class="muted">${esc(r.y)}${r.est ? " (erw.)" : ""}</span></div>`; }).join("") || '<div class="muted">keine Daten</div>'}</div>
-     <div class="muted">Umsatz in Mrd. €, schraffiert = Erwartung der Analysten.</div>
-     <div class="sec">Analysten-Ziel</div><div>${v.pot_pct == null ? "keine Daten" : `Im Schnitt ${pct(v.pot_pct, 0)} über dem Kurs (${v.pot_n} Analysten), von ${pct(lo, 0)} bis ${pct(hi, 0)}. Stand ${dm(v.pot_asof)}`}</div>
-     ${days(v.pot_asof) > 14 ? '<div class="chip warn" style="margin-top:6px">⚠ veraltet, älter als 14 Tage</div>' : ""}
-     <div class="sec">Säulen der These</div>${v.pillars.map(p => `<div style="margin:6px 0"><span class="lamp ${esc(p.l)}"></span><b>${esc(p.n)}</b>: ${esc(p.c)} ${p.tr ? `<span class="muted">(${esc(p.tr)})</span>` : ""}</div>`).join("") || '<div class="muted">keine Daten</div>'}</div>
+   <div class="pane r" data-p="1">${kpiPane(v)}</div>
    <div class="pane r" data-p="2"><div class="sec" style="margin-top:4px">Warum der Kurs gefallen ist</div>${v.drop ? `<div class="li"><div class="row"><span class="chip warn">${esc(v.drop.kind)}</span><span class="muted">${dm(v.drop.date)} · ${esc(v.drop.move || "")}</span></div><div>${esc(v.drop.cause)}</div></div>` : '<div class="muted">keine Daten</div>'}
      <div class="sec">Score in Teilen</div>${v.parts.map(p => `<div class="bar"><span>${esc(p.n)}</span><span class="tr"><span class="fl" style="left:0;right:${100 - p.p / p.max * 100}%"></span></span><span>${p.p}/${p.max}</span></div>`).join("") || '<div class="muted">keine Daten</div>'}
      <div class="muted">Der Score ist ein grober Sortierhelfer, nicht rückwirkend getestet.</div></div>

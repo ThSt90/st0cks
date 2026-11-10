@@ -1,6 +1,6 @@
 // st0cks Service-Worker: erst Netz, bei Ausfall der zuletzt gespeicherte Stand (Offline-Betrieb). Keine Depotdaten im Spiel.
-const CACHE = "st0cks-lean-v1";
-self.addEventListener("install", e => { self.skipWaiting(); e.waitUntil(caches.open(CACHE).then(c => c.addAll(["./", "index.html", "icon.png", "favicon.png", "manifest.webmanifest"]).catch(() => {}))); });
+const CACHE = "st0cks-lean-v2";
+self.addEventListener("install", e => { self.skipWaiting(); e.waitUntil(caches.open(CACHE).then(c => c.addAll(["./", "index.html", "kpi.js", "icon.png", "favicon.png", "manifest.webmanifest"]).catch(() => {}))); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("fetch", e => {
   const r = e.request; if (r.method !== "GET" || new URL(r.url).origin !== location.origin) return;
