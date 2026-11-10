@@ -64,7 +64,7 @@ main{flex:1;min-height:0;position:relative}
 .tile{height:100%;scroll-snap-align:start;scroll-snap-stop:always;padding:4px 0 12px}
 .card{height:100%;background:linear-gradient(160deg,color-mix(in srgb,var(--tone,var(--accent)) 16%,var(--surface)),var(--surface) 55%);
   border:1px solid color-mix(in srgb,var(--tone,var(--accent)) 35%,var(--line));border-radius:var(--r);box-shadow:var(--shadow);
-  padding:18px;display:flex;flex-direction:column;gap:14px;overflow:hidden;position:relative}
+  padding:16px;display:flex;flex-direction:column;gap:10px;overflow:hidden;position:relative}
 .card.tap{cursor:pointer;transition:transform var(--t)}
 .card.tap:active{transform:scale(.985)}
 .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -83,11 +83,11 @@ main{flex:1;min-height:0;position:relative}
 .widerlegt{--tone:var(--bad);--c:var(--bad)} .widerlegt .badge{background:var(--bad-soft);color:var(--bad)}
 .unbekannt{--tone:var(--info);--c:var(--info)} .unbekannt .badge{background:var(--info-soft);color:var(--info)}
 .facts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:auto}
-.fact{background:color-mix(in srgb,var(--surface2) 70%,transparent);border-radius:16px;padding:10px}
+.fact{background:color-mix(in srgb,var(--surface2) 70%,transparent);border-radius:16px;padding:8px 10px}
 .fact small{display:block;color:var(--muted);font-size:var(--fs-s)}
 .fact b{font-size:var(--fs-m)}
 .hint{text-align:center;color:var(--muted);font-size:var(--fs-s);margin-top:2px}
-.spark{width:100%;flex:1;min-height:64px}
+.spark{width:100%;flex:1;min-height:36px}
 .stale{color:var(--warn)}
 /* Balken */
 .bar{display:grid;grid-template-columns:110px 1fr 56px;gap:8px;align-items:center;margin:6px 0}
@@ -104,7 +104,7 @@ main{flex:1;min-height:0;position:relative}
 details summary{cursor:pointer;color:var(--muted);min-height:44px;display:flex;align-items:center}
 details p{margin:0 0 8px}
 .seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:3px;margin:0 14px 8px}
-.seg button{flex:1;border-radius:11px;font-weight:700;color:var(--muted);transition:background var(--t)}
+.seg button{white-space:nowrap;flex:1;border-radius:11px;font-weight:700;color:var(--muted);transition:background var(--t)}
 .seg button.on{background:var(--accent);color:var(--accent-ink)}
 .li{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;margin:0 0 10px}
 /* Tab-Leiste */
@@ -163,6 +163,35 @@ nav .dot{position:absolute;top:4px;right:calc(50% - 20px);width:10px;height:10px
 .kh .est{background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--accent2) 22%,transparent) 0 6px,transparent 6px 12px),var(--surface2)}
 .kn{border-radius:12px;padding:8px 10px;margin-top:8px;background:var(--warn-soft);color:var(--text)}
 .kn.einmal,.kn.kurzfristig,.kn.strukturell{background:var(--info-soft)} .kn.risiko{background:var(--bad-soft)}
+
+/* Kachel: Logo, Score-Verlauf, Kursziel-Band */
+.flogo{width:44px;height:44px;border-radius:12px;object-fit:contain;background:#fff;flex:none}
+.flogo.ini{display:inline-grid;place-items:center;background:var(--surface2);color:var(--muted);font-weight:800}
+.strip{display:flex;align-items:center;gap:8px;background:color-mix(in srgb,var(--surface2) 70%,transparent);border-radius:14px;padding:6px 12px;min-height:44px}
+.strip .it{display:flex;flex-direction:column;line-height:1.15} .strip .it b{font-size:var(--fs-m)} .strip .it span{color:var(--muted)}
+.strip .d{margin-left:auto;font-weight:800;font-size:var(--fs-m)} .strip .d.up{color:var(--ok)} .strip .d.down{color:var(--bad)}
+.band{border-radius:18px;padding:12px 14px;background:linear-gradient(135deg,color-mix(in srgb,var(--ok) 20%,transparent),transparent 80%),var(--surface2);border:1px solid color-mix(in srgb,var(--ok) 35%,var(--line))}
+.band.stale{background:var(--surface2);border-color:var(--line)} .band.stale .pct{color:var(--muted)}
+.band.neg{background:linear-gradient(135deg,color-mix(in srgb,var(--bad) 20%,transparent),transparent 80%),var(--surface2);border-color:color-mix(in srgb,var(--bad) 35%,var(--line))}
+.band .lab{font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.band .main{display:flex;align-items:flex-end;justify-content:space-between;gap:8px}
+.band .pct{font-size:var(--fs-l);font-weight:800;line-height:1.05;color:var(--ok)} .band.neg .pct{color:var(--bad)}
+.band .r{text-align:right;color:var(--muted)} .band .r b{color:var(--text);font-size:var(--fs-m)}
+.scale{position:relative;height:12px;border-radius:99px;margin:14px 8px 4px;background:linear-gradient(90deg,var(--ok),var(--accent2))}
+.scale i{position:absolute;top:50%;width:18px;height:18px;border-radius:50%;transform:translate(-50%,-50%);border:3px solid var(--bg)}
+.scale .kurs{background:var(--text)} .scale .ziel{background:var(--accent);border-radius:4px 50% 50% 4px}
+.scale-l{display:flex;justify-content:space-between;color:var(--muted)}
+.legend{display:flex;gap:12px;color:var(--muted)} .legend i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:4px;vertical-align:-1px} .legend .k{background:var(--text)} .legend .z{background:var(--accent)}
+/* Detail: Umsatz/Gewinn, Chart */
+.gr{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:end;margin:8px 0;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.gr .big2{font-size:var(--fs-m);font-weight:800}
+.bars{display:flex;gap:8px;align-items:flex-end;height:96px}
+.bars .c{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:58px;height:100%;gap:2px}
+.bars .c div{width:100%;border-radius:8px 8px 3px 3px;background:var(--surface2);border:1px solid var(--line)}
+.bars .c div.last{background:var(--accent);border-color:transparent}
+.bars .c div.est{background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--accent2) 70%,transparent) 0 5px,color-mix(in srgb,var(--accent2) 30%,transparent) 5px 10px);border-color:transparent}
+.bars .c u{text-decoration:none;font-weight:700} .bars .c u.up{color:var(--ok)} .bars .c u.down{color:var(--bad)}
+.chart{width:100%;height:auto;background:var(--surface);border:1px solid var(--line);border-radius:16px}
 /* Zustände */
 .skel{border-radius:var(--r);height:100%;background:linear-gradient(100deg,var(--surface) 30%,var(--surface2) 50%,var(--surface) 70%) 0 0/200% 100%;animation:sh 1.2s linear infinite}
 @keyframes sh{to{background-position:-200% 0}}
@@ -182,6 +211,7 @@ nav .dot{position:absolute;top:4px;right:calc(50% - 20px);width:10px;height:10px
   <section id="sheet" aria-modal="true" role="dialog"></section>
 </div>
 <script src="kpi.js"></script>
+<script src="charts.js"></script>
 <script>
 let DATA = null;
 const TODAY = (() => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); })();
@@ -244,20 +274,45 @@ function spark(v) {
   <path d="${line} L${W} ${H} L0 ${H}Z" fill="url(#g${v.id})"/><path d="${line}" fill="none" stroke="${col}" stroke-width="2.5" stroke-linejoin="round"/></svg>`;
 }
 const VT = { gilt: ["✓", "These gilt"], wackelt: ["!", "These wackelt"], widerlegt: ["✕", "These widerlegt"], unbekannt: ["?", "keine Daten"] };
+/* ---------- Kachel-Bausteine ---------- */
+const eur0 = (v, cur) => { const e = KPI.toEur(v, cur); return e == null ? "–" : (cur === "EUR" ? "" : "≈ ") + nf(e, 0) + " €"; };
+const logoHtml = v => DATA.logos && DATA.logos[v.id] ? `<img class="flogo" alt="" src="${DATA.logos[v.id]}">` : `<span class="flogo ini" aria-hidden="true">${esc((v.name || "?").replace(/[^A-Za-z0-9]/g, "").slice(0, 2).toUpperCase())}</span>`;
+function scoreStrip(v) {
+  const a = v.slog || []; if (!a.length) return '<div class="strip muted">Score-Verlauf: keine Daten</div>';
+  const day = r => r.slice(8, 10) + "." + r.slice(5, 7) + ".", tm = r => r.slice(11, 16);
+  const items = a.map((x, i) => { const same = a.some((y, j) => j !== i && y.r.slice(0, 10) === x.r.slice(0, 10)); return `<div class="it"><b>${x.s}</b><span>${day(x.r)}${same ? " " + tm(x.r) : ""}</span></div>`; }).join('<span class="muted" aria-hidden="true">›</span>');
+  const d = a.length > 1 ? a[a.length - 1].s - a[a.length - 2].s : null;
+  return `<div class="strip"><span class="muted" style="font-weight:700">SCORE</span>${items}${d == null ? "" : `<span class="d ${Math.abs(d) <= 2 ? "" : d > 0 ? "up" : "down"}">${d === 0 ? "±0" : (d > 0 ? "+" : "−") + Math.abs(d)}</span>`}</div>`;
+}
+function potBand(v) {
+  const k = DATA.all[v.id] && DATA.all[v.id].k, p = k && k.potential, px = k && k.last && k.last.price, cur = v.cur;
+  if (!p || !p.mean || !px) return '<div class="band stale"><div class="lab">Bis zum Kursziel</div><div class="m">keine Daten</div></div>';
+  const stale = days(p.as_of) > 14, up = (p.mean / px - 1) * 100;
+  const lo = Math.min(p.low || p.mean, px), hi = Math.max(p.high || p.mean, px, p.mean), pos = x => Math.max(0, Math.min(100, (x - lo) / ((hi - lo) || 1) * 100));
+  const dt = p.as_of ? p.as_of.slice(8, 10) + "." + p.as_of.slice(5, 7) + "." + p.as_of.slice(0, 4) : "keine Daten";
+  return `<div class="band ${stale ? "stale" : up < 0 ? "neg" : ""}"><div class="main"><div><div class="lab">Bis zum Kursziel</div><div class="pct">${pct(up, 0)}</div></div>
+    <div class="r"><b>${up >= 0 ? "+" : "−"} ${eur0(Math.abs(p.mean - px), cur)}</b> je Aktie<br>Ø-Ziel ${eur0(p.mean, cur)}<br>${stale ? "⚠ " : ""}Ziele: ${dt}</div></div>
+    <div class="scale" role="img" aria-label="Kurs und Durchschnittsziel zwischen niedrigstem und höchstem Ziel"><i class="kurs" style="left:${pos(px)}%"></i><i class="ziel" style="left:${pos(p.mean)}%"></i></div>
+    <div class="scale-l"><span>Tief ${eur0(p.low || p.mean, cur)}</span><span class="legend"><span><i class="k"></i>Kurs</span><span><i class="z"></i>Ziel</span></span><span>Hoch ${eur0(p.high || p.mean, cur)}</span></div>
+    </div>`;
+}
 function stockTile(v) {
-  const [ic, tx] = VT[v.verdict];
+  const [ic, tx] = VT[v.verdict], kk = DATA.all[v.id].k, since = v.entry_price && kk.last && kk.last.price ? (kk.last.price / v.entry_price - 1) * 100 : null;
+  const z = v.catalyst && v.catalyst.date ? dm(v.catalyst.date) : "unbekannt";
   return `<div class="tile"><div class="card tap ${v.verdict}" data-open="${esc(v.id)}">
     <div class="row"><span class="chip info">${esc(v.gics || short(v.sector) || "Sektor: keine Daten")}</span>${v.depot ? '<span class="chip ok">Depot</span>' : ""}<span class="sp"></span>${fresh("Kurs", v.px_date, 2)}</div>
-    <div class="verdict"><div class="ring" style="--p:${v.score ?? 0}"><b>${v.score ?? "–"}</b></div>
-      <div><div class="badge"><span aria-hidden="true">${ic}</span>${tx}</div><div class="muted" style="margin-top:6px">Score von 100, ab 80 gilt die These</div></div></div>
-    <div><div class="big">${esc(nm(v.name))}</div><div class="muted">${esc(v.ticker)} · ${v.px_eur == null ? "Kurs: keine Daten" : "≈ " + nf(v.px_eur, 2) + " €"}</div></div>
-    <div class="m">${esc(v.reason)}</div>${mismatch(v)}
+    <div class="verdict"><div class="ring" style="--p:${v.score ?? 0};width:68px;height:68px"><b>${v.score ?? "–"}</b></div>
+      <div><div class="badge"><span aria-hidden="true">${ic}</span>${tx}</div></div></div>
+    <div class="row" style="flex-wrap:nowrap;gap:10px">${logoHtml(v)}<div style="min-width:0"><div class="m">${esc(nm(v.name))}</div><div class="muted">${esc(v.ticker)} · ${v.px_eur == null ? "Kurs: keine Daten" : "≈ " + nf(v.px_eur, 2) + " €"}</div></div></div>
+    <div class="m">${esc(v.reason)}</div>
+    ${scoreStrip(v)}
+    ${potBand(v)}
     ${spark(v)}
     <div class="facts">
       <div class="fact"><small>zum Hoch</small><b>${pct(v.dd, 0)}</b></div>
-      <div class="fact"><small>Analysten</small><b class="${days(v.pot_asof) > 14 ? "stale" : ""}">${days(v.pot_asof) > 14 ? "⚠ " : ""}${pct(v.pot_pct, 0)}</b></div>
-      <div class="fact"><small>Ziel vom</small><b>${dm(v.pot_asof)}</b></div></div>
-    <div class="hint">Tippen für Details</div></div></div>`;
+      <div class="fact"><small>Aufnahme</small><b>${pct(since, 0)}</b></div>
+      <div class="fact"><small>Zahlen</small><b>${z}</b></div></div>
+    </div></div>`;
 }
 function mismatch(v) { const m = /(\d+)\s*% unter/.exec(v.reason || ""); if (!m || v.dd == null || Math.abs(+m[1] - Math.abs(v.dd)) <= 5) return "";
   return `<div class="chip warn" style="white-space:normal">⚠ Text sagt ${m[1]} % unter dem Hoch, der Kurs zeigt ${pct(v.dd, 0)}: Text ist älter als der Kurs</div>`; }
@@ -375,14 +430,59 @@ function kpiCard(k) {
     <div class="val"><b>${esc(k.val)}</b>${dir ? `<span class="arr ${dir}" title="${esc(KPI.DIRTXT[dir])}">${KPI.ARROW[dir]}</span>` : ""}${kspark(k.sp)}</div>
     <div class="muted">${esc(k.sub || "")}</div></summary><div class="body"><div>${esc(k.text)}</div>${hist}${note}</div></details>`;
 }
+let gmMode = "5", stMode = "kum";
+const safe = fn => { try { return fn(); } catch (err) { return '<div class="muted">Diagramm konnte nicht gezeichnet werden.</div>'; } };
+/* ---------- Detail: Überblick (Kurs, Chart, Umsatz/Gewinn, Termine) ---------- */
+function chart5(v) {
+  const k = v.k || {}, f = KPI.toEur(1, k.pcur || v.cur);
+  if (!k.px || k.px.length < 8 || !f) return '<div class="muted">Kursverlauf: keine Daten</div>';
+  const px = k.px.map(x => x * f), fc = KPI.toEur(1, v.cur) || f, mean = k.potential && k.potential.mean ? k.potential.mean * fc : null, ent = v.entry_price ? v.entry_price * fc : null;
+  const W = 340, H = 160, L = 44, R = 8, T = 12, B = 26, all = px.concat(mean ? [mean] : [], ent ? [ent] : []), mn = Math.min(...all), mx = Math.max(...all), rg = (mx - mn) || 1;
+  const X = i => L + (W - L - R) * i / (px.length - 1), Y = x => T + (H - T - B) * (1 - (x - mn) / rg);
+  const line = px.map((y, i) => (i ? "L" : "M") + X(i).toFixed(1) + " " + Y(y).toFixed(1)).join(" ");
+  const hl = (val, txt, col) => val == null ? "" : `<line x1="${L}" x2="${W - R}" y1="${Y(val).toFixed(1)}" y2="${Y(val).toFixed(1)}" stroke="${col}" stroke-dasharray="5 4" stroke-width="1.5"/><text x="${L + 4}" y="${(Y(val) - 4).toFixed(1)}" font-size="14" fill="${col}">${txt}</text>`;
+  const my = d => d ? d.slice(5, 7) + "/" + d.slice(2, 4) : "";
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Kursverlauf der letzten 5 Jahre in Euro mit Durchschnittsziel und Aufnahmekurs">
+    <path d="${line} L${X(px.length - 1)} ${H - B} L${L} ${H - B}Z" fill="var(--accent)" opacity=".12"/><path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>
+    ${hl(mean, "Ø-Ziel", "var(--ok)")}${hl(ent, "Aufnahme", "var(--muted)")}
+    <text x="2" y="${Y(mx).toFixed(1)}" font-size="14" fill="var(--muted)" dominant-baseline="hanging">${nf(mx, 0)}</text><text x="2" y="${Y(mn).toFixed(1)}" font-size="14" fill="var(--muted)">${nf(mn, 0)}</text>
+    <text x="${L}" y="${H - 6}" font-size="14" fill="var(--muted)">${my(k.px0)}</text><text x="${W - R}" y="${H - 6}" font-size="14" fill="var(--muted)" text-anchor="end">${my(k.px1)} (€)</text></svg>`;
+}
+function growthRow(v, label, key, ekey) {
+  const k = v.k || {}, g = k.growth, e = k.est;
+  if (!g || !g.periods || !e || !e[ekey] || !e.years || e.years.length < 6) return "";
+  const m = KPI.growthMetrics({ growth: g }), mm = m && m[key === "revenue" ? "rev" : "ni"], cur = KPI.curOf(e.unit || g.unit);
+  const conv = x => { const z = KPI.toEur(x * 1e6, cur); return z == null ? null : z / 1e9; };
+  const cells = [3, 4, 5].map(i => ({ y: String(e.years[i]) + (i === 5 ? " e" : ""), v: conv(e[ekey][i]), g: KPI.gOf(e[ekey][i], e[ekey][i - 1]), est: i === 5 }));
+  const mxv = Math.max(...cells.map(c => c.v || 0)) || 1;
+  const bars = cells.map(c => `<div class="c"><b>${c.v == null ? "–" : nf(c.v, c.v >= 10 ? 0 : 1)}</b><div class="${c.est ? "est" : ""}" style="height:${c.v == null ? 0 : Math.max(4, c.v / mxv * 60)}px"></div><u class="${c.g == null ? "" : c.g >= 0 ? "up" : "down"}">${c.g == null ? "–" : pct(c.g, 0)}</u><span class="muted">${esc(c.y)}</span></div>`).join("");
+  const dir = mm && mm.dir && mm.dir !== "na" ? `<span class="arr ${mm.dir}" title="${esc(KPI.DIRTXT[mm.dir])}">${KPI.ARROW[mm.dir]}</span>` : "";
+  return `<div class="gr"><div><div class="muted">${label}</div><div class="big2">${mm && mm.q != null ? pct(mm.q, 0) : "–"} ${dir}</div><div class="muted">Quartal zum Vorjahr<br>12 Monate: ${mm && mm.ttm != null ? pct(mm.ttm, 0) : "–"}</div></div><div class="bars">${bars}</div></div>`;
+}
+function overview(v) {
+  const k = v.k || {}, last = k.last && k.last.price, since = v.entry_price && last ? (last / v.entry_price - 1) * 100 : null, e = k.est, g = k.growth;
+  const dEur = since != null && KPI.toEur(last - v.entry_price, v.cur) != null ? KPI.toEur(last - v.entry_price, v.cur) : null;
+  let l12 = "", exp = "";
+  if (g && g.periods && g.annual) { const per = g.per_year || 4, P = g.periods, rc = P.revenue.length >= per ? KPI.sumN(P.revenue, 0, per) : null, nc = P.net_income.length >= per ? KPI.sumN(P.net_income, 0, per) : null;
+    l12 = `<div><b>Letzte 12 Monate:</b> Umsatz ${rc != null ? KPI.euM(rc, g.unit) : "keine Daten"} · Gewinn ${nc != null ? KPI.euM(nc, g.unit) : "keine Daten"}</div>`; }
+  if (e && e.rev && e.years && e.years.length >= 6) { const eg = KPI.gOf(e.rev[5], e.rev[4]), pg = e.eps_last > 0 && e.eps_cur != null ? KPI.gOf(e.eps_cur, e.eps_last) : null;
+    exp = `<div><b>Analysten erwarten ${esc(e.years[5])}:</b> Umsatz ${eg == null ? "keine Daten" : pct(eg, 0)} · Gewinn je Aktie ${pg == null ? "keine Daten" : pct(pg, 0)}</div>`; }
+  const c = v.catalyst, term = c && c.date ? `${dm(c.date)}${c.date.slice(0, 4)} · ${esc(c.event || "Zahlen")}` : "Termin noch unbekannt";
+  return `<div class="two"><div><h4>Kurs</h4><b class="m">${v.px_eur == null ? "keine Daten" : "≈ " + nf(v.px_eur, 2) + " €"}</b><div class="muted">${last ? nf(last, 2) + " " + esc(v.cur) : ""}</div></div>
+    <div><h4>Seit Aufnahme</h4><b class="m" style="color:${since == null ? "inherit" : since >= 0 ? "var(--ok)" : "var(--bad)"}">${pct(since, 1)}</b><div class="muted">${dEur == null ? "" : "≈ " + (dEur >= 0 ? "+" : "−") + nf(Math.abs(dEur), 2) + " € je Aktie · "}seit ${dm(v.entry_date)}</div></div></div>
+    <div class="sec">Kurs über 5 Jahre</div>${chart5(v)}
+    <div id="gblock">${safe(() => CH.growth(v.k || {}, gmMode))}</div>
+    <div id="sblock">${safe(() => CH.stair(v.k || {}, stMode))}</div>
+    <div style="margin-top:8px">${l12}${exp}<div><b>Nächste Zahlen:</b> ${term}</div></div>`;
+}
 function kpiPane(v) {
   let ks = null; try { ks = KPI.data(Object.assign({ id: v.id }, v.k || {})); } catch (_) { ks = null; }
-  if (!ks || !ks.length) return '<div class="m">Kennzahlen: keine Daten</div><div class="muted">Für diese Aktie liegen keine Umsatz- und Gewinnreihen vor.</div>';
+  if (!ks || !ks.length) return overview(v) + '<div class="m">Kennzahlen: keine Daten</div><div class="muted">Für diese Aktie liegen keine Umsatz- und Gewinnreihen vor.</div>';
   const ord = { top: 0, good: 1, mid: 2, low: 3 }, by = (a, b) => (ord[a.rt] ?? 4) - (ord[b.rt] ?? 4);
   const pros = ks.filter(k => k.pro && (k.rt === "top" || k.rt === "good")).sort(by).slice(0, 3), cons = ks.filter(k => k.con && (k.rt === "low" || (k.rt === "mid" && k.id === "pe"))).slice(0, 3);
   const li = (a, c) => a.length ? a.map(k => `<div style="margin:4px 0">${esc(c === "p" ? k.pro : k.con)}</div>`).join("") : '<div class="muted">Nichts Auffälliges.</div>';
   const stale = days(v.pot_asof) > 14 ? '<div class="chip warn" style="margin-bottom:8px">⚠ Kursziele älter als 14 Tage</div>' : "";
-  return `<div class="two"><div><h4 style="color:var(--ok)">Spricht dafür</h4>${li(pros, "p")}</div><div><h4 style="color:var(--bad)">Spricht dagegen</h4>${li(cons, "c")}</div></div>
+  return overview(v) + `<div class="sec">Das Urteil in Zahlen</div><div class="two"><div><h4 style="color:var(--ok)">Spricht dafür</h4>${li(pros, "p")}</div><div><h4 style="color:var(--bad)">Spricht dagegen</h4>${li(cons, "c")}</div></div>
     <div class="sec">Auf einen Blick</div>${stale}<div class="muted" style="margin-bottom:8px">Stufe: sehr gut, gut, mittel, schwach. Pfeil: Tempo wird besser (▲) oder schlechter (▼). Antippen für die Erklärung. Faustregeln, keine Anlageberatung.</div>
     ${ks.map(kpiCard).join("")}
     <div class="sec">Säulen der These</div>${v.pillars.map(p => `<div style="margin:6px 0"><span class="lamp ${esc(p.l)}"></span><b>${esc(p.n)}</b>: ${esc(p.c)}${p.tr ? ` <span class="muted">(${esc(p.tr)})</span>` : ""}</div>`).join("") || '<div class="muted">keine Daten</div>'}
@@ -459,6 +559,8 @@ document.addEventListener("click", e => {
   const t = e.target.closest("[data-tab]"); if (t) { tab = t.dataset.tab; q = ""; draw(); return; }
   const m = e.target.closest("[data-mode]"); if (m) { chMode = m.dataset.mode; draw(); return; }
   const o = e.target.closest("[data-open]"); if (o) { openDetail(o.dataset.open); return; }
+  const gm = e.target.closest("[data-gm]"); if (gm && cur) { gmMode = gm.dataset.gm; const b = $("#gblock"); if (b) b.innerHTML = safe(() => CH.growth(cur.k || {}, gmMode)); return; }
+  const sm = e.target.closest("[data-stair]"); if (sm && cur) { stMode = sm.dataset.stair; const b = $("#sblock"); if (b) b.innerHTML = safe(() => CH.stair(cur.k || {}, stMode)); return; }
   const th = e.target.closest("[data-theme-set]"); if (th) { const v = th.dataset.themeSet; try { localStorage.setItem("theme", v); } catch (_) {} applyTheme(); draw(); }
 });
 function applyTheme() { let v = "system"; try { v = localStorage.getItem("theme") || "system"; } catch (_) {} const r = document.documentElement; v === "system" ? r.removeAttribute("data-theme") : r.setAttribute("data-theme", v); }

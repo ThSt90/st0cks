@@ -222,5 +222,5 @@
     attachHist(t, out);
     return out;
   }
-  window.KPI = { data: kpiData, ARROW: ARROW, DIRTXT: DIRTXT, RT: RT, euM: euM, eu: eu, eurShort: eurShort, toEur: toEur };
+  window.KPI = { growthMetrics: growthMetrics, sumN: sumN, gOf: gOf, curOf: curOf, data: kpiData, ARROW: ARROW, DIRTXT: DIRTXT, RT: RT, euM: euM, eu: eu, eurShort: eurShort, toEur: toEur };
 })();

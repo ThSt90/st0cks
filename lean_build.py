@@ -89,13 +89,23 @@ def thesis_view(t):
         "pillars": [{"n": p["name"], "c": p.get("current"), "l": p.get("light"), "tr": p.get("trend")} for p in (t.get("pillars") or [])],
         "parts": parts, "drop": drops[0] if drops else None, "log": log,
         "catalyst": t.get("catalyst"),
+        "entry_price": (t.get("entry") or {}).get("price"), "entry_date": (t.get("entry") or {}).get("date"),
+        "slog": [{"r": x.get("run") or x.get("date"), "s": x.get("score")} for x in (t.get("score_log") or [])[-3:]],
     }
 
 th = [t for t in h["theses"] if t.get("status") != "geschlossen"]
 views = [thesis_view(t) for t in th]
 views.sort(key=lambda v: -(v["score"] or 0))
 # Eingaben fuer die Kennzahlen-Karten (docs/kpi.js); nur im Detail (all), nicht doppelt in den Listen
-kin = {t["id"]: {k: t.get(k) for k in ("growth", "est", "kpi_notes", "potential", "last", "currency")} for t in th}
+def _px(t):
+    s_ = prices.get(t["id"]) or {}
+    pts = s_.get("pts") or []
+    return {"px": [p[1] for p in pts], "px0": pts[0][0] if pts else None, "px1": pts[-1][0] if pts else None, "pcur": s_.get("cur")}
+kin = {t["id"]: dict({k: t.get(k) for k in ("growth", "est", "earnings", "kpi_notes", "potential", "last", "currency")}, **_px(t)) for t in th}
+try:
+    LOGOS = {k: v for k, v in json.load(open(D/"logos.json", encoding="utf-8")).items() if k in {t["id"] for t in th}}
+except Exception:
+    LOGOS = {}
 depot = [v for v in views if v["depot"]]
 KI = re.compile(r"Halbleiter|KI|Chip|Speicher|Rechenzentr", re.I)
 def key(v): return v.get("gics") or "Ohne Sektor"
@@ -128,7 +138,7 @@ run = h["runs"][-1]
 # Zeitstempel in UTC mit Z (lage.json speichert UTC); die App rechnet auf Berliner Zeit um
 data = {
     "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "today": TODAY, "lage": {"asof": lage["asof"], "fetched": lage["fetched"] + ("" if lage["fetched"].endswith("Z") else ":00Z"), "rows": lage["rows"]},
-    "depot": depot, "chancen": chancen, "chancen_note": chancen_note, "all": {v["id"]: dict(v, k=kin[v["id"]]) for v in views}, "sectors": sectors,
+    "logos": LOGOS, "depot": depot, "chancen": chancen, "chancen_note": chancen_note, "all": {v["id"]: dict(v, k=kin[v["id"]]) for v in views}, "sectors": sectors,
     "hist": hist[:14], "run": {"id": run.get("id") or run.get("date"), "summary": first_sentence(run.get("summary"), 160), "type": run.get("type")},
     "status": status,
 }
