@@ -239,7 +239,7 @@ function mismatch(v) { const m = /(\d+)\s*% unter/.exec(v.reason || ""); if (!m 
   return `<div class="chip warn" style="white-space:normal">⚠ Text sagt ${m[1]} % unter dem Hoch, der Kurs zeigt ${pct(v.dd, 0)}: Text ist älter als der Kurs</div>`; }
 const skeleton = n => Array.from({ length: n }, () => '<div class="tile"><div class="skel"></div></div>').join("");
 const emptyState = (t, s) => `<div class="tile"><div class="card"><div class="state"><div class="ico">🔍</div><div class="m">${t}</div><div class="muted">${s}</div></div></div></div>`;
-const errorState = '<div class="tile"><div class="card" style="--tone:var(--bad)"><div class="state"><div class="ico">⚠️</div><div class="m">Daten konnten nicht geladen werden</div><div class="muted">Das liegt am Netz oder an der Datenbank, nicht an deinem Gerät. Gezeigt wird nichts Altes als frisch.</div><button class="chip bad" onclick="location.search=\'\'">Erneut versuchen</button></div></div></div>';
+const errorState = '<div class="tile"><div class="card" style="--tone:var(--bad)"><div class="state"><div class="ico">⚠️</div><div class="m">Daten konnten nicht geladen werden</div><div class="muted">Das liegt am Netz oder an der Datenbank, nicht an deinem Gerät. Gezeigt wird nichts Altes als frisch.</div><button class="chip bad" onclick="location.reload()">Erneut versuchen</button></div></div></div>';
 
 /* ---------- Bildschirme ---------- */
 function bars(rows, max) {
