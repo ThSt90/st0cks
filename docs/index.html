@@ -87,7 +87,7 @@ main{flex:1;min-height:0;position:relative}
 .fact small{display:block;color:var(--muted);font-size:var(--fs-s)}
 .fact b{font-size:var(--fs-m)}
 .hint{text-align:center;color:var(--muted);font-size:var(--fs-s);margin-top:2px}
-.spark{width:100%;flex:1;min-height:36px}
+.spark{width:100%;flex:1;min-height:0}
 .stale{color:var(--warn)}
 /* Balken */
 .bar{display:grid;grid-template-columns:110px 1fr 56px;gap:8px;align-items:center;margin:6px 0}
@@ -192,6 +192,13 @@ nav .dot{position:absolute;top:4px;right:calc(50% - 20px);width:10px;height:10px
 .bars .c div.est{background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--accent2) 70%,transparent) 0 5px,color-mix(in srgb,var(--accent2) 30%,transparent) 5px 10px);border-color:transparent}
 .bars .c u{text-decoration:none;font-weight:700} .bars .c u.up{color:var(--ok)} .bars .c u.down{color:var(--bad)}
 .chart{width:100%;height:auto;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+
+/* Unternehmen, Chance/Risiko, SWOT */
+.what{color:var(--text)}
+.cr .row2{display:flex;justify-content:space-between;gap:8px;margin-top:8px} .cr .tr{height:12px;border-radius:99px;background:var(--surface2);overflow:hidden} .cr .tr i{display:block;height:100%;border-radius:99px}
+.cr .g{background:linear-gradient(90deg,var(--accent),var(--ok))} .cr .r{background:linear-gradient(90deg,var(--accent2),var(--bad))}
+.info{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:4px 14px 10px;margin:0 0 10px}
+.info h4{margin:10px 0 2px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 /* Zustände */
 .skel{border-radius:var(--r);height:100%;background:linear-gradient(100deg,var(--surface) 30%,var(--surface2) 50%,var(--surface) 70%) 0 0/200% 100%;animation:sh 1.2s linear infinite}
 @keyframes sh{to{background-position:-200% 0}}
@@ -297,13 +304,14 @@ function potBand(v) {
     </div>`;
 }
 function stockTile(v) {
-  const [ic, tx] = VT[v.verdict], kk = DATA.all[v.id].k, since = v.entry_price && kk.last && kk.last.price ? (kk.last.price / v.entry_price - 1) * 100 : null;
+  const [ic, tx] = VT[v.verdict], A = DATA.all[v.id], kk = Object.assign({ info: A.info }, A.k), since = v.entry_price && kk.last && kk.last.price ? (kk.last.price / v.entry_price - 1) * 100 : null;
   const z = v.catalyst && v.catalyst.date ? dm(v.catalyst.date) : "unbekannt";
   return `<div class="tile"><div class="card tap ${v.verdict}" data-open="${esc(v.id)}">
     <div class="row"><span class="chip info">${esc(v.gics || short(v.sector) || "Sektor: keine Daten")}</span>${v.depot ? '<span class="chip ok">Depot</span>' : ""}<span class="sp"></span>${fresh("Kurs", v.px_date, 2)}</div>
-    <div class="verdict"><div class="ring" style="--p:${v.score ?? 0};width:68px;height:68px"><b>${v.score ?? "–"}</b></div>
-      <div><div class="badge"><span aria-hidden="true">${ic}</span>${tx}</div></div></div>
-    <div class="row" style="flex-wrap:nowrap;gap:10px">${logoHtml(v)}<div style="min-width:0"><div class="m">${esc(nm(v.name))}</div><div class="muted">${esc(v.ticker)} · ${v.px_eur == null ? "Kurs: keine Daten" : "≈ " + nf(v.px_eur, 2) + " €"}</div></div></div>
+    <div class="verdict" style="align-items:flex-start;gap:12px"><div class="ring" style="--p:${v.score ?? 0};width:68px;height:68px;flex:none"><b>${v.score ?? "–"}</b></div>
+      <div style="flex:1;min-width:0"><div class="badge" style="padding:4px 12px"><span aria-hidden="true">${ic}</span>${tx}</div>
+        <div class="m" style="margin-top:6px">${esc(nm(v.name))}</div><div class="muted">${esc(v.ticker)} · ${v.px_eur == null ? "Kurs: keine Daten" : "≈ " + nf(v.px_eur, 2) + " €"}</div></div>${logoHtml(v)}</div>
+    ${kk.info && kk.info.was1 ? `<div class="what">${esc(kk.info.was1)}</div>` : ""}
     <div class="m">${esc(v.reason)}</div>
     ${scoreStrip(v)}
     ${potBand(v)}
@@ -482,11 +490,36 @@ function kpiPane(v) {
   const pros = ks.filter(k => k.pro && (k.rt === "top" || k.rt === "good")).sort(by).slice(0, 3), cons = ks.filter(k => k.con && (k.rt === "low" || (k.rt === "mid" && k.id === "pe"))).slice(0, 3);
   const li = (a, c) => a.length ? a.map(k => `<div style="margin:4px 0">${esc(c === "p" ? k.pro : k.con)}</div>`).join("") : '<div class="muted">Nichts Auffälliges.</div>';
   const stale = days(v.pot_asof) > 14 ? '<div class="chip warn" style="margin-bottom:8px">⚠ Kursziele älter als 14 Tage</div>' : "";
-  return overview(v) + `<div class="sec">Das Urteil in Zahlen</div><div class="two"><div><h4 style="color:var(--ok)">Spricht dafür</h4>${li(pros, "p")}</div><div><h4 style="color:var(--bad)">Spricht dagegen</h4>${li(cons, "c")}</div></div>
-    <div class="sec">Auf einen Blick</div>${stale}<div class="muted" style="margin-bottom:8px">Stufe: sehr gut, gut, mittel, schwach. Pfeil: Tempo wird besser (▲) oder schlechter (▼). Antippen für die Erklärung. Faustregeln, keine Anlageberatung.</div>
+  return overview(v) + `<div class="sec">Auf einen Blick</div>${stale}<div class="muted" style="margin-bottom:8px">Stufe: sehr gut, gut, mittel, schwach. Pfeil: Tempo wird besser (▲) oder schlechter (▼). Antippen für die Erklärung. Faustregeln, keine Anlageberatung.</div>
     ${ks.map(kpiCard).join("")}
     <div class="sec">Säulen der These</div>${v.pillars.map(p => `<div style="margin:6px 0"><span class="lamp ${esc(p.l)}"></span><b>${esc(p.n)}</b>: ${esc(p.c)}${p.tr ? ` <span class="muted">(${esc(p.tr)})</span>` : ""}</div>`).join("") || '<div class="muted">keine Daten</div>'}
     <div class="muted" style="margin-top:10px">Beträge in Euro, bei Fremdwährung grob umgerechnet (≈). Erwartungen: Durchschnitt der Analysten.</div>`;
+}
+/* ---------- Unternehmen, Chance/Risiko, SWOT ---------- */
+function infoTop(v) {
+  const i = v.info || {}, k = v.k || {};
+  const m = /(\d+(?:,\d+)?)\s*%\s*unter dem (?:52[- ]Wochen-)?Hoch/.exec(i.kurs || ""), stale = m && v.dd != null && Math.abs(parseFloat(m[1].replace(",", ".")) - Math.abs(v.dd)) > 5
+    ? `<div class="chip warn" style="white-space:normal;margin-top:4px">⚠ Text nennt ${esc(m[1])} % unter dem Hoch, der Kurs zeigt ${pct(v.dd, 0)}: Text ist älter als der Kurs</div>` : "";
+  const blk = (lab, txt) => txt ? `<h4>${lab}</h4><div>${esc(txt)}</div>` : "";
+  if (!i.was && !i.gm && !i.kurs) return '<div class="info"><h4>Was das Unternehmen macht</h4><div class="muted">keine Daten</div></div>';
+  return `<div class="info">${blk("Was das Unternehmen macht", i.was)}${blk("Geschäftsmodell", i.gm)}${i.kurs ? `<h4>Was ist mit dem Kurs passiert?</h4><div>${esc(i.kurs)}</div>${stale}` : ""}</div>`;
+}
+function swotBlock(v) {
+  let ks = []; try { ks = KPI.data(Object.assign({ id: v.id }, v.k || {})) || []; } catch (_) { ks = []; }
+  const ord = { top: 0, good: 1, mid: 2, low: 3 }, by = (a, b) => (ord[a.rt] ?? 4) - (ord[b.rt] ?? 4), i = v.info || {};
+  const pros = ks.filter(x => x.pro && (x.rt === "top" || x.rt === "good" || (x.id === "sz" && x.pro))).sort(by).slice(0, 3).map(x => x.pro);
+  const cons = ks.filter(x => x.con && (x.rt === "low" || (x.rt === "mid" && x.id === "pe") || (x.id === "sz" && x.con))).slice(0, 3).map(x => x.con);
+  const li = a => a.length ? a.slice(0, 3).map(x => `<div style="margin:4px 0">${esc(x)}</div>`).join("") : '<div class="muted">Nichts Auffälliges.</div>';
+  const p = v.k && v.k.potential, px = v.k && v.k.last && v.k.last.price; let cr = "";
+  if (p && p.mean && px) {
+    const ch = (p.mean / px - 1) * 100, rk = p.low ? (p.low / px - 1) * 100 : null, rr = rk != null ? Math.max(0, -rk) : null, mx = Math.max(ch, rr || 0, 1);
+    cr = `<div class="cr"><div class="row2"><span>Chance bis Ø-Ziel</span><b style="color:var(--ok)">${pct(ch, 1)}</b></div><div class="tr"><i class="g" style="width:${(Math.max(ch, 0) / mx * 100).toFixed(0)}%"></i></div>
+      ${rk != null ? `<div class="row2"><span>Risiko bis schwächstem Ziel</span><b style="color:var(${rk < 0 ? "--bad" : "--ok"})">${pct(rk, 1)}</b></div><div class="tr"><i class="r" style="width:${((rr || 0) / mx * 100).toFixed(0)}%"></i></div>${rk >= 0 ? '<div class="muted">Selbst das niedrigste Analystenziel liegt über dem Kurs.</div>' : ""}` : ""}
+      <div class="muted">Analystenziele (Meinung, keine Prognose)${p.as_of ? ", Stand " + dm(p.as_of) + p.as_of.slice(0, 4) : ""}${days(p.as_of) > 14 ? " ⚠ veraltet" : ""}.</div></div>`;
+  }
+  return `<div class="sec">Chance, Risiko und SWOT</div>${cr}
+    <div class="two" style="margin-top:10px"><div><h4 style="color:var(--ok)">Stärken</h4>${li(pros)}</div><div><h4 style="color:var(--bad)">Schwächen</h4>${li(cons)}</div></div>
+    <div class="two" style="margin-top:10px"><div><h4 style="color:var(--accent)">Chancen</h4>${li(i.chancen || [])}</div><div><h4 style="color:var(--warn)">Risiken</h4>${li(i.risiken || [])}</div></div>`;
 }
 function openDetail(id) {
   cur = DATA.all[id]; tabI = 0; const v = cur, [ic, tx] = VT[v.verdict];
@@ -498,12 +531,10 @@ function openDetail(id) {
     <div class="m" style="margin-top:6px">${esc(v.name)} <span class="muted">· ${esc(v.sector || "")}</span></div></div>
   <div class="dtabs">${DT.map((t, i) => `<button data-dt="${i}" class="${i ? "" : "on"}">${t}</button>`).join("")}</div>
   <div class="panes">
-   <div class="pane" data-p="0"><div class="m">${esc(v.reason)}</div>
+   <div class="pane" data-p="0">${infoTop(v)}<div class="m">${esc(v.reason)}</div>
      ${mismatch(v)}<details><summary>Zahlen hinter dem Urteil</summary><p>${esc(v.why[0] || "keine Daten")}</p></details>
-     <div class="sec">Das stützt sie / das gefährdet sie</div>
-     <div class="two"><div><h4 style="color:var(--ok)">Stützt</h4>${v.pillars.filter(p => p.l === "gruen").map(p => `<div><span class="lamp gruen"></span>${esc(p.n)}</div>`).join("") || "keine Daten"}</div>
-       <div><h4 style="color:var(--bad)">Gefährdet</h4><div>${esc(v.counter || "keine Daten")}</div></div></div>
-     <div class="sec">Chance und Risiko</div>
+     ${swotBlock(v)}
+     <div class="sec">Chancen-/Risiko-Matrix</div>
      <div class="matrix" role="img" aria-label="Matrix aus Kurspotenzial und Thesen-Sicherheit"><i style="top:0;left:0">Sicher, wenig Chance</i><i style="top:0;right:0">Sicher, viel Chance</i><i style="bottom:0;left:0">Riskant</i><i style="bottom:0;right:0">Riskant, viel Chance</i>
        ${y == null || v.pot_pct == null ? '<i style="top:50%;left:30%">keine Daten</i>' : `<span class="pt" style="left:${x}%;bottom:${y}%"></span>`}</div>
      <div class="muted">Rechts = Analysten-Potenzial, oben = wie sicher die These laut Score ist.</div>

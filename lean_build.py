@@ -16,6 +16,10 @@ h = json.load(open(D/"history.json", encoding="utf-8"))
 lage = json.load(open(D/"lage.json", encoding="utf-8"))
 prices = json.load(open(D/"prices.json", encoding="utf-8"))["series"]
 try:
+    PLAIN = json.load(open(D/"plain.json", encoding="utf-8"))
+except Exception:
+    PLAIN = {}
+try:
     status = json.load(open(D/"lauf_status.json", encoding="utf-8"))
 except Exception:
     status = None
@@ -57,6 +61,20 @@ def zone(dd):
     if a <= 70: return "Einstiegszone, Ursache prüfen"
     return "über 70 % unter dem Hoch"
 
+
+def info(t):
+    """Texte fuer den Kopf der Detailseite: Was macht die Firma, Geschaeftsmodell, Kurs-Erklaerung, Chancen/Risiken (SWOT)."""
+    pl = PLAIN.get(t["id"]) or {}
+    deep = t.get("deep") or {}
+    gm = next((x.get("text") for x in deep.get("sections", []) if str(x.get("title", "")).startswith("Gesch")), None)
+    opt = next((x for x in deep.get("scenarios", []) if re.search("optimist", str(x.get("name", "")), re.I)), None)
+    chancen = [first_sentence(x, 200) for x in (t.get("why") or [])[:2]]
+    if opt:
+        chancen.append("Optimistisch: " + str(opt.get("price", "")) + (" – " + first_sentence(opt.get("assumption", ""), 160) if opt.get("assumption") else ""))
+    risiken = ([first_sentence(t["counter"], 220)] if t.get("counter") else []) + (["Widerlegt, wenn: " + first_sentence(t["stop"], 200)] if t.get("stop") else [])
+    was = pl.get("was") or t.get("about")
+    return {"was": was, "was1": first_sentence(was, 150) if was else None, "gm": gm, "kurs": pl.get("kurs"), "chancen": chancen, "risiken": risiken}
+
 def thesis_view(t):
     cur = t.get("currency", "EUR")
     sc = last_score(t)
@@ -95,6 +113,7 @@ def thesis_view(t):
 
 th = [t for t in h["theses"] if t.get("status") != "geschlossen"]
 views = [thesis_view(t) for t in th]
+tmap = {t["id"]: t for t in th}
 views.sort(key=lambda v: -(v["score"] or 0))
 # Eingaben fuer die Kennzahlen-Karten (docs/kpi.js); nur im Detail (all), nicht doppelt in den Listen
 def _px(t):
@@ -138,7 +157,7 @@ run = h["runs"][-1]
 # Zeitstempel in UTC mit Z (lage.json speichert UTC); die App rechnet auf Berliner Zeit um
 data = {
     "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "today": TODAY, "lage": {"asof": lage["asof"], "fetched": lage["fetched"] + ("" if lage["fetched"].endswith("Z") else ":00Z"), "rows": lage["rows"]},
-    "logos": LOGOS, "depot": depot, "chancen": chancen, "chancen_note": chancen_note, "all": {v["id"]: dict(v, k=kin[v["id"]]) for v in views}, "sectors": sectors,
+    "logos": LOGOS, "depot": depot, "chancen": chancen, "chancen_note": chancen_note, "all": {v["id"]: dict(v, k=kin[v["id"]], info=info(tmap[v["id"]])) for v in views}, "sectors": sectors,
     "hist": hist[:14], "run": {"id": run.get("id") or run.get("date"), "summary": first_sentence(run.get("summary"), 160), "type": run.get("type")},
     "status": status,
 }
