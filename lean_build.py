@@ -9,7 +9,7 @@ HERE = Path(__file__).resolve().parent
 D = ROOT / "data"
 from datetime import date, datetime, timezone
 TODAY = date.today().isoformat()
-FX = {"EUR": 1, "USD": 1/1.122, "GBP": 1.33/1.122, "GBX": 1.33/1.122/100, "JPY": 1/158.2/1.122, "TWD": 1/36.28,
+FX = {"AUD": 0.66/1.122, "NZD": 0.58/1.122, "NOK": 1/10.5/1.122, "INR": 1/88/1.122, "ILS": 1/3.6/1.122, "SGD": 1/1.3/1.122, "PLN": 1/4.25, "ZAR": 1/18/1.122, "BRL": 1/5.4/1.122, "MXN": 1/18/1.122, "P": 1.33/1.122/100, "GBp": 1.33/1.122/100, "EUR": 1, "USD": 1/1.122, "GBP": 1.33/1.122, "GBX": 1.33/1.122/100, "JPY": 1/158.2/1.122, "TWD": 1/36.28,
       "KRW": 1/1494.7, "CHF": 1.15/1.122, "SEK": 1/10/1.122, "DKK": 1/7.46, "HKD": 1/7.8/1.122, "CAD": 1/1.38/1.122}
 
 h = json.load(open(D/"history.json", encoding="utf-8"))
@@ -62,6 +62,35 @@ def zone(dd):
     return "über 70 % unter dem Hoch"
 
 
+
+def eur_range(txt, price=None, cur=None):
+    """Szenario-Preis in Euro. '215,88 USD (-39,2 %)' -> '≈ 192 € (-35 % zum heutigen Kurs)': das Prozent im Text galt fuer den
+    Kurs von damals und wird neu gegen den aktuellen Kurs gerechnet. Nicht lesbare Formate bleiben im Original (mit Hinweis)."""
+    if not txt: return None
+    def num(x):
+        x = x.strip()
+        if "." in x and "," in x: x = x.replace(".", "").replace(",", ".")
+        elif re.fullmatch(r"\d{1,3}(\.\d{3})+", x): x = x.replace(".", "")
+        else: x = x.replace(",", ".")
+        try: return float(x)
+        except ValueError: return None
+    fmt = lambda v: f"{v:,.0f}".replace(",", ".")
+    sign = lambda v: ("+" if v > 0 else "−" if v < 0 else "") + f"{abs(v):.0f}".replace(".", ",")
+    m = re.match(r"^\s*(?:rund|ca\.?|etwa|≈)?\s*([\d.,]+)\s*(?:bis|–|-)\s*([\d.,]+)\s*([A-Za-z]{3})", str(txt))
+    if m:
+        a1, b1, c1 = num(m.group(1)), num(m.group(2)), m.group(3).upper(); f = FX.get(c1)
+        if a1 is not None and b1 is not None and f is not None:
+            return ("" if c1 == "EUR" else "≈ ") + fmt(a1 * f) + " bis " + fmt(b1 * f) + " €"
+    m = re.match(r"^\s*(?:rund|ca\.?|etwa|≈)?\s*([\d.,]+)\s*([A-Za-z]{3,4}|€|\$|£|¥)", str(txt))
+    if m:
+        v1, c1 = num(m.group(1)), {"€": "EUR", "$": "USD", "£": "GBP", "¥": "JPY", "YEN": "JPY", "P": "GBX", "GBP": "GBP"}.get(m.group(2).upper(), m.group(2).upper()); f = FX.get(c1)
+        if v1 is not None and f is not None:
+            out = ("" if c1 == "EUR" else "≈ ") + fmt(v1 * f) + " €"
+            if price and cur and c1 == str(cur).upper():
+                out += " (" + sign((v1 / price - 1) * 100) + " % zum heutigen Kurs)"
+            return out
+    return str(txt) + " (Originalwährung)"
+
 def info(t):
     """Texte fuer den Kopf der Detailseite: Was macht die Firma, Geschaeftsmodell, Kurs-Erklaerung, Chancen/Risiken (SWOT)."""
     pl = PLAIN.get(t["id"]) or {}
@@ -73,7 +102,8 @@ def info(t):
         chancen.append("Optimistisch: " + str(opt.get("price", "")) + (" – " + first_sentence(opt.get("assumption", ""), 160) if opt.get("assumption") else ""))
     risiken = ([first_sentence(t["counter"], 220)] if t.get("counter") else []) + (["Widerlegt, wenn: " + first_sentence(t["stop"], 200)] if t.get("stop") else [])
     was = pl.get("was") or t.get("about")
-    return {"was": was, "was1": first_sentence(was, 150) if was else None, "gm": gm, "kurs": pl.get("kurs"), "chancen": chancen, "risiken": risiken}
+    scen = [{"n": x.get("name"), "a": first_sentence(x.get("assumption", ""), 170), "p": eur_range(x.get("price"), (t.get("last") or {}).get("price"), t.get("currency"))} for x in deep.get("scenarios", [])[:3]]
+    return {"scen": scen, "scen_note": deep.get("scenario_note"), "was": was, "was1": first_sentence(was, 150) if was else None, "gm": gm, "kurs": pl.get("kurs"), "chancen": chancen, "risiken": risiken}
 
 def thesis_view(t):
     cur = t.get("currency", "EUR")

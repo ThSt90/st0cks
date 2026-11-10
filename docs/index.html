@@ -318,7 +318,7 @@ function stockTile(v) {
     ${spark(v)}
     <div class="facts">
       <div class="fact"><small>zum Hoch</small><b>${pct(v.dd, 0)}</b></div>
-      <div class="fact"><small>Aufnahme</small><b>${pct(since, 0)}</b></div>
+      <div class="fact"><small>Regeln</small><b>${rules(Object.assign({}, v, { k: kk })).ok} von ${rules(Object.assign({}, v, { k: kk })).total}</b></div>
       <div class="fact"><small>Zahlen</small><b>${z}</b></div></div>
     </div></div>`;
 }
@@ -479,6 +479,7 @@ function overview(v) {
   return `<div class="two"><div><h4>Kurs</h4><b class="m">${v.px_eur == null ? "keine Daten" : "≈ " + nf(v.px_eur, 2) + " €"}</b><div class="muted">${last ? nf(last, 2) + " " + esc(v.cur) : ""}</div></div>
     <div><h4>Seit Aufnahme</h4><b class="m" style="color:${since == null ? "inherit" : since >= 0 ? "var(--ok)" : "var(--bad)"}">${pct(since, 1)}</b><div class="muted">${dEur == null ? "" : "≈ " + (dEur >= 0 ? "+" : "−") + nf(Math.abs(dEur), 2) + " € je Aktie · "}seit ${dm(v.entry_date)}</div></div></div>
     <div class="sec">Kurs über 5 Jahre</div>${chart5(v)}
+    ${techBlock(v)}
     <div id="gblock">${safe(() => CH.growth(v.k || {}, gmMode))}</div>
     <div id="sblock">${safe(() => CH.stair(v.k || {}, stMode))}</div>
     <div style="margin-top:8px">${l12}${exp}<div><b>Nächste Zahlen:</b> ${term}</div></div>`;
@@ -521,6 +522,60 @@ function swotBlock(v) {
     <div class="two" style="margin-top:10px"><div><h4 style="color:var(--ok)">Stärken</h4>${li(pros)}</div><div><h4 style="color:var(--bad)">Schwächen</h4>${li(cons)}</div></div>
     <div class="two" style="margin-top:10px"><div><h4 style="color:var(--accent)">Chancen</h4>${li(i.chancen || [])}</div><div><h4 style="color:var(--warn)">Risiken</h4>${li(i.risiken || [])}</div></div>`;
 }
+/* ---------- Analysten-Sicht: Chart-Lage, Regel-Check, Szenarien, Datenlücken ---------- */
+const RULES = { score: 80, zoneMin: 20, zoneMax: 70, pot: 15, rev: 10, ma200: -10, analysts: 5, potDays: 14 };
+function tech(v) {
+  const px = (v.k && v.k.px) || [], n = px.length; if (n < 30) return null;
+  const last = px[n - 1], at = w => n > w ? (last / px[n - 1 - w] - 1) * 100 : null, win = px.slice(-52);
+  const ma = px.slice(-40).reduce((a, b) => a + b, 0) / Math.min(40, n);
+  let peak = win[0], dd = 0; win.forEach(x => { peak = Math.max(peak, x); dd = Math.min(dd, (x / peak - 1) * 100); });
+  const r = []; for (let i = 1; i < win.length; i++) r.push(Math.log(win[i] / win[i - 1]));
+  const mu = r.reduce((a, b) => a + b, 0) / r.length, vol = Math.sqrt(r.reduce((a, b) => a + (b - mu) ** 2, 0) / (r.length - 1)) * Math.sqrt(52) * 100;
+  return { m1: at(4), m3: at(13), m6: at(26), m12: at(52), ma: (last / ma - 1) * 100, dd, vol };
+}
+function rules(v) {
+  const k = v.k || {}, p = k.potential || {}, tc = tech(v), gm = KPI.growthMetrics({ growth: k.growth }), rev = gm && gm.rev ? gm.rev.ttm : null, fcf = k.est ? k.est.fcf_last : null;
+  const fresh = p.as_of != null && days(p.as_of) <= RULES.potDays && (p.analysts || 0) >= RULES.analysts;
+  const R_ = [
+    ["Score ab " + RULES.score, v.score == null ? null : v.score >= RULES.score, v.score == null ? "keine Daten" : "Score " + v.score],
+    ["Keine gebrochene Säule", v.verdict === "unbekannt" ? null : v.verdict !== "widerlegt" && !(v.pillars || []).some(x => x.l === "rot"), (v.pillars || []).some(x => x.l === "rot") ? "mindestens eine Säule rot" : v.verdict === "widerlegt" ? "These widerlegt" : "keine rote Säule"],
+    ["Abstand zum Hoch " + RULES.zoneMin + " bis " + RULES.zoneMax + " %", v.dd == null ? null : -v.dd >= RULES.zoneMin && -v.dd <= RULES.zoneMax, v.dd == null ? "keine Daten" : pct(v.dd, 0)],
+    ["Kurspotenzial ab " + RULES.pot + " %", v.pot_pct == null ? null : v.pot_pct >= RULES.pot, v.pot_pct == null ? "keine Daten" : pct(v.pot_pct, 0)],
+    ["Umsatzwachstum ab " + RULES.rev + " %", rev == null ? null : rev >= RULES.rev, rev == null ? "keine Daten" : pct(rev, 0)],
+    ["Freier Cashflow positiv", fcf == null ? null : fcf > 0, fcf == null ? "keine Daten" : fcf > 0 ? "positiv" : "negativ"],
+    ["Kurs höchstens 10 % unter der 200-Tage-Linie", tc ? tc.ma >= RULES.ma200 : null, tc ? pct(tc.ma, 0) : "keine Daten"],
+    ["Daten frisch (Ziele ≤ 14 Tage, ab 5 Analysten)", p.as_of == null ? null : fresh, p.as_of == null ? "keine Daten" : "Ziele " + ago(p.as_of) + ", " + (p.analysts || 0) + " Analysten"]
+  ];
+  return { list: R_, ok: R_.filter(x => x[1] === true).length, total: R_.length };
+}
+function ruleBlock(v) {
+  const r = rules(v), tone = r.ok === r.total ? "ok" : r.ok >= r.total - 2 ? "warn" : "bad";
+  return `<div class="sec">Regel-Check</div><div class="info" style="padding-top:10px"><div class="row"><span class="chip ${tone}">${r.ok} von ${r.total} Regeln erfüllt</span><span class="muted">deine Regeln, kein Kaufsignal</span></div>
+    ${r.list.map(x => `<div style="margin:6px 0"><b style="color:var(${x[1] === true ? "--ok" : x[1] === false ? "--bad" : "--warn"})">${x[1] === true ? "✓" : x[1] === false ? "✗" : "?"}</b> ${esc(x[0])} <span class="muted">· ${esc(x[2])}</span></div>`).join("")}</div>`;
+}
+function techBlock(v) {
+  const t = tech(v); if (!t) return '<div class="muted">Chart-Lage: keine Daten</div>';
+  const c = x => x == null ? "–" : `<b style="color:var(${x >= 0 ? "--ok" : "--bad"})">${pct(x, 0)}</b>`;
+  return `<div class="sec">Chart-Lage</div><div class="facts" style="margin-top:0"><div class="fact"><small>1 Monat</small>${c(t.m1)}</div><div class="fact"><small>3 Monate</small>${c(t.m3)}</div><div class="fact"><small>12 Monate</small>${c(t.m12)}</div></div>
+    <div class="facts" style="margin-top:8px"><div class="fact"><small>zur 200-Tage-Linie</small>${c(t.ma)}</div><div class="fact"><small>größter Rückgang (1 J.)</small>${c(t.dd)}</div><div class="fact"><small>Schwankung pro Jahr</small><b>${nf(t.vol, 0)} %</b></div></div>
+    <div class="muted" style="margin-top:6px">${t.ma < RULES.ma200 ? "⚠ Der Kurs liegt klar unter dem Durchschnitt der letzten 40 Wochen: Der Abwärtstrend läuft noch. " : ""}Aus Wochenschlusskursen (Yahoo). Schwankung = wie stark der Kurs im Jahr typisch hin und her geht; ab 40 % ist das nervenaufreibend.</div>`;
+}
+function scenBlock(v) {
+  const i = v.info || {}, s = i.scen || []; if (!s.length) return "";
+  return `<div class="sec">Drei Szenarien</div>${s.map(x => `<div class="li" style="padding:10px 12px"><div class="row" style="justify-content:space-between"><b>${esc(x.n)}</b><span class="chip">${esc(x.p || "keine Daten")}</span></div><div class="muted">${esc(x.a)}</div></div>`).join("")}
+    <div class="muted">${esc(i.scen_note || "Das sind Annahmen, keine Prognosen.")} Kursbereiche in Euro, bei Fremdwährung grob umgerechnet.</div>`;
+}
+function gaps(v) {
+  const k = v.k || {}, p = k.potential || {}, e = k.est || {}, g = [];
+  if (!(v.catalyst && v.catalyst.date)) g.push("Termin der nächsten Zahlen ist nicht bekannt");
+  if ((p.analysts || 0) < RULES.analysts) g.push("Nur " + (p.analysts || 0) + " Analysten: Kursziel wenig belastbar");
+  if (p.as_of && days(p.as_of) > RULES.potDays) g.push("Kursziele älter als 14 Tage");
+  if (!(e.fwd && e.fwd.years && e.fwd.years.length)) g.push("Erwartungen nur bis zum nächsten Jahr");
+  if (e.fcf_last == null) g.push("Freier Cashflow fehlt");
+  g.push("Politische und Marktabhängigkeiten (Zölle, Zinsen, Regulierung) sind noch nicht erfasst");
+  return g;
+}
+function gapBlock(v) { const g = gaps(v); return `<div class="sec">Was zur Entscheidung noch fehlt</div><div class="info" style="padding-top:8px">${g.map(x => `<div style="margin:6px 0">• ${esc(x)}</div>`).join("")}</div>`; }
 function openDetail(id) {
   cur = DATA.all[id]; tabI = 0; const v = cur, [ic, tx] = VT[v.verdict];
   const p = v.parts.find(x => x.n === "Thesenrisiko"), x = Math.max(0, Math.min(100, v.pot_pct ?? 0)), y = p ? p.p / p.max * 100 : null;
@@ -531,15 +586,15 @@ function openDetail(id) {
     <div class="m" style="margin-top:6px">${esc(v.name)} <span class="muted">· ${esc(v.sector || "")}</span></div></div>
   <div class="dtabs">${DT.map((t, i) => `<button data-dt="${i}" class="${i ? "" : "on"}">${t}</button>`).join("")}</div>
   <div class="panes">
-   <div class="pane" data-p="0">${infoTop(v)}<div class="m">${esc(v.reason)}</div>
+   <div class="pane" data-p="0">${infoTop(v)}${ruleBlock(v)}<div class="m">${esc(v.reason)}</div>
      ${mismatch(v)}<details><summary>Zahlen hinter dem Urteil</summary><p>${esc(v.why[0] || "keine Daten")}</p></details>
-     ${swotBlock(v)}
+     ${swotBlock(v)}${scenBlock(v)}
      <div class="sec">Chancen-/Risiko-Matrix</div>
      <div class="matrix" role="img" aria-label="Matrix aus Kurspotenzial und Thesen-Sicherheit"><i style="top:0;left:0">Sicher, wenig Chance</i><i style="top:0;right:0">Sicher, viel Chance</i><i style="bottom:0;left:0">Riskant</i><i style="bottom:0;right:0">Riskant, viel Chance</i>
        ${y == null || v.pot_pct == null ? '<i style="top:50%;left:30%">keine Daten</i>' : `<span class="pt" style="left:${x}%;bottom:${y}%"></span>`}</div>
      <div class="muted">Rechts = Analysten-Potenzial, oben = wie sicher die These laut Score ist.</div>
      <div class="sec">Abhängigkeiten (Zölle, Zinsen, Wahlen, Regulierung)</div><div class="muted">keine Daten: Dieses Feld gibt es noch nicht. Der Lauf soll es künftig je Aktie füllen.</div>
-     <div class="sec">Das widerlegt die These</div><div>${esc(v.stop || "keine Daten")}</div></div>
+     <div class="sec">Das widerlegt die These</div><div>${esc(v.stop || "keine Daten")}</div>${gapBlock(v)}</div>
    <div class="pane r" data-p="1">${kpiPane(v)}</div>
    <div class="pane r" data-p="2"><div class="sec" style="margin-top:4px">Warum der Kurs gefallen ist</div>${v.drop ? `<div class="li"><div class="row"><span class="chip warn">${esc(v.drop.kind)}</span><span class="muted">${dm(v.drop.date)} · ${esc(v.drop.move || "")}</span></div><div>${esc(v.drop.cause)}</div></div>` : '<div class="muted">keine Daten</div>'}
      <div class="sec">Score in Teilen</div>${v.parts.map(p => `<div class="bar"><span>${esc(p.n)}</span><span class="tr"><span class="fl" style="left:0;right:${100 - p.p / p.max * 100}%"></span></span><span>${p.p}/${p.max}</span></div>`).join("") || '<div class="muted">keine Daten</div>'}
