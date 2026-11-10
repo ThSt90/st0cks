@@ -171,6 +171,7 @@ const pct = (v, d = 0) => v == null ? "keine Daten" : (v > 0 ? "+" : v < 0 ? "�
 const days = d => d ? Math.round((new Date(TODAY) - new Date(d)) / 864e5) : null;
 const ago = d => { const n = days(d); return n == null ? "keine Daten" : n <= 0 ? "heute" : n === 1 ? "gestern" : "vor " + n + " Tg."; };
 const dm = d => d ? d.slice(8, 10) + "." + d.slice(5, 7) + "." : "–";
+const tb = iso => new Date(iso).toLocaleString("de-DE", { timeZone: "Europe/Berlin", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).replace(",", "");
 const agoT = iso => { const m = (Date.now() - new Date(iso)) / 6e4; return m < 60 ? "vor " + Math.max(1, Math.round(m)) + " Min." : m < 1440 ? "vor " + Math.round(m / 60) + " Std." : "vor " + Math.round(m / 1440) + " Tg."; };
 const freshT = (label, iso, maxH) => { const old = !iso || (Date.now() - new Date(iso)) / 36e5 > maxH;
   return `<span class="chip ${old ? "warn" : ""}">${old ? "⚠ " : ""}${esc(label)} ${iso ? esc(agoT(iso)) : "keine Daten"}</span>`; };
@@ -424,7 +425,7 @@ applyTheme(); off();
 main.innerHTML = '<div class="screen on">' + skeleton(2) + '</div>'; $("#nav").innerHTML = ""; $("#hd").innerHTML = '<span class="brand">st<em>0</em>cks</span>';
 loadData().then(({ d, cached }) => {
   DATA = d; R = Object.fromEntries(DATA.lage.rows.map(r => [r.s, r]));
-  if (cached) { $("#off").textContent = "Keine Verbindung. Gezeigt wird der Stand vom " + dm(DATA.generated.slice(0, 10)) + " " + DATA.generated.slice(11) + " Uhr."; $("#off").style.display = "block"; }
+  if (cached) { $("#off").textContent = "Keine Verbindung. Gezeigt wird der Stand vom " + tb(DATA.generated) + " Uhr."; $("#off").style.display = "block"; }
   draw();
   const P = new URLSearchParams(location.search);
   if (P.get("tab")) { tab = P.get("tab"); if (P.get("mode")) chMode = P.get("mode"); draw(); }

@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 HERE = Path(__file__).resolve().parent
 D = ROOT / "data"
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 TODAY = date.today().isoformat()
 FX = {"EUR": 1, "USD": 1/1.122, "GBP": 1.33/1.122, "GBX": 1.33/1.122/100, "JPY": 1/158.2/1.122, "TWD": 1/36.28,
       "KRW": 1/1494.7, "CHF": 1.15/1.122, "SEK": 1/10/1.122, "DKK": 1/7.46, "HKD": 1/7.8/1.122, "CAD": 1/1.38/1.122}
@@ -123,8 +123,9 @@ for t in h["theses"]:
 hist.sort(key=lambda x: x["d"], reverse=True)
 
 run = h["runs"][-1]
+# Zeitstempel in UTC mit Z (lage.json speichert UTC); die App rechnet auf Berliner Zeit um
 data = {
-    "generated": datetime.now().strftime("%Y-%m-%dT%H:%M"), "today": TODAY, "lage": {"asof": lage["asof"], "fetched": lage["fetched"], "rows": lage["rows"]},
+    "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "today": TODAY, "lage": {"asof": lage["asof"], "fetched": lage["fetched"] + ("" if lage["fetched"].endswith("Z") else ":00Z"), "rows": lage["rows"]},
     "depot": depot, "chancen": chancen, "chancen_note": chancen_note, "all": {v["id"]: v for v in views}, "sectors": sectors,
     "hist": hist[:14], "run": {"id": run.get("id") or run.get("date"), "summary": first_sentence(run.get("summary"), 160), "type": run.get("type")},
     "status": status,
