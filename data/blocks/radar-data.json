@@ -1358,136 +1358,133 @@
   {
    "about": "Entwickelt Halbleiter (vor allem maßgeschneiderte KI-Chips und Netzwerkchips für große Rechenzentren) und Infrastruktur-Software (VMware).",
    "catalyst": {
-    "date": null,
-    "event": "Q4-GJ2026-Zahlen (Termin noch unbekannt, üblicherweise Dezember)"
+    "date": "2026-12-10",
+    "event": "Q4-GJ2026-Zahlen (voraussichtlich, von Broadcom noch nicht bestätigt; Vorjahr 11.12.2025)"
    },
    "closed": null,
    "counter": "Hohe Abhängigkeit von wenigen Hyperscalern und KI-Labors, deren Finanzierung teils ungesichert ist (OpenAI-Projekt laut Berichten vom Mai 2026). Wenn die KI-Investitionen ins Stocken geraten, brechen Wachstum und Multiple gleichzeitig ein. Die Margen sinken zudem leicht (Q4-Prognose 66 % nach 68 %).",
    "currency": "USD",
    "deep": {
-    "date": "2026-10-12",
-    "scenario_note": "Annahmen, keine Prognosen. Die Kurse sind das niedrigste, das durchschnittliche und das höchste Analystenziel (Quelle und Datum unter Quellen); die Zuordnung der Annahmen ist meine eigene Einschätzung. Kein Kursversprechen.",
-    "scenarios": [
-     {
-      "assumption": "KI-Halbleiterwachstum unter 100 %, ein Großkunde verschiebt, das Multiple sinkt. Entspricht dem niedrigsten Analystenziel.",
-      "name": "Vorsichtig",
-      "price": "215,88 USD (−39,2 %)"
-     },
-     {
-      "assumption": "Wachstum bleibt bei 80 bis 90 %, Marge um 66 bis 68 %, das erwartete KGV nähert sich dem Marktniveau. Entspricht dem Ø-Ziel.",
-      "name": "Basis",
-      "price": "531,31 USD (+49,7 %)"
-     },
-     {
-      "assumption": "KI-Aufträge übertreffen die Prognose, die Finanzierung der Kunden ist gesichert. Entspricht dem höchsten Ziel.",
-      "name": "Optimistisch",
-      "price": "715 USD (+101,4 %)"
-     }
-    ],
+    "date": "2026-11-10",
+    "summary": "Broadcom wächst weiter extrem schnell, vor allem durch Chips für KI-Rechenzentren, und verdient sehr gut daran. Der Kurs steht unter Druck, weil der Markt die Finanzierung der KI-Kunden und die Abhängigkeit von wenigen Großkunden fürchtet. Das Risiko ist echt, die Bewertung gemessen am erwarteten Gewinn aber nicht extrem. Nächster Test sind die Zahlen im Dezember.",
     "sections": [
      {
-      "text": "Broadcom entwickelt Halbleiter (vor allem maßgeschneiderte KI-Chips und Netzwerkchips für große Rechenzentren) und Infrastruktur-Software (VMware). Der Umsatz stammt zu großen Teilen von wenigen Hyperscalern und KI-Labors (Gegenargument der These). Wettbewerber und Marktanteile habe ich im Lauf nicht belegt.",
-      "title": "Geschäftsmodell und Wettbewerb"
+      "title": "Geschäftsmodell und Wettbewerb",
+      "text": "Broadcom entwickelt Halbleiter (maßgeschneiderte KI-Chips, Netzwerkchips) und Infrastruktur-Software (VMware). Das meiste Wachstum kommt von wenigen Großkunden mit KI-Rechenzentren. Wettbewerber und Marktanteile habe ich in diesem Lauf nicht neu belegt."
      },
      {
-      "text": "Q3 GJ2026 (bis 02.08.2026): Umsatz 29,59 Mrd. USD (+86 %), KI-Halbleiter 16,7 Mrd. USD (+221 %), Non-GAAP-Betriebsergebnis 20,1 Mrd. USD (ca. 68 %), GAAP-EPS 2,68 nach 0,85 USD, Non-GAAP-EPS 3,32 nach 1,69 USD. Die GAAP-EPS-Reihe (StockAnalysis): 0,85 im Q3/25, dann 1,74, 1,50, 1,91 und 2,68 im Q3/26. Q4-Prognose: Umsatz ca. 34,8 Mrd. USD (+93 %), knapp unter dem Konsens (ca. 35,0 Mrd., Benzinga), Marge ca. 66 % nach 68 %.",
-      "title": "Zahlenqualität"
+      "title": "Zahlenqualität der letzten Quartale",
+      "text": "Letztes berichtetes Quartal (Q3 GJ2026, bis 02.08.2026): Umsatz 29,59 Mrd. USD (+86 %), KI-Chips 16,7 Mrd. USD (+221 %), bereinigte operative Marge rund 68 % (SEC, 8-K). Gewinn je Aktie nach GAAP 2,68 nach 0,85 USD. Das Tempo stieg von Quartal zu Quartal. Q4-Ausblick: Umsatz ca. 34,8 Mrd. USD, Marge ca. 66 %, also leicht niedriger. Q4-Zahlen stehen noch aus."
      },
      {
-      "text": "KGV 45,4 (GAAP), erwartetes KGV 18,4, PEG 0,28 (Finviz, 12.10.2026). Das Ø-Ziel von 531,31 USD (+49,7 %, 50 Analysten) entspräche bei heutigen Schätzungen einem erwarteten KGV von 27,5 (eigene Rechnung). Die Spanne ist sehr breit (215,88 bis 715 USD). Das erwartete KGV setzt voraus, dass die Wachstumsschätzungen eintreffen.",
-      "title": "Bewertung"
+      "title": "Bewertung",
+      "text": "Analysten erwarten für das laufende Geschäftsjahr rund 106 Mrd. USD Umsatz und 11,67 USD Gewinn je Aktie, fürs nächste Jahr 175 Mrd. USD und 19,47 USD (StockAnalysis, 10.11.2026). Das erwartete KGV liegt bei rund 28 (StockAnalysis, 10.11.2026): gemessen am Wachstum nicht extrem, absolut aber nicht billig. Ø-Ziel 533,42 USD bei 51 Analysten, Spanne 215,88 bis 660 USD (Ø: 09.11.2026, Spanne: 21.10.2026; Aggregator, Zweitquelle)."
      },
      {
-      "text": "Kundenkonzentration und Finanzierung der KI-Kunden (Finanzierungsfragen beim OpenAI-Projekt laut Berichten vom Mai 2026; CEO-Aussagen vom 12.10.2026 zu Kapital als Engpass). Brechen die KI-Investitionen ein, fallen Wachstum und Multiple gleichzeitig. Die Marge sinkt leicht (66 % nach 68 %).",
-      "title": "Risiken"
+      "title": "Risiken",
+      "text": "Kundenkonzentration und Finanzierung der KI-Kunden: Bremsen die KI-Investitionen, fallen Wachstum und Bewertung gleichzeitig. Hock Tan nannte am 12.10.2026 Kapital als möglichen Engpass. Die Marge sinkt leicht (66 % nach 68 %). Hohe Erwartungen: Im Juni fiel der Kurs trotz guter Zahlen, weil der Ausblick knapp darunter lag."
      },
      {
-      "text": "Die These ist widerlegt, wenn der KI-Halbleiterumsatz unter 100 % ggü. Vorjahr wächst oder gegenüber dem Vorquartal sinkt, wenn ein Großkunde Aufträge deutlich storniert oder verschiebt oder wenn die Non-GAAP-Betriebsmarge unter 60 % fällt.",
-      "title": "Was die These widerlegt"
+      "title": "Was die These widerlegt",
+      "text": "Widerlegt wäre die These, wenn der KI-Chip-Umsatz unter 100 % Vorjahreswachstum fällt oder zum Vorquartal sinkt, ein Großkunde Aufträge klar streicht oder verschiebt, oder die bereinigte operative Marge unter 60 % fällt."
      }
     ],
-    "sources": [
+    "scenarios": [
      {
-      "title": "SEC: Mitteilung zu den Zahlen",
-      "url": "https://www.sec.gov/Archives/edgar/data/0001730168/000173016826000076/avgo-08022026x8kxex99.htm"
+      "name": "Vorsichtig",
+      "assumption": "KI-Wachstum schwächt sich deutlich ab, ein Großkunde verschiebt, die Bewertung sinkt. Entspricht dem niedrigsten Analystenziel.",
+      "price": "215,88 bis 300 USD"
      },
      {
-      "title": "StockAnalysis: Kursziele",
-      "url": "https://stockanalysis.com/stocks/avgo/forecast/"
+      "name": "Basis",
+      "assumption": "Wachstum und Marge bleiben nahe am Ausblick, die Schätzungen treffen ein. Entspricht dem Ø-Ziel.",
+      "price": "450 bis 533 USD"
      },
      {
-      "title": "Finviz: Kennzahlen und Nachrichten (12.10.2026)",
-      "url": "https://finviz.com/quote.ashx?t=AVGO"
-     },
-     {
-      "title": "StockAnalysis: Quartalszahlen",
-      "url": "https://stockanalysis.com/stocks/avgo/financials/?p=quarterly"
+      "name": "Optimistisch",
+      "assumption": "KI-Aufträge übertreffen den Ausblick, die Finanzierung der Kunden ist gesichert. Entspricht dem höchsten Ziel.",
+      "price": "600 bis 660 USD"
      }
     ],
-    "summary": "Broadcom hat den stärksten Score (89): Umsatz +86 %, KI-Halbleiter +221 %, Non-GAAP-Betriebsmarge ca. 68 %, Q4-Prognose +93 %. Die Aktie liegt 28 % unter dem Hoch, weil Kundenkonzentration und die Finanzierung der KI-Kunden den Markt beschäftigen. Das Risiko ist echt, die Bewertung gemessen am Wachstum aber niedrig.",
-    "price_driver": "Der Kurs liegt 28 % unter dem Hoch (495 $), weil der Ausblick im Juni unter den Erwartungen lag (ca. −14 %) und der Markt die Finanzierung der KI-Kunden fürchtet; es ist keine Bewertungs- oder Wachstumsschwäche, denn Wachstum und Beschleunigung laufen stark und das erwartete KGV liegt bei rund 21.",
+    "scenario_note": "Annahmen, keine Prognosen",
+    "price_driver": "Der Kurs steht unter Druck wegen Sorgen um die Finanzierung der KI-Kunden und den Ausblick im Juni, nicht wegen schwacher Zahlen; Wachstum und Gewinn steigen weiter kräftig.",
     "drivers": [
      {
       "factor": "Umsatzwachstum",
       "status": "treibt",
-      "value": "Quartal Aug '26 +86 % ggü. Vorjahr (29,6 Mrd. $)",
-      "text": "Sehr hohes Wachstum durch KI-Chips; Markt wächst nur 4 bis 5 %."
+      "value": "+86 % ggü. Vorjahr (Q3 GJ26)",
+      "text": "Sehr hoch; Markt wächst nur 4 bis 5 %."
      },
      {
       "factor": "Umsatzbeschleunigung",
       "status": "treibt",
-      "value": "Aug '26 +86 % nach Mai '26 +48 %",
-      "text": "Das Tempo steigt von Quartal zu Quartal (+38 Punkte)."
+      "value": "+86 % nach +48 % im Quartal davor",
+      "text": "Tempo steigt weiter."
      },
      {
-      "factor": "Gewinnwachstum (mehrere Jahre)",
+      "factor": "Gewinnwachstum",
       "status": "treibt",
-      "value": "Nettogewinn 5,9 Mrd. $ (GJ24) → 23,1 Mrd. $ (GJ25) → 45,3 Mrd. $ (GJ26E)",
-      "text": "Gewinn mehr als verdoppelt sich jedes Jahr."
+      "value": "Gewinn je Aktie 6,82 USD (GJ25), erwartet 11,67 USD (GJ26)",
+      "text": "Gewinn wächst deutlich schneller als der Markt."
      },
      {
       "factor": "Gewinnbeschleunigung",
       "status": "treibt",
-      "value": "EPS-Wachstum 40 % (GJ25) → 71 % (GJ26E) → 66 % (GJ27E)",
-      "text": "Gewinn je Aktie wächst schneller als zuvor, 2027 leicht langsamer."
+      "value": "Erwartet GJ27 19,47 USD",
+      "text": "Wachstum bleibt hoch."
      },
      {
       "factor": "Marge",
       "status": "treibt",
-      "value": "Bruttomarge 75,5 %, operative Marge 48,8 % (letzte 12 Monate)",
-      "text": "Sehr hohe Marge, über 20 % gilt als sehr gut."
+      "value": "Bereinigte operative Marge ca. 68 %, Ausblick 66 %",
+      "text": "Sehr hoch, aber leicht sinkend."
      },
      {
       "factor": "Free Cashflow",
       "status": "treibt",
-      "value": "FCF 39,4 Mrd. $ = 44,2 % vom Umsatz (letzte 12 Monate)",
-      "text": "Sehr starker freier Geldzufluss."
+      "value": "Erwartet 49,2 Mrd. USD (GJ26)",
+      "text": "Sehr starker Geldzufluss."
      },
      {
       "factor": "Verschuldung",
       "status": "belastet",
-      "value": "Schulden 59,4 Mrd. $, Bargeld 24,0 Mrd. $, Netto-Schulden 35,4 Mrd. $; Schulden/Eigenkapital 0,60",
-      "text": "Spürbare, aber tragbare Schulden bei diesem Cashflow."
+      "value": "Netto-Schulden ca. 35 Mrd. USD (Stand Okt. 2026, Vorlauf)",
+      "text": "Spürbar, bei diesem Cashflow tragbar."
      },
      {
-      "factor": "Bewertung (KGV/KUV/Kurs-FCF)",
+      "factor": "Bewertung",
       "status": "neutral",
-      "value": "Erwartetes KGV 20,6; PEG 0,38; KUV 19,1; Kurs/FCF 43,3",
-      "text": "Gemessen am Wachstum günstig, absolut aber nicht billig (KUV 19)."
+      "value": "Erwartetes KGV ca. 28",
+      "text": "Gemessen am Wachstum vertretbar, absolut nicht billig."
      },
      {
       "factor": "Erwartungen gegen Ergebnis",
       "status": "belastet",
-      "value": "Ausblick Juni unter Erwartung (KI-Umsatz ≈ 16 statt 17,2 Mrd. $); Konsens EPS GJ27 19,39 $ (+66 %)",
-      "text": "Hohe Erwartungen: nur 'besser als gedacht' hebt den Kurs."
+      "value": "Ausblick im Juni knapp unter Erwartung",
+      "text": "Nur 'besser als gedacht' hebt den Kurs."
      },
      {
       "factor": "Thema/Produkt/Sektor",
       "status": "belastet",
-      "value": "KI-Chips; Kundenkonzentration und Finanzierung der KI-Kunden",
-      "text": "Das Thema trägt das Wachstum, ist aber auch das Hauptrisiko."
+      "value": "KI-Chips, Kundenkonzentration",
+      "text": "Trägt das Wachstum, ist zugleich das Hauptrisiko."
      }
-    ]
+    ],
+    "sources": [
+     {
+      "url": "https://www.sec.gov/Archives/edgar/data/0001730168/000173016826000076/avgo-08022026x8kxex99.htm",
+      "title": "SEC: Mitteilung zu den Zahlen (Q3 GJ2026)"
+     },
+     {
+      "url": "https://stockanalysis.com/stocks/avgo/forecast/",
+      "title": "StockAnalysis: Prognosen und Kursziele (10.11.2026, Zweitquelle)"
+     },
+     {
+      "url": "https://www.heygotrade.com/en/blog/broadcom-avgo-stock-2026/",
+      "title": "Kursrückgang Juni 2026 (Zweitquelle)"
+     }
+    ],
+    "note": "Teilweise aus bestehenden Daten und Zweitquellen erneuert (Stand 10.11.2026); Firmenmitteilungen nicht in jedem Fall gelesen, Verschuldung nicht neu geprüft."
    },
    "drops": [
     {
@@ -1758,6 +1755,21 @@
      "price": 331.98,
      "status": "intakt",
      "source": "https://stockanalysis.com/stocks/avgo/forecast/"
+    },
+    {
+     "date": "2026-11-10",
+     "type": "hinweis",
+     "text": "Termin der Q4-Zahlen nur geschätzt (Vorjahr 11.12.): Q4-GJ2026-Zahlen (voraussichtlich, von Broadcom noch nicht bestätigt; Vorjahr 11.12.2025)",
+     "price": 331.98,
+     "status": "intakt",
+     "source": "https://days.to/broadcom-earnings"
+    },
+    {
+     "date": "2026-11-10",
+     "type": "update",
+     "text": "Tiefenanalyse erneuert (teils Zweitquellen, siehe Hinweis in der Analyse).",
+     "price": 331.98,
+     "status": "intakt"
     }
    ],
    "name": "Broadcom Inc.",
@@ -3192,8 +3204,8 @@
     },
     {
      "date": "2026-11-10",
-     "type": "verletzt",
-     "text": "Score von 80 auf 79 gefallen, Schwelle 80 unterschritten. Auslöser: neue Analysten-Erwartungen (Teilnote Erwartungen), keine schlechte Nachricht der Firma. Differenz nur wenige Punkte, mit Vorsicht lesen.",
+     "type": "hinweis",
+     "text": "Score von 80 auf 79 (Schwelle 80 knapp unterschritten). Auslöser nur die neuen Analysten-Erwartungen, keine schlechte Nachricht der Firma. 1 Punkt ist Rauschen; bei der nächsten Prüfung neu bewerten.",
      "price": 219.05,
      "status": "intakt"
     }
@@ -4096,7 +4108,7 @@
      "date": "2026-11-10",
      "time": "23:12",
      "score": 79,
-     "why": "Score von 80 auf 79 gefallen, Schwelle 80 unterschritten. Auslöser: neue Analysten-Erwartungen (Teilnote Erwartungen), keine schlechte Nachricht der Firma. Differenz nur wenige Punkte, mit Vorsicht lesen.",
+     "why": "Score 80 auf 79 durch neue Analysten-Erwartungen (1 Punkt, Rauschen); keine Meldung der Firma. Wird im nächsten Lauf neu bewertet.",
      "parts": [
       {
        "name": "Wachstum",
@@ -32227,70 +32239,130 @@
    "counter": "Die Aktie hat sich vom Tief (94,40 €) bis zum Hoch verdoppelt, die Bewertung setzt viel voraus. Die Windsparte Siemens Gamesa hatte in den letzten Jahren hohe Verluste und Qualitätsprobleme (aktueller Stand im Lauf nicht geprüft). Ein Teil der Fantasie hängt am Strombedarf von KI-Rechenzentren, der am 14.09. schon einmal in Frage gestellt wurde.",
    "currency": "EUR",
    "deep": {
-    "date": "2026-10-13",
-    "scenario_note": "Szenarien sind die niedrigsten, mittleren und höchsten Analystenziele (StockAnalysis, 13.10.2026). Annahmen, keine Prognosen.",
-    "scenarios": [
-     {
-      "assumption": "Niedrigstes Analystenziel: Bewertung fällt auf Industrie-Niveau, Wind belastet wieder",
-      "name": "Niedrig",
-      "price": "100 € (−30,1 %)"
-     },
-     {
-      "assumption": "Ø-Ziel der 27 Analysten: Gewinnplan GJ2026/27 wird erfüllt",
-      "name": "Mitte",
-      "price": "194,74 € (+36,1 %)"
-     },
-     {
-      "assumption": "Höchstes Analystenziel: Netz- und Gasgeschäft wächst über Plan",
-      "name": "Hoch",
-      "price": "260 € (+81,7 %)"
-     }
-    ],
+    "date": "2026-11-10",
+    "summary": "Siemens Energy verdient so gut wie lange nicht, Umsatz, Marge und Gewinn steigen. Die Aktie ist vom Hoch deutlich zurückgekommen, weil Zweifel am KI-Ausbau auch Stromausrüster trafen. Morgen kommen die Jahreszahlen mit Ausblick und neuen Zielen bis 2030, das ist der nächste echte Test. Gegen die These sprechen die hohe Bewertung und die Vorgeschichte der Windsparte.",
     "sections": [
      {
-      "text": "Siemens Energy liefert Gasturbinen und Kraftwerkstechnik (Gas Services), Netztechnik wie Transformatoren und Hochspannungsleitungen (Grid Technologies) und Windkraftanlagen (Siemens Gamesa). Viel Geld kommt aus jahrzehntelangen Serviceverträgen. Konkurrenten sind GE Vernova, Mitsubishi Heavy, Hitachi Energy und bei Wind Vestas. Die Industriesparte (Transformation of Industry) soll laut Reuters/WSJ (August 2026) großteils verkauft bzw. abgespalten werden.",
-      "title": "Geschäftsmodell und Wettbewerb"
+      "title": "Geschäftsmodell und Wettbewerb",
+      "text": "Siemens Energy baut Gasturbinen und Kraftwerkstechnik, Netztechnik (Transformatoren) und Windanlagen (Siemens Gamesa). Viel Geld kommt aus langen Serviceverträgen. Konkurrenten sind GE Vernova, Mitsubishi Heavy, Hitachi Energy und bei Wind Vestas (aus dem Vorlauf, nicht neu belegt)."
      },
      {
-      "text": "Umsatz je Quartal von 9,75 Mrd. € (Q3 GJ2025) auf 11,45 Mrd. € (Q3 GJ2026), Wachstum zuletzt +17,5 % nach +3,3 % und +8,2 %. Der Nettogewinn stieg auf 1,08 Mrd. €. Die Bruttomarge kletterte binnen drei Jahren von 2,4 % auf über 23 %. Der freie Cashflow war im GJ2025 mit 4,1 Mrd. € sehr hoch; Analysten erwarten für das GJ2026 6,9 Mrd. €. Das zeigt: Kunden zahlen hohe Anzahlungen, die Nachfrage ist stark.",
-      "title": "Zahlenqualität der letzten Quartale"
+      "title": "Zahlenqualität der letzten Quartale",
+      "text": "Letztes berichtetes Quartal (Q3 GJ2026): Umsatz 11,45 Mrd. EUR (+17,5 %), operative Marge 13 % nach 4,3 %, Gewinn je Aktie 1,26 nach 0,70 EUR (StockAnalysis, Stand 05.08.2026). Wachstum davor +3,3 % und +8,2 %, es beschleunigt sich also. Für Q4 erwarten Analysten laut Zweitquellen (Boerse Express, Kapitalmarktexperten, 10.11.2026) 12,61 Mrd. EUR Umsatz und 1,38 EUR je Aktie. Das ist Kontext, die Zahlen kommen morgen."
      },
      {
-      "text": "Erwartetes KGV 31,7 für das GJ2026 und rund 23 für das GJ2027 (eigene Rechnung). Zum Maßstab: Der DAX liegt grob bei 15. Der Aufschlag ist nur gerechtfertigt, wenn der Gewinn wie erwartet weiter stark steigt (GJ2027 +39 %). Ø-Kursziel 194,74 € (+36 %, 27 Analysten), Spanne 100 bis 260 €: Die Meinungen gehen weit auseinander.",
-      "title": "Bewertung"
+      "title": "Bewertung",
+      "text": "Erwartet wird für GJ2026 ein Gewinn je Aktie von 4,50 EUR und für GJ2027 6,26 EUR, erwartetes KGV rund 27 (StockAnalysis, 10.11.2026). Zum Maßstab: Der DAX liegt grob bei 15. Der Aufschlag stimmt nur, wenn der Gewinn weiter stark steigt. Ø-Ziel 192,55 EUR bei 28 Analysten, Spanne 100 bis 260 EUR (Ø: 09.11.2026, Spanne: 21.10.2026; Aggregator, Zweitquelle)."
      },
      {
-      "text": "Erstens Windkraft: Siemens Gamesa hatte Qualitätsprobleme und hohe Verluste; neue Rückstellungen würden den Gewinn treffen (aktueller Stand nicht geprüft). Zweitens Stimmung: Ein Teil der Bewertung hängt am Strombedarf von KI-Rechenzentren. Drittens Zinsen: Hohe Anleiherenditen machen teure Aktien weniger attraktiv. Viertens Umbau: Die Abspaltung der Industriesparte kann Einmalkosten bringen.",
-      "title": "Risiken"
+      "title": "Risiken",
+      "text": "Erstens Windkraft: Neue Rückstellungen würden den Gewinn treffen (aktueller Stand nicht geprüft). Zweitens Stimmung: Ein Teil der Bewertung hängt am Strombedarf von KI-Rechenzentren; Zweifel daran lösten am 14.09.2026 einen Kursrutsch aus. Drittens hohe Erwartungen vor den Zahlen: Ausblick 2027 und Ziele bis 2030 müssen überzeugen. Viertens Umbau der Industriesparte (Einmalkosten möglich)."
      },
      {
-      "text": "Umsatzwachstum unter 5 %, operative Marge unter 8 %, gesenkte Prognose oder neue große Rückstellungen bei Wind. Nächster Test: Jahreszahlen und Ausblick GJ2027 am 11.11.2026.",
-      "title": "Was die These widerlegt"
+      "title": "Was die These widerlegt",
+      "text": "Widerlegt wäre die These bei Umsatzwachstum unter 5 %, operativer Marge unter 8 %, gesenkter Prognose oder neuen großen Rückstellungen bei Wind. Morgen: Jahreszahlen und Ausblick GJ2027."
+     }
+    ],
+    "scenarios": [
+     {
+      "name": "Vorsichtig",
+      "assumption": "Bewertung fällt auf Industrie-Niveau, Wind belastet wieder. Entspricht dem niedrigsten Analystenziel.",
+      "price": "100 bis 130 EUR"
+     },
+     {
+      "name": "Basis",
+      "assumption": "Gewinnplan wird erfüllt, Ausblick bestätigt. Entspricht dem Ø-Ziel.",
+      "price": "160 bis 192,55 EUR"
+     },
+     {
+      "name": "Optimistisch",
+      "assumption": "Netz- und Gasgeschäft wachsen über Plan, Ziele bis 2030 überzeugen. Entspricht dem höchsten Ziel.",
+      "price": "230 bis 260 EUR"
+     }
+    ],
+    "scenario_note": "Annahmen, keine Prognosen",
+    "price_driver": "Der Kurs steht unter Druck, weil Zweifel am KI-Ausbau und damit am Strombedarf auch Stromausrüster trafen (14.09.2026), nicht wegen schwacher Firmenzahlen.",
+    "drivers": [
+     {
+      "factor": "Umsatzwachstum",
+      "status": "treibt",
+      "value": "+17,5 % (Q3 GJ26)",
+      "text": "Deutlich über dem Markt (4 bis 5 %)."
+     },
+     {
+      "factor": "Umsatzbeschleunigung",
+      "status": "treibt",
+      "value": "+17,5 % nach +3,3 % und +8,2 %",
+      "text": "Tempo steigt."
+     },
+     {
+      "factor": "Gewinnwachstum",
+      "status": "treibt",
+      "value": "Gewinn je Aktie 1,59 EUR (GJ25), erwartet 4,50 EUR (GJ26)",
+      "text": "Gewinn wächst sehr stark."
+     },
+     {
+      "factor": "Gewinnbeschleunigung",
+      "status": "treibt",
+      "value": "Q3: 1,26 nach 0,70 EUR; erwartet GJ27 6,26 EUR",
+      "text": "Wachstum hält an."
+     },
+     {
+      "factor": "Marge",
+      "status": "treibt",
+      "value": "Operative Marge 13 % nach 4,3 %",
+      "text": "Stark gestiegen, für Anlagenbau gut."
+     },
+     {
+      "factor": "Free Cashflow",
+      "status": "treibt",
+      "value": "Erwartet 6,9 Mrd. EUR (GJ26)",
+      "text": "Kundenanzahlungen stützen; sehr hoch."
+     },
+     {
+      "factor": "Verschuldung",
+      "status": "unklar",
+      "value": "Bilanz in diesem Lauf nicht neu geprüft",
+      "text": "Unbekannt."
+     },
+     {
+      "factor": "Bewertung",
+      "status": "belastet",
+      "value": "Erwartetes KGV ca. 27",
+      "text": "Deutlich über dem DAX (ca. 15)."
+     },
+     {
+      "factor": "Erwartungen gegen Ergebnis",
+      "status": "unklar",
+      "value": "Q4-Konsens 1,38 EUR je Aktie (Zweitquelle)",
+      "text": "Zahlen kommen morgen."
+     },
+     {
+      "factor": "Thema/Produkt/Sektor",
+      "status": "belastet",
+      "value": "Gasturbinen, Netze; KI-Strombedarf",
+      "text": "Rückenwind, aber stimmungsanfällig."
      }
     ],
     "sources": [
      {
-      "title": "StockAnalysis Quartalszahlen",
-      "url": "https://stockanalysis.com/quote/etr/ENR/financials/?p=quarterly"
+      "url": "https://stockanalysis.com/quote/etr/ENR/forecast/",
+      "title": "StockAnalysis: Prognosen und Kursziele (10.11.2026, Zweitquelle)"
      },
      {
-      "title": "StockAnalysis Prognosen und Kursziele",
-      "url": "https://stockanalysis.com/quote/etr/ENR/forecast/"
+      "url": "https://stockanalysis.com/quote/etr/ENR/financials/?p=quarterly",
+      "title": "StockAnalysis: Quartalszahlen"
      },
      {
-      "title": "StockAnalysis Übersicht und Nachrichten",
-      "url": "https://stockanalysis.com/quote/etr/ENR/"
+      "url": "https://www.kapitalmarktexperten.de/siemens-energy-aktie-acht-prozent-sturz-auf-13266-euro/",
+      "title": "Kapitalmarktexperten: Kursrutsch 14.09.2026 (Zweitquelle)"
      },
      {
-      "title": "Kapitalmarktexperten: Acht-Prozent-Sturz am 14.09.2026",
-      "url": "https://www.kapitalmarktexperten.de/siemens-energy-aktie-acht-prozent-sturz-auf-13266-euro/"
-     },
-     {
-      "title": "finanzen.net: Erholung nach dem Kursrutsch",
-      "url": "https://www.finanzen.net/nachricht/aktien/sorgen-um-ki-investitionen-siemens-energy-aktie-erholt-sich-nach-kursrutsch-wie-weit-reicht-die-rally-00-15946478"
+      "url": "https://www.chartmill.com/stock/quote/ENR.DE/estimates",
+      "title": "Chartmill: Termin 11.11. (Zweitquelle)"
      }
     ],
-    "summary": "Siemens Energy verdient so gut wie nie: Umsatz +17,5 %, Gewinn je Aktie +80 %, Marge von 4 auf 13 %. Die Aktie fiel trotzdem 25 % vom Rekordhoch, vor allem weil am 14.09. die Sorge aufkam, der KI-Ausbau könnte sich verlangsamen. Gegen die These sprechen die hohe Bewertung und die Geschichte der Windsparte."
+    "note": "Teilweise aus bestehenden Daten und Zweitquellen erneuert (Stand 10.11.2026); Firmenmitteilungen nicht in jedem Fall gelesen, Verschuldung nicht neu geprüft."
    },
    "drops": [
     {
@@ -32581,6 +32653,13 @@
      "price": 119.84,
      "status": "intakt",
      "source": "https://stockanalysis.com/quote/etr/ENR/forecast/"
+    },
+    {
+     "date": "2026-11-10",
+     "type": "update",
+     "text": "Tiefenanalyse erneuert (teils Zweitquellen, siehe Hinweis in der Analyse).",
+     "price": 119.84,
+     "status": "intakt"
     }
    ],
    "name": "Siemens Energy AG",
@@ -43707,8 +43786,8 @@
     },
     {
      "date": "2026-11-10",
-     "type": "verletzt",
-     "text": "Score von 80 auf 79 gefallen, Schwelle 80 unterschritten. Auslöser: neue Analysten-Erwartungen (Teilnote Erwartungen), keine schlechte Nachricht der Firma. Differenz nur wenige Punkte, mit Vorsicht lesen.",
+     "type": "hinweis",
+     "text": "Score von 80 auf 79 (Schwelle 80 knapp unterschritten). Auslöser nur die neuen Analysten-Erwartungen, keine schlechte Nachricht der Firma. 1 Punkt ist Rauschen; bei der nächsten Prüfung neu bewerten.",
      "price": 22.6,
      "status": "intakt"
     }
@@ -44469,7 +44548,7 @@
      "date": "2026-11-10",
      "time": "23:12",
      "score": 79,
-     "why": "Score von 80 auf 79 gefallen, Schwelle 80 unterschritten. Auslöser: neue Analysten-Erwartungen (Teilnote Erwartungen), keine schlechte Nachricht der Firma. Differenz nur wenige Punkte, mit Vorsicht lesen.",
+     "why": "Score 80 auf 79 durch neue Analysten-Erwartungen (1 Punkt, Rauschen); keine Meldung der Firma. Wird im nächsten Lauf neu bewertet.",
      "parts": [
       {
        "name": "Wachstum",
@@ -44905,66 +44984,130 @@
     "source": "https://www.spglobal.com/market-intelligence/en/news-insights/research/2026/08/microsoft-postq-azure-usd100b-milestone-as-ai-demand-lifts-earnings-and-outlook"
    },
    "deep": {
-    "date": "2026-10-14",
-    "summary": "Microsoft wächst mit 18 % bei einer operativen Marge von 45 %, das ist für diese Größe außergewöhnlich. Der Kurs hat den Einbruch vom Jahresanfang aufgeholt und steht nahe am Rekord. Deshalb bleibt wenig Kurspotenzial laut Analysten (+8,5 %); der Score liegt bei 55. Als Depot-Aktie wird sie trotzdem weiter beobachtet.",
+    "date": "2026-11-10",
+    "summary": "Microsoft hat im Quartal bis September 2026 schneller und mit höherer Marge gewachsen als zuvor, getrieben von der Cloud (Azure +48 %). Die These ist intakt: alle drei Säulen sind erfüllt. Die Analysten sehen im Schnitt noch Luft nach oben. Das Hauptrisiko sind die sehr hohen KI-Investitionen, die den freien Cashflow drücken.",
     "sections": [
      {
       "title": "Geschäftsmodell und Wettbewerb",
-      "text": "Microsoft verdient an Abonnements (Microsoft 365), an Cloud-Rechenleistung (Azure), an Windows, LinkedIn und Spielen. Konkurrenten in der Cloud sind Amazon und Google. Das Geschäft ist breit gestreut und wiederkehrend, das ist ein Qualitätsplus. Neu ist die enge Verbindung zu OpenAI: Sie bringt KI-Nachfrage, aber auch ein Klumpenrisiko."
+      "text": "Microsoft verdient an Abonnements (Microsoft 365), Cloud-Rechenleistung (Azure), Windows, LinkedIn und Spielen. Konkurrenten in der Cloud sind Amazon und Google. Das Geschäft ist breit gestreut und wiederkehrend. Die enge Verbindung zu OpenAI bringt KI-Nachfrage, aber auch ein Klumpenrisiko (laut Berichten rund 45 % des Cloud-Auftragsbestands)."
      },
      {
       "title": "Zahlenqualität der letzten Quartale",
-      "text": "Quartal bis Juni 2026: Umsatz 90,0 Mrd. $ (≈ 80,4 Mrd. €), +17,7 % ggü. Vorjahr; operative Marge 45,1 % (Vorjahr 44,9 %); Nettogewinn 35,8 Mrd. $ (+31 %). Die Vorquartale: +18,3 % und +16,7 % Umsatzwachstum (eigene Rechnung aus StockAnalysis). Das Dezember-Quartal 2025 hatte einen auffällig hohen Nettogewinn (38,5 Mrd. $ über dem Betriebsergebnis), vermutlich ein Einmaleffekt; die Ursache habe ich nicht geprüft. Quelle: StockAnalysis, Stand 14.10.2026."
+      "text": "Q1 GJ2027 (Juli bis September 2026, gemeldet 28.10.2026): Umsatz 92,3 Mrd. $ (≈ 82 Mrd. €), +19 % nach +17,8 % im Vorquartal; operative Marge 49,7 % (Vorquartal 45,1 %), operatives Ergebnis +21 %; Nettogewinn 36,6 Mrd. $ (+32 %), ohne OpenAI-Effekte +18 %. Cloud-Auftragsbestand 677 Mrd. $ (Zweitquellen: jamessharp.co.uk, Zacks, 28.10.2026). Das Wachstum beschleunigt sich leicht, die Marge steigt. Der hohe Nettogewinn enthält OpenAI-Effekte, deshalb zählt die bereinigte Zahl."
      },
      {
       "title": "Bewertung",
-      "text": "Erwartetes KGV 27,5 bei erwartetem Gewinnwachstum von 14 % (laufendes Geschäftsjahr) und 20 % (Folgejahr). Das ist mittel. Das Ø-Kursziel von 589,60 $ liegt nur 8,5 % über dem Kurs (56 Analysten, 13.10.2026); die Spanne reicht von 440 bis 870 $."
+      "text": "Erwartetes KGV rund 26,6 (StockAnalysis, 10.11.2026) bei erwartetem Gewinn je Aktie von 20,01 $ (laufendes Jahr) und 24,20 $ (Folgejahr), bereinigt. Das ist mittel: kein Schnäppchen, keine Übertreibung. Ø-Kursziel 636 $ (58 Analysten, 09.11.2026), Spanne 440 bis 870 $ (Stand 19.10.2026)."
      },
      {
       "title": "Risiken",
-      "text": "1) Sehr hohe KI-Investitionen drücken den freien Cashflow (erwartet 35,5 Mrd. $ statt 67,0 Mrd. $). 2) OpenAI macht laut Berichten rund 45 % des Cloud-Auftragsbestands aus. 3) KI könnte klassische Software-Produkte angreifen (Sorge, die im Januar den Kurs belastete). 4) Bruttomarge sinkt (erwartet 66,3 % nach 68,8 %)."
+      "text": "1) Investitionen über 50 Mrd. $ je Quartal; der freie Cashflow soll von 67,0 auf 32,7 Mrd. $ fallen (StockAnalysis, 10.11.2026). 2) OpenAI-Klumpen im Auftragsbestand. 3) KI könnte klassische Software angreifen (Sorge im Januar 2026). 4) Bruttomarge sinkt (erwartet 66,4 % nach 68,8 %). 5) Die Aktie liegt nahe am Rekord; Enttäuschungen würden stärker durchschlagen."
      },
      {
       "title": "Was die These widerlegt",
-      "text": "Umsatzwachstum unter 12 % in zwei Quartalen, operative Marge unter 40 % oder ein deutlicher Rückgang des Cloud-Auftragsbestands. Nächster Prüfstein: Zahlen am 28.10.2026 (Termin nicht von Microsoft bestätigt)."
+      "text": "Umsatzwachstum unter 12 % in zwei Quartalen in Folge, operative Marge unter 40 % oder ein deutlicher Rückgang des Cloud-Auftragsbestands, besonders wegen OpenAI. Stand 28.10.2026: Wachstum 19 %, Marge 49,7 %, Bestand 677 Mrd. $; kein Kriterium ist nahe. Nächster Prüfstein: Zahlen Ende Januar 2027 (Termin nicht bestätigt)."
      }
     ],
     "scenarios": [
      {
       "name": "Vorsichtig",
-      "assumption": "Cloud-Wachstum enttäuscht, die Bewertung sinkt. Entspricht dem niedrigsten Analystenziel.",
-      "price": "440 USD (≈ 393 €, −19,0 %)"
+      "assumption": "Cloud-Wachstum enttäuscht, Bewertung sinkt. Entspricht dem niedrigsten Ziel (Stand 19.10.2026).",
+      "price": "440 bis 440 USD"
      },
      {
       "name": "Basis",
-      "assumption": "Wachstum und Marge bleiben wie zuletzt. Entspricht dem Ø-Ziel.",
-      "price": "589,60 USD (≈ 526 €, +8,5 %)"
+      "assumption": "Wachstum und Marge bleiben wie zuletzt. Entspricht dem Ø-Ziel (58 Analysten, 09.11.2026).",
+      "price": "636 bis 636 USD"
      },
      {
       "name": "Optimistisch",
-      "assumption": "KI-Dienste treiben das Wachstum über die Erwartung. Entspricht dem höchsten Ziel.",
-      "price": "870 USD (≈ 777 €, +60,1 %)"
+      "assumption": "KI-Dienste treiben das Wachstum über die Erwartung. Entspricht dem höchsten Ziel (Stand 19.10.2026).",
+      "price": "870 bis 870 USD"
      }
     ],
-    "scenario_note": "Annahmen, keine Prognosen. Die Kurse sind das niedrigste, das durchschnittliche und das höchste Analystenziel (StockAnalysis, 13.10.2026); die Zuordnung der Annahmen ist meine Einschätzung. Kein Kursversprechen, keine Empfehlung.",
+    "scenario_note": "Annahmen, keine Prognosen",
+    "price_driver": "Der Kurs hat den KI-Ausverkauf vom Jahresanfang weitgehend aufgeholt; die starken Zahlen vom 28.10. (Azure +48 %) stützen ihn. Bremse bleibt die Sorge um die Höhe der KI-Investitionen.",
+    "drivers": [
+     {
+      "factor": "Umsatzwachstum",
+      "status": "treibt",
+      "value": "+19 % (Q1 GJ2027)",
+      "text": "Für einen Konzern dieser Größe sehr stark."
+     },
+     {
+      "factor": "Umsatzbeschleunigung",
+      "status": "treibt",
+      "value": "von +17,8 % auf +19 %",
+      "text": "Leichte Beschleunigung, Azure +48 %."
+     },
+     {
+      "factor": "Gewinnwachstum",
+      "status": "treibt",
+      "value": "Nettogewinn +32 %, ohne OpenAI +18 %",
+      "text": "Auch bereinigt gut."
+     },
+     {
+      "factor": "Gewinnbeschleunigung",
+      "status": "treibt",
+      "value": "operatives Ergebnis +21 %",
+      "text": "Marge steigt auf 49,7 %."
+     },
+     {
+      "factor": "Marge",
+      "status": "treibt",
+      "value": "49,7 % operativ",
+      "text": "Über 20 % ist sehr gut."
+     },
+     {
+      "factor": "Free Cashflow",
+      "status": "belastet",
+      "value": "67,0 auf erwartet 32,7 Mrd. $",
+      "text": "KI-Investitionen über 50 Mrd. $ je Quartal."
+     },
+     {
+      "factor": "Verschuldung",
+      "status": "unklar",
+      "value": "nicht neu geprüft",
+      "text": "Aktueller Wert nicht belegt."
+     },
+     {
+      "factor": "Bewertung",
+      "status": "neutral",
+      "value": "erwartetes KGV ≈ 26,6",
+      "text": "Mittel zum erwarteten Wachstum."
+     },
+     {
+      "factor": "Erwartungen gegen Ergebnis",
+      "status": "treibt",
+      "value": "Zahlen 28.10. stark, Aktie nachbörslich ≈ +4 %",
+      "text": "Beat/Miss nicht systematisch belegt (Zweitquellen)."
+     },
+     {
+      "factor": "Thema/Produkt/Sektor",
+      "status": "treibt",
+      "value": "Cloud und KI",
+      "text": "Starke Nachfrage; Klumpenrisiko OpenAI."
+     }
+    ],
     "sources": [
      {
-      "title": "StockAnalysis: Kurs und Kennzahlen",
-      "url": "https://stockanalysis.com/stocks/msft/"
+      "url": "https://www.jamessharp.co.uk/market-news/microsoft-announces-first-quarter-results/",
+      "title": "Microsoft Q1 GJ2027 (Zweitquelle), 28.10.2026"
      },
      {
-      "title": "StockAnalysis: Prognosen und Kursziele",
-      "url": "https://stockanalysis.com/stocks/msft/forecast/"
+      "url": "https://www.zacks.com/stock/news/3018768/microsoft-q1-earnings-beat-estimates-as-cloud-accelerates",
+      "title": "Zacks: Q1-Zahlen (Zweitquelle), 28.10.2026"
      },
      {
-      "title": "StockAnalysis: Quartalszahlen",
-      "url": "https://stockanalysis.com/stocks/msft/financials/?p=quarterly"
+      "url": "https://stockanalysis.com/stocks/msft/forecast/",
+      "title": "StockAnalysis: Prognosen, 10.11.2026"
      },
      {
-      "title": "Al Jazeera: Kurssturz 29.01.2026",
-      "url": "https://www.aljazeera.com/economy/2026/1/29/microsoft-stock-plunges-as-wall-street-questions-ai-investments"
+      "url": "https://www.aljazeera.com/economy/2026/1/29/microsoft-stock-plunges-as-wall-street-questions-ai-investments",
+      "title": "Al Jazeera: Kurssturz 29.01.2026"
      }
-    ]
+    ],
+    "note": "Teilweise aus bestehenden Daten und Zweitquellen erneuert (Stand 10.11.2026); Firmenmitteilungen nicht in jedem Fall gelesen, Verschuldung nicht neu geprüft."
    },
    "log": [
     {
@@ -45014,6 +45157,13 @@
      "price": 533.16,
      "status": "intakt",
      "source": "https://stockanalysis.com/stocks/msft/forecast/"
+    },
+    {
+     "date": "2026-11-10",
+     "type": "update",
+     "text": "Tiefenanalyse erneuert (teils Zweitquellen, siehe Hinweis in der Analyse).",
+     "price": 533.16,
+     "status": "intakt"
     }
    ],
    "beta": 1.1,
@@ -46210,129 +46360,138 @@
     "event": "Quartalszahlen 3. Quartal GJ2027 (Firmenmitteilung: Telefonkonferenz 17.11., 14:00 Uhr PT)"
    },
    "deep": {
-    "date": "2026-10-14",
-    "summary": "NVIDIA ist das Kraftzentrum des KI-Booms: Umsatz +106 %, operative Marge 66 %. Analysten sehen im Schnitt +44 % Kurspotenzial. Der Score liegt bei 81, vor allem wegen Wachstum und Kursziel; die Einstiegslage ist schwach, weil der Kurs nur 6 % unter dem Hoch steht. Als Depot-Aktie wird sie weiter beobachtet.",
+    "date": "2026-11-10",
+    "summary": "NVIDIA wächst weiter extrem schnell und verdient sehr gut; die Zahlen sind nicht der Grund für den Kursrückgang. Der Kurs gab zuletzt vor allem wegen Sorgen nach der US-Wahl nach (Rechenzentren, Regulierung, Ausgaben der Großkunden). Die Analysten sehen im Schnitt weiter deutlich mehr Potenzial, aber die Erwartungen sind hoch und wenige Großkunden zahlen den Großteil. Prüfstein sind die nächsten Zahlen am 17.11.2026.",
     "sections": [
      {
       "title": "Geschäftsmodell und Wettbewerb",
-      "text": "NVIDIA verkauft Chips, Systeme und Software für KI-Rechenzentren. Der Vorsprung kommt aus Chipleistung und der Software-Plattform CUDA. Konkurrenz: AMD, selbstentwickelte Chips der Cloud-Konzerne (z. B. von Broadcom gebaut) und chinesische Anbieter wie Huawei. In China sank NVIDIAs Anteil bei KI-Chips für Rechenzentren auf 34 % (Reuters, laut Sekundärquelle)."
+      "text": "NVIDIA verkauft Chips, Systeme und Software für KI-Rechenzentren; der Vorsprung kommt aus der Chipleistung und der Software-Plattform CUDA. Konkurrenz sind AMD, selbstentwickelte Chips der Cloud-Konzerne und chinesische Anbieter. Das Rechenzentrumsgeschäft machte im Quartal bis Juli 2026 89,0 Mrd. $ (≈ 79,5 Mrd. €) des Umsatzes aus, +117 % ggü. Vorjahr. Der Ausblick für das nächste Quartal rechnet mit null Rechenzentrums-Umsatz aus China wegen der Exportbeschränkungen. Quelle: Zusammenfassung mehrerer Meldungen zur Mitteilung vom 26.08.2026 (Zweitquellen, nicht die Mitteilung selbst)."
      },
      {
       "title": "Zahlenqualität der letzten Quartale",
-      "text": "Quartal bis Juli 2026: Umsatz 96,2 Mrd. $ (≈ 85,9 Mrd. €), +105,8 % ggü. Vorjahr; Vorquartal 81,6 Mrd. $ (+85,2 %). Betriebsergebnis 63,7 Mrd. $ (Marge 66,2 %). Der Nettogewinn (59,7 Mrd. $) liegt über dem Betriebsergebnis, vermutlich wegen Beteiligungsgewinnen; Ursache nicht geprüft, deshalb zählt für die Bewertung das Betriebsergebnis. Laut Sekundärquelle lag der Umsatz über dem Konsens (96,2 gegen 92,2 Mrd. $). Quelle: StockAnalysis, 14.10.2026."
+      "text": "Quartal bis 26.07.2026: Umsatz 96,2 Mrd. $ (≈ 85,9 Mrd. €), +106 % ggü. Vorjahr und +18 % ggü. Vorquartal; die Analysten hatten rund 92,1 Mrd. $ erwartet. Betriebsergebnis 63,7 Mrd. $ (+124 %), Marge 66,2 %; das ist außergewöhnlich (über 20 % gilt schon als sehr gut). Gewinn je Aktie 2,46 $ nach US-Rechnungslegung, 2,22 $ bereinigt. Ausblick nächstes Quartal: rund 108 Mrd. $ Umsatz (±2 %) bei etwa 74 % Bruttomarge, über den erwarteten 104,2 Mrd. $. Für das Geschäftsjahr 2028 nennt die Finanzchefin rund 70 % Umsatzwachstum. Quellen: StockAnalysis (Quartalszahlen), Zweitquellen zur Mitteilung (Verdict, Pulse2), 10.11.2026."
      },
      {
       "title": "Bewertung",
-      "text": "Erwartetes KGV 24,5 bei erwartetem Gewinnwachstum von 95 % (laufendes Jahr) und 71 % (Folgejahr). Das Ø-Kursziel von 328,72 $ liegt 43,9 % über dem Kurs (62 Analysten, Stand 09.10.2026), Spanne 180 bis 515 $."
+      "text": "Erwartetes KGV rund 18 (StockAnalysis, 10.11.2026, bereinigte Gewinne), bei erwartetem Gewinnwachstum von rund 95 % im laufenden und rund 71 % im Folgejahr. Das ist für so ein Wachstum nicht teuer, aber nur, wenn die Erwartungen eintreten. Das Ø-Kursziel von 326,92 $ (≈ 292 €) stammt von 62 Analysten (Stand 09.11.2026), Spanne 180 bis 515 $ (Stand dieser Spanne 21.10.2026, also älter als 14 Tage und mit Vorsicht zu lesen)."
      },
      {
       "title": "Risiken",
-      "text": "1) Wenige Großkunden und deren Finanzierung (Kapital als möglicher Engpass, Broadcom-Chef am 12.10.). 2) Exportbeschränkungen und Konkurrenz in China. 3) Sehr hohe Erwartungen: Auch gute Zahlen können den Kurs drücken. 4) Zyklus: KI-Investitionen können schwanken."
+      "text": "1) Politik: Nach der US-Wahl am 03.11.2026 sorgen sich Anleger um Regulierung und Genehmigungen für Rechenzentren; der Kurs fiel am 05.11. um rund 9 % (Zweitquellen, teils schwache Seiten). 2) Wenige Großkunden: US-Kunden brachten im Jahr bis Januar 2026 69,3 % des Umsatzes (Zweitquelle), ihre Ausgabenlust ist entscheidend. 3) Exportbeschränkungen und Konkurrenz in China. 4) Sehr hohe Erwartungen: Auch gute Zahlen können den Kurs drücken, wie im November 2025. 5) Zyklus: KI-Investitionen können schwanken, die Finanzierung (Schulden) der Kunden wird kritisch beobachtet."
      },
      {
       "title": "Was die These widerlegt",
-      "text": "Umsatzwachstum unter 50 %, Umsatz sinkt gegenüber dem Vorquartal oder operative Marge unter 55 %. Nächster Prüfstein: Zahlen um den 18.11.2026 (Termin geschätzt)."
+      "text": "Umsatzwachstum unter 50 % ggü. Vorjahr, Umsatz sinkt ggü. Vorquartal oder operative Marge unter 55 %. Der Ausblick von rund 108 Mrd. $ für das laufende Quartal ist die Messlatte; bleibt NVIDIA am 17.11.2026 deutlich darunter, wäre die These ernsthaft in Gefahr. Der Kursrückgang allein widerlegt sie nicht, solange die Ursache Stimmung und Politik ist."
      }
     ],
     "scenarios": [
      {
       "name": "Vorsichtig",
-      "assumption": "KI-Ausgaben der Kunden stocken, Bewertung sinkt. Entspricht dem niedrigsten Analystenziel.",
-      "price": "180 USD (≈ 161 €, −21,2 %)"
+      "assumption": "KI-Ausgaben der Kunden stocken oder Politik bremst den Rechenzentrumsbau, Bewertung sinkt. Entspricht dem niedrigsten Analystenziel (Stand 21.10.2026).",
+      "price": "180 bis 180 USD (≈ 161 €)"
      },
      {
       "name": "Basis",
-      "assumption": "Wachstum wie erwartet, Marge hält. Entspricht dem Ø-Ziel.",
-      "price": "328,72 USD (≈ 293 €, +43,9 %)"
+      "assumption": "Wachstum wie erwartet, Marge hält. Entspricht dem Ø-Ziel von 62 Analysten.",
+      "price": "327 bis 327 USD (≈ 292 €)"
      },
      {
       "name": "Optimistisch",
-      "assumption": "KI-Nachfrage übertrifft alle Erwartungen. Entspricht dem höchsten Ziel.",
-      "price": "515 USD (≈ 460 €, +125,4 %)"
+      "assumption": "KI-Nachfrage übertrifft alle Erwartungen. Entspricht dem höchsten Ziel (Stand 21.10.2026).",
+      "price": "515 bis 515 USD (≈ 460 €)"
      }
     ],
-    "scenario_note": "Annahmen, keine Prognosen. Die Kurse sind das niedrigste, das durchschnittliche und das höchste Analystenziel (StockAnalysis, 09.10.2026); die Zuordnung der Annahmen ist meine Einschätzung. Kein Kursversprechen, keine Empfehlung.",
-    "sources": [
-     {
-      "title": "StockAnalysis: Kurs und Kennzahlen",
-      "url": "https://stockanalysis.com/stocks/nvda/"
-     },
-     {
-      "title": "StockAnalysis: Prognosen und Kursziele",
-      "url": "https://stockanalysis.com/stocks/nvda/forecast/"
-     },
-     {
-      "title": "StockAnalysis: Quartalszahlen",
-      "url": "https://stockanalysis.com/stocks/nvda/financials/?p=quarterly"
-     },
-     {
-      "title": "XTB: Reaktion auf die Zahlen vom 26.08.2026",
-      "url": "https://www.xtb.com/en/market-analysis/nvidia-shares-react-to-solid-earnings-report-and-stonger-guidance-what-s-next-for-the-ai-giant"
-     }
-    ],
-    "price_driver": "Die Aktie liegt nur rund 6 % unter dem Hoch; die kleineren Rücksetzer des Jahres kamen aus Markt und KI-Stimmung (Januar rund −8 % vom Rekord, im August sieben Verlusttage in Folge vor den Zahlen), nicht aus schwachen Zahlen. Sie läuft vor allem wegen Wachstum und Marge, nicht wegen niedriger Bewertung (erwartetes KGV 24,5).",
+    "scenario_note": "Annahmen, keine Prognosen. Die Kurse sind das niedrigste, durchschnittliche und höchste Analystenziel (StockAnalysis); die Zuordnung der Annahmen ist meine Einschätzung.",
+    "price_driver": "Der Kurs fiel seit dem Hoch Anfang Oktober deutlich, ohne dass NVIDIA schlechte Nachrichten meldete. Genannt werden der Ausverkauf der Chipwerte und Sorgen nach der US-Wahl wegen Rechenzentren und Regulierung (Zweitquellen).",
     "drivers": [
      {
       "factor": "Umsatzwachstum",
       "status": "treibt",
-      "value": "+105,9 % (Quartal bis Juli 2026), 12 Monate +83,4 %",
+      "value": "+106 % ggü. Vorjahr (Quartal bis Juli 2026)",
       "text": "Der Umsatz hat sich im Jahresvergleich verdoppelt."
      },
      {
       "factor": "Umsatzbeschleunigung",
       "status": "treibt",
-      "value": "+73,2 % → +85,2 % → +105,9 % (letzte drei Quartale)",
-      "text": "Das Tempo steigt Quartal für Quartal."
+      "value": "+85 % → +106 % in den letzten zwei Quartalen",
+      "text": "Das Tempo steigt weiter; der Ausblick liegt über den Erwartungen."
      },
      {
-      "factor": "Gewinnwachstum (mehrere Jahre)",
+      "factor": "Gewinnwachstum",
       "status": "treibt",
-      "value": "Nettogewinn GJ2022 ≈ 8,7 Mrd. € → GJ2026 ≈ 107 Mrd. € (9,75 → 120,07 Mrd. $); EPS 0,39 → 4,90 $",
-      "text": "Der Gewinn ist in vier Jahren auf mehr als das Zehnfache gestiegen."
+      "value": "Betriebsergebnis +124 %, Gewinn je Aktie 2,46 $ (GAAP)",
+      "text": "Der Gewinn wächst noch schneller als der Umsatz."
      },
      {
       "factor": "Gewinnbeschleunigung",
       "status": "neutral",
-      "value": "Nettogewinn +125,9 % im Quartal nach +210,6 % im Vorquartal",
-      "text": "Der Gewinn wächst weiter stark, aber auf hoher Basis langsamer."
+      "value": "Nettogewinn +126 % nach +211 % im Vorquartal (Stand 14.10.)",
+      "text": "Weiter sehr stark, aber auf hoher Basis langsamer."
      },
      {
       "factor": "Marge",
       "status": "treibt",
-      "value": "Operative Marge 66,2 %, Nettomarge 62,0 %",
-      "text": "Über 20 % Nettomarge ist sehr gut, 62 % ist außergewöhnlich."
+      "value": "Operative Marge 66,2 %",
+      "text": "Außergewöhnlich hoch; Ausblick 74 % Bruttomarge."
      },
      {
       "factor": "Free Cashflow",
       "status": "treibt",
-      "value": "Letzte 12 Monate ≈ 113 Mrd. € (127 Mrd. $); Kurs/FCF 43,5",
-      "text": "Sehr hoher freier Cashflow."
+      "value": "Erwartet ≈ 170 Mrd. € im laufenden Jahr (189,9 Mrd. $)",
+      "text": "Sehr hoher freier Cashflow, der Aktienrückkäufe (26 Mrd. $ im Quartal) bezahlt."
      },
      {
       "factor": "Verschuldung",
       "status": "treibt",
-      "value": "Schulden ≈ 34,7 Mrd. €, Cash ≈ 55,8 Mrd. € (62,5 Mrd. $); Nettokasse ≈ 21,1 Mrd. €; Schulden/Eigenkapital 0,17",
+      "value": "Nettokasse ≈ 21 Mrd. € (Stand 14.10.)",
       "text": "Mehr Geld als Schulden."
      },
      {
-      "factor": "Bewertung (KGV/KUV/Kurs-FCF)",
-      "status": "neutral",
-      "value": "Erwartetes KGV 24,5 (Startseite zeigt 18,9); Kurs/Umsatz 18,2",
-      "text": "Gemessen am erwarteten Gewinnwachstum (rund +95 %) nicht teuer, absolut aber nicht billig."
+      "factor": "Bewertung",
+      "status": "treibt",
+      "value": "Erwartetes KGV rund 18",
+      "text": "Für das erwartete Wachstum nicht teuer."
      },
      {
       "factor": "Erwartungen gegen Ergebnis",
       "status": "treibt",
-      "value": "EPS erwartet 9,31 $ (laufend) nach 4,77 $; 15,91 $ im Folgejahr; Ausblick im August besser als erwartet",
-      "text": "Analysten rechnen mit weiter stark steigenden Gewinnen."
+      "value": "Umsatz 96,2 statt rund 92,1 Mrd. $ erwartet; Ausblick 108 statt 104,2 Mrd. $",
+      "text": "NVIDIA übertraf die Erwartungen, der Markt wollte dennoch mehr (Zweitquellen)."
      },
      {
       "factor": "Thema/Produkt/Sektor",
-      "status": "neutral",
-      "value": "KI-Ausbau; Warnung vor Kapitalengpass beim KI-Ausbau (12.10.)",
-      "text": "Die Nachfrage ist riesig, hängt aber an der Finanzierung der KI-Kunden."
+      "status": "belastet",
+      "value": "Chipwerte −9 % am 05.11., Nasdaq stark im Minus (Zweitquelle)",
+      "text": "Politik und Regulierung rund um Rechenzentren belasten den ganzen KI-Sektor."
      }
-    ]
+    ],
+    "sources": [
+     {
+      "url": "https://stockanalysis.com/stocks/nvda/forecast/",
+      "title": "StockAnalysis: Prognosen und Kursziele (10.11.2026)"
+     },
+     {
+      "url": "https://stockanalysis.com/stocks/nvda/financials/?p=quarterly",
+      "title": "StockAnalysis: Quartalszahlen"
+     },
+     {
+      "url": "https://www.verdict.co.uk/nvidia-q2-fy27-results/",
+      "title": "Verdict: Q2 FY27 (Zweitquelle)"
+     },
+     {
+      "url": "https://pulse2.com/nvidia-operating-income-jumps-124-to-63-7-billion-as-revenue-doubles-and-q3-outlook-hits-108-billion/",
+      "title": "Pulse2: Zahlen und Ausblick (Zweitquelle)"
+     },
+     {
+      "url": "https://www.tikr.com/blog/nvidia-sinks-9-as-midterm-data-center-fears-deepen-ai-chip-rout-absolute-slaughter",
+      "title": "TIKR: Kursrutsch 05.11.2026 (Zweitquelle)"
+     },
+     {
+      "url": "https://www.fool.com/investing/2026/11/05/why-nvidia-stock-is-getting-punished-today/",
+      "title": "Motley Fool: Kursrutsch 05.11.2026"
+     }
+    ],
+    "note": "Teilweise aus bestehenden Daten und Zweitquellen erneuert (Stand 10.11.2026); Firmenmitteilungen nicht in jedem Fall gelesen, Verschuldung nicht neu geprüft."
    },
    "log": [
     {
@@ -46366,6 +46525,13 @@
      "price": 168.89,
      "status": "intakt",
      "source": "https://stockanalysis.com/stocks/nvda/forecast/"
+    },
+    {
+     "date": "2026-11-10",
+     "type": "update",
+     "text": "Tiefenanalyse erneuert (teils Zweitquellen, siehe Hinweis in der Analyse).",
+     "price": 168.89,
+     "status": "intakt"
     }
    ],
    "beta": 2.22,
@@ -47616,70 +47782,130 @@
     "source": "https://www.spglobal.com/market-intelligence/en/news-insights/research/2026/08/meta-postq-revenue-tops-expectations-but-ai-costs-weigh-on-profitability"
    },
    "deep": {
-    "date": "2026-10-14",
-    "summary": "Meta wächst beim Umsatz stark (+28 %), verdient aber kaum mehr, weil die KI-Ausgaben explodieren; der freie Cashflow ist fast verschwunden. Der Kurs steht nahe am Rekord, Analysten sehen nur +6 % Kurspotenzial. Der Score liegt bei 44. Als Depot-Aktie wird sie weiter beobachtet, besonders die Zahlen am 21.10.2026.",
+    "date": "2026-11-10",
+    "summary": "Meta wächst beim Umsatz weiter stark, gibt aber so viel Geld für KI-Rechenzentren aus, dass im dritten Quartal erstmals mehr abfloss als hereinkam. Das ist der Preis einer Wette auf KI, kein Zeichen einer kaputten Werbemaschine, solange die Werbeerlöse so wachsen. Die Analysten sehen noch deutliches Potenzial, aber die Sorge um die Ausgaben bremst die Stimmung. Entscheidend ist, ob die Investitionen später Umsatz bringen.",
     "sections": [
      {
       "title": "Geschäftsmodell und Wettbewerb",
-      "text": "Meta verdient fast ausschließlich an Werbung auf Facebook, Instagram, WhatsApp und Threads. Konkurrenten um Werbegeld sind Google, TikTok und Amazon. Meta investiert zugleich Milliarden in eigene KI-Modelle und Brillen; die Erlöse daraus sind bisher klein. Die Werbebasis ist stark, die Ausgaben sind aber ein Wagnis."
+      "text": "Meta verdient fast ausschließlich an Werbung in Facebook, Instagram, WhatsApp und Threads. Konkurrenten um Werbegeld sind Google, TikTok und Amazon. Parallel baut Meta eigene KI-Modelle und Rechenzentren; Erlöse daraus sind bisher klein. Die Werbebasis ist sehr stark, die Ausgaben sind eine Wette auf die Zukunft."
      },
      {
       "title": "Zahlenqualität der letzten Quartale",
-      "text": "Quartal bis Juni 2026: Umsatz 60,8 Mrd. $ (≈ 54,3 Mrd. €), +28,0 %; Betriebsergebnis 21,2 Mrd. $ (+3,6 %), Marge 34,8 % (Vorjahr 43,0 %); Nettogewinn 15,8 Mrd. $ (−13,6 %). Einmalkosten: 2,4 Mrd. $ Rechtsfälle und 1,18 Mrd. $ Abfindungen. Vorquartal: Nettogewinn 26,8 Mrd. $ über dem Betriebsergebnis, vermutlich Einmalgewinn (nicht geprüft). Der Gewinn je Aktie schwankt deshalb stark; das Betriebsergebnis ist der bessere Maßstab. Quellen: StockAnalysis, asianetnews (29./30.07.2026)."
+      "text": "Q3 2026: Umsatz 64,6 Mrd. $ (≈ 57,7 Mrd. €), +26 % zum Vorjahr, ohne Währungseffekt gleich. Das Tempo sinkt (Vorquartal +28 %), ist aber für einen Konzern dieser Größe sehr hoch. Das Betriebsergebnis lag bei 13,0 Mrd. $ (Marge 20,1 %), belastet durch 9,89 Mrd. $ für einen Vergleich mit US-Bundesstaaten; ohne diesen Posten rund 35 % (eigene Rechnung). Cashflow aus dem Geschäft 32,79 Mrd. $, Investitionen inkl. Leasing-Tilgung 34,91 Mrd. $ (+80 % zum Vorjahresquartal mit 19,37 Mrd. $). Daraus folgt ein freier Cashflow von −2,12 Mrd. $ (≈ −1,9 Mrd. €) nach +10,6 Mrd. $ im Vorjahr. Berichte nennen es das erste negative Quartal seit Jahren (Zweitquelle, nicht die Mitteilung). Flüssige Mittel: 82,45 Mrd. $. Die Investitionsplanung 2026 wurde auf 135 bis 145 Mrd. $ eingegrenzt (zuvor 130 bis 145; Zweitquelle)."
      },
      {
       "title": "Bewertung",
-      "text": "Erwartetes KGV 25,1 bei erwartetem Gewinnwachstum von nur 2,4 % (2026) und 14 % (2027). Das Ø-Kursziel von 807,82 $ liegt 5,9 % über dem Kurs (63 Analysten, 13.10.2026); Spanne 580 bis 1.050 $. Zuletzt hoben einzelne Analysten ihre Ziele an (Truist auf 1.000 $, Pivotal auf 930 $)."
+      "text": "Erwartetes KGV rund 21,6 auf bereinigter Basis für 2026 (StockAnalysis, 10.11.2026): etwa Marktschnitt, bei hohem Umsatzwachstum eher moderat. Erwarteter Gewinn je Aktie 2026: 29,73 $ (kaum mehr als 29,68 $ im Vorjahr), 2027: 35,59 $ (+20 %). Das Ø-Ziel der Analysten beträgt 850,10 $ (61 Analysten, 09.11.2026), Spanne 580 bis 1.050 $ (Stand 19.10.2026, älter als 14 Tage)."
      },
      {
       "title": "Risiken",
-      "text": "1) Hohe Investitionen: 2026 mehr als 130 Mrd. $ geplant, freier Cashflow erwartet negativ. 2) Margen sinken, solange die Kosten schneller wachsen als der Umsatz. 3) Das Umsatzwachstum verlangsamt sich (33 % → 28 % → Ausblick +22 %). 4) Nutzerzahlen: im 1. Quartal 20 Mio. weniger Nutzer der Apps (Sekundärquelle). 5) Rechtsrisiken (Einmalkosten von 2,4 Mrd. $)."
+      "text": "1) Die KI-Ausgaben wachsen schneller als der Umsatz; für 2026 erwarten Analysten einen negativen freien Cashflow (−9,6 Mrd. $). 2) Die Marge ist ohne Einmalposten auf rund 35 % gefallen (Vorjahr 40 %). 3) Das Umsatzwachstum verlangsamt sich. 4) Rechtsrisiken: Der Vergleich über 9,89 Mrd. $ zeigt, wie teuer sie werden können. 5) Zahlt sich KI nicht aus, drohen Abschreibungen und eine niedrigere Bewertung. Puffer sind 82 Mrd. $ flüssige Mittel; Schulden nicht einzeln geprüft."
      },
      {
       "title": "Was die These widerlegt",
-      "text": "Umsatzwachstum unter 20 %, operative Marge ohne Einmalposten unter 38 % oder mehrere Quartale mit negativem freiem Cashflow. Nächster Prüfstein: Zahlen am 21.10.2026."
+      "text": "Umsatzwachstum unter 20 %, operative Marge ohne Einmalposten dauerhaft unter 38 % oder mehrere Quartale in Folge mit negativem freiem Cashflow ohne sichtbaren Umsatzeffekt. Marge und Cashflow stehen schon auf Rot; ein einzelnes negatives Quartal bei Rekordinvestitionen ist noch kein Beweis des Scheiterns, zwei bis drei in Folge wären ein deutliches Warnzeichen."
      }
     ],
     "scenarios": [
      {
       "name": "Vorsichtig",
-      "assumption": "Kosten steigen weiter schneller als der Umsatz, die Bewertung sinkt. Entspricht dem niedrigsten Analystenziel.",
-      "price": "580 USD (≈ 518 €, −23,9 %)"
+      "assumption": "Kosten wachsen weiter schneller als der Umsatz, Anleger bezahlen weniger für den Gewinn. Entspricht dem niedrigsten Analystenziel.",
+      "price": "580 bis 580 USD (≈ 518 €)"
      },
      {
       "name": "Basis",
-      "assumption": "Umsatzwachstum um 22 bis 26 %, Gewinn wächst langsam. Entspricht dem Ø-Ziel.",
-      "price": "807,82 USD (≈ 721 €, +5,9 %)"
+      "assumption": "Umsatz wächst um 20 bis 26 %, Gewinn zieht 2027 an. Entspricht dem Ø-Ziel.",
+      "price": "850 bis 850 USD (≈ 759 €)"
      },
      {
       "name": "Optimistisch",
-      "assumption": "KI-Ausgaben zahlen sich über mehr Werbeumsatz aus. Entspricht dem höchsten Ziel.",
-      "price": "1.050 USD (≈ 938 €, +37,7 %)"
+      "assumption": "KI-Ausgaben bringen spürbar mehr Werbeumsatz. Entspricht dem höchsten Ziel.",
+      "price": "1.050 bis 1.050 USD (≈ 938 €)"
      }
     ],
-    "scenario_note": "Annahmen, keine Prognosen. Die Kurse sind das niedrigste, das durchschnittliche und das höchste Analystenziel (StockAnalysis, 13.10.2026); die Zuordnung der Annahmen ist meine Einschätzung. Kein Kursversprechen, keine Empfehlung.",
+    "scenario_note": "Annahmen, keine Prognosen",
+    "price_driver": "Der Kurs hängt vor allem daran, ob Anleger glauben, dass die hohen KI-Investitionen später Umsatz bringen. Der negative freie Cashflow und die Einmalbelastung von 9,89 Mrd. $ belasten die Stimmung.",
+    "drivers": [
+     {
+      "factor": "Umsatzwachstum",
+      "status": "treibt",
+      "value": "+26 % (Q3 2026)",
+      "text": "Sehr stark für einen Konzern mit 64,6 Mrd. $ Quartalsumsatz."
+     },
+     {
+      "factor": "Umsatzbeschleunigung",
+      "status": "belastet",
+      "value": "28 % auf 26 %",
+      "text": "Das Tempo sinkt leicht gegenüber dem Vorquartal."
+     },
+     {
+      "factor": "Gewinnwachstum",
+      "status": "belastet",
+      "value": "2026 erwartet +0,2 % je Aktie",
+      "text": "29,73 $ nach 29,68 $ (bereinigt, StockAnalysis); Erwartung, nicht gemeldet."
+     },
+     {
+      "factor": "Gewinnbeschleunigung",
+      "status": "unklar",
+      "value": "2027 erwartet +20 %",
+      "text": "Erst 2027 wird wieder deutlich mehr Gewinn erwartet; das ist eine Erwartung."
+     },
+     {
+      "factor": "Marge",
+      "status": "belastet",
+      "value": "GAAP 20,1 %, ohne Vergleich rund 35 %",
+      "text": "Vorjahr 40 %; die Kosten steigen schneller als der Umsatz."
+     },
+     {
+      "factor": "Free Cashflow",
+      "status": "belastet",
+      "value": "−2,12 Mrd. $ (Q3 2026)",
+      "text": "Investitionen 34,91 Mrd. $ übersteigen den Geschäfts-Cashflow von 32,79 Mrd. $. Wegen 82 Mrd. $ Reserve kein Notfall, aber das größte Risiko."
+     },
+     {
+      "factor": "Verschuldung",
+      "status": "unklar",
+      "value": "flüssige Mittel 82,45 Mrd. $",
+      "text": "Schulden nicht geprüft; die Reserve ist groß."
+     },
+     {
+      "factor": "Bewertung",
+      "status": "neutral",
+      "value": "erwartetes KGV rund 21,6",
+      "text": "Etwa Marktschnitt bei hohem Umsatzwachstum."
+     },
+     {
+      "factor": "Erwartungen gegen Ergebnis",
+      "status": "unklar",
+      "value": "Umsatz +26 %",
+      "text": "Beat/Miss für Q3 nicht systematisch belegt."
+     },
+     {
+      "factor": "Thema/Produkt/Sektor",
+      "status": "belastet",
+      "value": "KI-Investitionen",
+      "text": "Die Sorge über hohe KI-Ausgaben trifft den ganzen Sektor."
+     }
+    ],
     "sources": [
      {
-      "title": "StockAnalysis: Kurs und Kennzahlen",
-      "url": "https://stockanalysis.com/stocks/meta/"
+      "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+      "title": "Meta: Ergebnisse Q3 2026 (Firmenmitteilung, 21.10.2026)"
      },
      {
-      "title": "StockAnalysis: Prognosen und Kursziele",
-      "url": "https://stockanalysis.com/stocks/meta/forecast/"
+      "url": "https://letsdatascience.com/news/meta-narrows-2026-capital-spending-range-to-135-billion-145-46f12e07",
+      "title": "Zweitquelle: Investitionsrahmen 135 bis 145 Mrd. $"
      },
      {
-      "title": "StockAnalysis: Quartalszahlen",
-      "url": "https://stockanalysis.com/stocks/meta/financials/?p=quarterly"
+      "url": "https://fourweekmba.com/ai-metas-q3-explained-capex-outran-its-cash-by-2-1-billion/",
+      "title": "Zweitquelle: Capex gegen Cashflow Q3"
      },
      {
-      "title": "Asianet: Kurs nach Q2-Zahlen (30.07.2026)",
-      "url": "https://newsable.asianetnews.com/markets/meta-stock-tumbles-11-after-hours-soaring-ai-costs-squeeze-profits-and-soft-q3-outlook-disappoints-articleshow-orlm8ui"
-     },
-     {
-      "title": "S&P Global: Meta nach den Q2-Zahlen",
-      "url": "https://www.spglobal.com/market-intelligence/en/news-insights/research/2026/08/meta-postq-revenue-tops-expectations-but-ai-costs-weigh-on-profitability"
+      "url": "https://stockanalysis.com/stocks/meta/forecast/",
+      "title": "StockAnalysis: Prognosen und Kursziele (10.11.2026)"
      }
-    ]
+    ],
+    "note": "Teilweise aus bestehenden Daten und Zweitquellen erneuert (Stand 10.11.2026); Firmenmitteilungen nicht in jedem Fall gelesen, Verschuldung nicht neu geprüft."
    },
    "log": [
     {
@@ -47729,6 +47955,13 @@
      "price": 641.39,
      "status": "verletzt",
      "source": "https://stockanalysis.com/stocks/meta/forecast/"
+    },
+    {
+     "date": "2026-11-10",
+     "type": "update",
+     "text": "Tiefenanalyse erneuert (teils Zweitquellen, siehe Hinweis in der Analyse).",
+     "price": 641.39,
+     "status": "verletzt"
     }
    ],
    "beta": 1.19,
@@ -48906,70 +49139,134 @@
    ],
    "depot": true,
    "deep": {
-    "date": "2026-10-14",
-    "summary": "Rheinmetall wächst schnell und hat riesige Aufträge, aber der Gewinn und der Cashflow hinken hinterher. Die Aktie kostet nur noch halb so viel wie im Hoch, weil der Markt Frieden und zu hohe Erwartungen einpreist. Das Bild ist gemischt: starkes Geschäft gegen politische Abhängigkeit.",
+    "date": "2026-11-10",
+    "summary": "Rheinmetall hat die Jahresprognose zum zweiten Mal gesenkt, weil zwei große Projekte ins nächste Jahr rutschen. Damit sind mehrere Stop-Kriterien der These eingetreten, die These gilt als verletzt. Das Geschäft wächst weiter stark und die Marge steigt, aber der freie Cashflow ist deutlich negativ und der Auftragsbestand ist unter die Schwelle von 80 Mrd. € gefallen. Die Analysten bleiben im Schnitt klar optimistisch, doch ihre Schätzungen müssen nach der Senkung erst neu geprüft werden.",
     "sections": [
      {
       "title": "Geschäftsmodell und Wettbewerb",
-      "text": "Rheinmetall liefert Panzer, Radfahrzeuge, Artillerie, Munition und Elektronik, vor allem an Deutschland und andere NATO-Staaten. Aufträge laufen über Jahre; der Auftragsbestand liegt bei über 80 Mrd. € (rund das Siebenfache des Jahresumsatzes). Konkurrenz kommt von KNDS, BAE Systems, Leonardo und US-Konzernen. Rheinmetall profitiert davon, dass Europa seine Verteidigungsausgaben stark erhöht und Munition knapp ist. Quelle: StockAnalysis, Firmenangaben über quartr, Stand 14.10.2026."
+      "text": "Rheinmetall liefert Panzer, Radfahrzeuge, Artillerie, Munition und Elektronik, vor allem an Deutschland und andere NATO-Staaten. Aufträge laufen über Jahre, der Auftragsbestand lag zuletzt bei 78,0 Mrd. € (30.09.2026). Konkurrenz: KNDS, BAE Systems, Leonardo, US-Konzerne. Rückenwind sind die höheren Verteidigungsbudgets in Europa und knappe Munition. Quellen: news.at 05.11.2026, StockAnalysis 10.11.2026."
      },
      {
       "title": "Zahlenqualität der letzten Quartale",
-      "text": "Q2/2026: Umsatz 3.289 Mio. € (+69 %), Betriebsgewinn bereinigt 562 Mio. € (Firma) bzw. 475 Mio. € (StockAnalysis), Nettogewinn 124 Mio. € (Vorjahr 130). Q1/2026: Umsatz nur +8 %. Q3/2025: Umsatz +13 %. Der Umsatz springt also von Quartal zu Quartal, der Nettogewinn kaum. Der freie Cashflow im 1. Halbjahr lag bei rund −1,6 Mrd. € (Firma). Gute Zeichen: Q2 lag laut Firma rund 20 % über der Markterwartung. Schlechte: Gewinn je Aktie der letzten 12 Monate −14,5 %. Quellen siehe unten."
+      "text": "Q3/2026: Umsatz +32 % auf ≈ 3,15 Mrd. €, operatives Ergebnis 553 Mio. € (+62 %), Marge ≈ 17,5 % nach 14,8 % (finanztrends, 04.11.2026; Zweitquelle). Neun Monate: Umsatz 8.376 Mio. € (+38 %), Marge 16,0 % (Vorjahr 13,1 %). Das Wachstum schwankt aber stark (Q1 +8 %, Q2 +69 %, Q3 +32 %). Der freie Cashflow ist schwach: 1. Halbjahr rund −1,6 Mrd. € (Firma), operativer freier Cashflow nach Berichten −1,7 Mrd. € nach neun Monaten (Zweitquelle, boerse-express 05.11.2026; Quellen weichen bei Details ab). Gewinn und Marge sind gut, die Umwandlung in Bargeld ist es nicht."
      },
      {
       "title": "Bewertung",
-      "text": "Erwartetes KGV 21 bis 26 (zwei Seiten bei StockAnalysis, bereinigter Gewinn 37,27 € je Aktie für 2026). Auf Basis des gemeldeten Gewinns (15,46 €) wären es rund 62. Das Ø-Kursziel der 21 Analysten liegt bei 1.571 € (+64 %), Spanne 1.020 bis 2.380 €. Der Kurs liegt 51 % unter dem Hoch von 1.966 €. Die Spanne zeigt, wie uneinig die Analysten sind."
+      "text": "Erwartetes KGV rund 25 auf bereinigter Basis (StockAnalysis, 10.11.2026); die Gewinnschätzungen sind bereinigt und liegen weit über dem gemeldeten Gewinn. Das Ø-Kursziel von 1.435 € (22 Analysten, 09.11.2026) liegt klar über dem Kurs, Spanne 1.020 bis 2.380 € (Stand 21.10.2026, also vor der Prognosesenkung). Ob die Ziele nach dem 05.11. gesenkt wurden, ist nicht geprüft. Die große Spanne zeigt, wie uneinig die Analysten sind."
      },
      {
       "title": "Risiken",
-      "text": "1) Politik: Frieden in der Ukraine oder Kürzungen im Haushalt würden die Nachfrage drücken. 2) Cashflow: Wird er nicht besser, steigen die Schulden. 3) Projektrisiko: Mit F126 fiel schon ein Programm weg (rund 300 Mio. € Umsatz weniger). 4) Erwartungen: Die Gewinnschätzungen sind mehr als doppelt so hoch wie der letzte gemeldete Wert. 5) Berenberg stufte am 10.10.2026 auf Halten ab."
+      "text": "1) Projektverschiebungen: Zwei Großprojekte (laut Berichten u. a. der Boxer-Auftrag Arminius) rutschen ins Jahr 2027; Anzahlungen und Umsatz verschieben sich mit. Nach der Senkung im August (F126, rund 300 Mio. €) zeigt sich ein Muster. 2) Cashflow bleibt negativ, Schulden können steigen. 3) Politik: Frieden in der Ukraine oder Haushaltskürzungen. 4) Fast nur der Staat als Kunde. 5) Berenberg stufte am 10.10.2026 auf Halten ab. Einordnung: Die Senkung liegt laut Zweitquellen an Verzögerungen, nicht an wegbrechender Nachfrage; das belegt aber nicht, dass die Aufträge sicher kommen."
      },
      {
       "title": "Was die These widerlegt",
-      "text": "Die These (starkes Wachstum bei vorübergehender Kursschwäche) wäre widerlegt, wenn: Q3-Zahlen am 05.11. ein Umsatzwachstum unter 20 % zeigen, die Prognose gesenkt wird, der Auftragsbestand unter 80 Mrd. € fällt oder der Cashflow im 2. Halbjahr weiter deutlich negativ bleibt."
+      "text": "Die Stop-Kriterien vom 14.10. lauteten: Umsatzwachstum unter 20 %, Prognosesenkung, Auftragsbestand unter 80 Mrd. €, Cashflow im 2. Halbjahr weiter deutlich negativ. Am 05.11.2026 eingetreten sind: Prognosesenkung (Umsatz ≈ 13,2 Mrd. € statt 13,7 bis 14,2 Mrd. €, Marge ≈ 18,5 % statt 19 %) und Auftragsbestand 78,0 Mrd. €. Nicht eingetreten: Umsatzwachstum unter 20 % (Q3 +32 %). Der Cashflow im 3. Quartal war nach einer Zweitquelle nur leicht negativ (−82 Mio. €), nicht aus der Firmenmitteilung geprüft. Fazit: Die These ist nach der eigenen Regel verletzt. Endgültig gebrochen wäre sie, wenn Aufträge 2027 erneut ausfallen oder der Bestand weiter fällt. Zurück auf intakt erst, wenn der Bestand wieder über 80 Mrd. € liegt und der Cashflow positiv wird."
      }
     ],
     "scenarios": [
      {
-      "name": "Vorsichtig (niedrigstes Analystenziel)",
-      "assumption": "Gewinn bleibt hinter den Schätzungen, Friedenshoffnung hält an. Entspricht dem niedrigsten Ziel der Analysten.",
-      "price": "rund 1.020 €"
+      "name": "Vorsichtig",
+      "assumption": "Weitere Verschiebungen, Frieden drückt die Stimmung. Entspricht dem niedrigsten Analystenziel (Stand 21.10.2026).",
+      "price": "1.020 bis 1.020 EUR"
      },
      {
-      "name": "Basis (Ø-Ziel)",
-      "assumption": "Umsatzprognose 2026 wird erreicht, Cashflow dreht im 2. Halbjahr. Entspricht dem Durchschnitt der 21 Analystenziele.",
-      "price": "rund 1.571 €"
+      "name": "Basis",
+      "assumption": "Verschobene Projekte kommen 2027, Cashflow dreht. Entspricht dem Ø-Ziel (22 Analysten, 09.11.2026).",
+      "price": "1.435 bis 1.435 EUR"
      },
      {
-      "name": "Optimistisch (höchstes Ziel)",
-      "assumption": "Aufträge steigen wie erwartet auf 100 bis 120 Mrd. €, Gewinn zieht stark an. Entspricht dem höchsten Ziel.",
-      "price": "rund 2.380 €"
+      "name": "Optimistisch",
+      "assumption": "Auftragsbestand wächst stark, Gewinn zieht an. Entspricht dem höchsten Ziel (Stand 21.10.2026).",
+      "price": "2.380 bis 2.380 EUR"
      }
     ],
-    "scenario_note": "Das sind Annahmen auf Basis der Analystenziele, keine Prognosen.",
+    "scenario_note": "Annahmen, keine Prognosen",
+    "price_driver": "Der Kurs fiel am 05.11. zeitweise um rund 18 %, weil die Jahresprognose erneut gesenkt wurde (Zweitquelle ms-aktuell). Dazu kommen Friedenshoffnung und der negative Cashflow.",
+    "drivers": [
+     {
+      "factor": "Umsatzwachstum",
+      "status": "treibt",
+      "value": "+32 % (Q3 2026)",
+      "text": "Stark, der Markt wächst 4 bis 5 %; die Schwankung von Quartal zu Quartal ist hoch."
+     },
+     {
+      "factor": "Umsatzbeschleunigung",
+      "status": "belastet",
+      "value": "Q2 +69 %, Q3 +32 %",
+      "text": "Das Tempo hat nachgelassen; Jahresziel gesenkt."
+     },
+     {
+      "factor": "Gewinnwachstum",
+      "status": "treibt",
+      "value": "operatives Ergebnis +62 % (Q3)",
+      "text": "Zweitquelle finanztrends, 04.11.2026."
+     },
+     {
+      "factor": "Gewinnbeschleunigung",
+      "status": "neutral",
+      "value": "Marge 17,5 % nach 14,8 %",
+      "text": "Marge steigt, aber Jahresmarge auf ≈ 18,5 % statt 19 % gesenkt."
+     },
+     {
+      "factor": "Marge",
+      "status": "treibt",
+      "value": "16,0 % in neun Monaten",
+      "text": "Gut für Rüstung, Vorjahr 13,1 %."
+     },
+     {
+      "factor": "Free Cashflow",
+      "status": "belastet",
+      "value": "≈ −1,6 Mrd. € (1. Halbjahr)",
+      "text": "Lageraufbau; Besserung erst mit Auslieferungen und Anzahlungen."
+     },
+     {
+      "factor": "Verschuldung",
+      "status": "unklar",
+      "value": "nicht neu geprüft",
+      "text": "Bei negativem Cashflow steigt die Nettoverschuldung; aktueller Wert nicht belegt."
+     },
+     {
+      "factor": "Bewertung",
+      "status": "neutral",
+      "value": "erwartetes KGV ≈ 25 (bereinigt)",
+      "text": "Nicht teuer zum erwarteten Wachstum, aber der bereinigte Gewinn liegt weit über dem gemeldeten."
+     },
+     {
+      "factor": "Erwartungen gegen Ergebnis",
+      "status": "belastet",
+      "value": "Prognose gesenkt am 05.11.",
+      "text": "Die Firma verfehlt ihr eigenes Ziel; Analystenschätzungen sind vermutlich zu hoch."
+     },
+     {
+      "factor": "Thema/Produkt/Sektor",
+      "status": "neutral",
+      "value": "Verteidigung Europa",
+      "text": "Budgets hoch, aber Friedenshoffnung und Projektverzug bremsen."
+     }
+    ],
     "sources": [
      {
-      "url": "https://stockanalysis.com/quote/etr/RHM/",
-      "title": "StockAnalysis: Rheinmetall Übersicht"
+      "url": "https://www.news.at/wirtschaft/rheinmetall-prognose-gesenkt-umsatz-2026-aktie-quartalszahlen",
+      "title": "news.at: Prognose gesenkt, 05.11.2026"
+     },
+     {
+      "url": "https://www.boerse-express.com/news/articles/rheinmetall-aktie-guidance-2026-gesenkt-cashflow-schwach-945206",
+      "title": "Börse Express: Guidance gesenkt, Cashflow schwach (Zweitquelle)"
+     },
+     {
+      "url": "https://www.finanztrends.de/news/rheinmetall-aktie-grossprojekte-rutschen-prognose-sinkt/",
+      "title": "finanztrends: Großprojekte rutschen (Zweitquelle)"
+     },
+     {
+      "url": "https://www.boersen-zeitung.de/unternehmen-branchen/verzoegerung-beim-projekt-arminius-zwingt-rheinmetall-kurs-in-die-knie",
+      "title": "Börsen-Zeitung: Arminius-Verzögerung"
      },
      {
       "url": "https://stockanalysis.com/quote/etr/RHM/forecast/",
-      "title": "StockAnalysis: Prognosen und Kursziele"
-     },
-     {
-      "url": "https://stockanalysis.com/quote/etr/RHM/financials/?p=quarterly",
-      "title": "StockAnalysis: Quartalszahlen"
-     },
-     {
-      "url": "https://quartr.com/events/rheinmetall-rhm-q2-2026_oqaC7FDD",
-      "title": "Quartr: Q2/2026 Zusammenfassung"
-     },
-     {
-      "url": "https://www.boerse-express.com/news/articles/rheinmetall-aktie-diplomatie-drueckt-kurs-927956",
-      "title": "Börse Express: Diplomatie drückt Kurs"
+      "title": "StockAnalysis: Prognosen, 10.11.2026"
      }
-    ]
+    ],
+    "note": "Teilweise aus bestehenden Daten und Zweitquellen erneuert (Stand 10.11.2026); Firmenmitteilungen nicht in jedem Fall gelesen, Verschuldung nicht neu geprüft."
    },
    "log": [
     {
@@ -49049,6 +49346,13 @@
      "price": 853.3,
      "status": "verletzt",
      "source": "https://stockanalysis.com/quote/etr/RHM/forecast/"
+    },
+    {
+     "date": "2026-11-10",
+     "type": "update",
+     "text": "Tiefenanalyse erneuert (teils Zweitquellen, siehe Hinweis in der Analyse).",
+     "price": 853.3,
+     "status": "verletzt"
     }
    ],
    "beta": 0.48,
@@ -50239,70 +50543,138 @@
    ],
    "depot": true,
    "deep": {
-    "date": "2026-10-14",
-    "summary": "Emcor baut und wartet die Technik in Gebäuden und wächst gerade mit Rechenzentren sehr schnell. Zahlen und Prognose sind besser geworden, die Aktie liegt trotzdem 18 % unter dem Hoch. Bewertung und Konjunktur sind die Hauptrisiken.",
+    "date": "2026-11-10",
+    "summary": "Emcor baut und wartet die Technik in Gebäuden und wächst gerade sehr schnell, vor allem durch Rechenzentren. Die Zahlen vom 29.10.2026 waren stark, die Jahresprognose wurde angehoben und der Auftragsbestand ist auf einen Rekord gestiegen. Der Kurs gab trotzdem nach, weil Anleger fürchten, dass Rechenzentren politisch gebremst werden könnten. Das Ø-Kursziel der Analysten liegt weiter deutlich über dem Kurs, ist aber nur von wenigen Analysten.",
     "sections": [
      {
       "title": "Geschäftsmodell und Wettbewerb",
-      "text": "Emcor plant, baut und wartet Strom-, Klima-, Wasser- und Netzwerktechnik in Gebäuden. Kunden sind Betreiber von Rechenzentren, Krankenhäuser, Fabriken und Behörden. Einnahmen kommen aus Bauprojekten und aus Wartungs- und Serviceverträgen (stetiger). Konkurrenz sind andere große Gebäudetechniker und Baukonzerne wie Comfort Systems oder Quanta; der Markt ist zersplittert und Emcor gehört zu den größten Anbietern. Quelle: StockAnalysis, Emcor-Pressemitteilung."
+      "text": "Emcor plant, baut und wartet Strom-, Klima-, Wasser- und Netzwerktechnik in Gebäuden. Geld kommt aus Bauprojekten und aus stetigeren Wartungsverträgen. Konkurrenten sind andere große Gebäudetechniker und Baukonzerne wie Comfort Systems oder Quanta. Der Auftragsbestand lag am 30.09.2026 bei 18,57 Mrd. $ (≈ 16,6 Mrd. €), +47 % ggü. Vorjahr; davon entfallen 8,74 Mrd. $ auf Rechenzentren, mehr als doppelt so viel wie ein Jahr zuvor. Quellen: Emcor-Mitteilung (SEC), 29.10.2026; Rechenzentrumsanteil aus Zusammenfassung (Zweitquelle)."
      },
      {
       "title": "Zahlenqualität der letzten Quartale",
-      "text": "Q2/2026: Umsatz 5.155 Mio. $ (+19,8 %), Betriebsergebnis 547 Mio. $ (Marge 10,6 %, Rekord), Gewinn je Aktie 9,06 $ (+34,8 %). Q1/2026: Umsatz +19,7 %, Gewinn je Aktie 6,84 $ (+30 %). Auftragsbestand 17,14 Mrd. $ (+44 %). Das Wachstum beschleunigt sich leicht. Auffällig: Q4/2025 hatte einen Nettogewinn (435 Mio. $) über dem Betriebsergebnis (429 Mio. $), vermutlich ein Einmaleffekt. Beat gegen Konsens im Q2: Umsatz 5,15 Mrd. $ statt 4,71 Mrd. $."
+      "text": "Q3/2026: Umsatz 5,54 Mrd. $ (≈ 4,95 Mrd. €), +28,8 % ggü. Vorjahr nach +19,8 % im Q2, das Wachstum beschleunigt sich also. Operative Marge 9,8 % (Vorjahr 9,4 %). Gewinn je Aktie 9,04 $ nach US-Rechnungslegung, 9,60 $ ohne eine nicht zahlungswirksame Abschreibung von 34 Mio. $ im Bereich Gebäudeservice (Zweitquellen: Zacks, Panabee). Umsatzprognose 2026 angehoben auf 20,6 bis 21,0 Mrd. $. Ein Teil des Wachstums kommt aus Zukäufen (500 Mio. $ des Auftragsbestands). Quelle: Emcor-Mitteilung auf sec.gov, 29.10.2026."
      },
      {
       "title": "Bewertung",
-      "text": "Erwartetes KGV 22 bis 24 für 2026 (Gewinn je Aktie 32,96 $). Das Ø-Kursziel von 1.033 $ (≈ 922 €) liegt 33 % über dem Kurs (776 $ ≈ 693 €), Spanne 885 bis 1.200 $. Die Kursziele wurden zuletzt am 08.08.2026 aktualisiert."
+      "text": "Erwartetes KGV rund 18,5 (StockAnalysis, 10.11.2026), Gewinn je Aktie erwartet 34,91 $ für 2026 und 40,91 $ für 2027 (bereinigt). Das Ø-Kursziel von 907 $ (≈ 810 €) stammt von nur 11 Analysten (Stand 09.11.2026). Niedrigstes und höchstes Ziel liegen aktuell nicht vor; die früheren Werte 885 bis 1.200 $ stammen aus August 2026 und sind veraltet."
      },
      {
       "title": "Risiken",
-      "text": "1) Rechenzentren: Ein Teil des Wachstums hängt am KI-Ausbau; sinkende Investitionen träfen Emcor. 2) Bewertung: Schon im Oktober 2025 fiel die Aktie 17 % an einem Tag trotz guter Zahlen. 3) Projektgeschäft: Kostensteigerungen oder Verzögerungen drücken Margen. 4) Konjunktur: Hohe Zinsen (US-Rendite 5,2 %) bremsen den Bau. 5) Ursache des aktuellen Rückgangs nur schwach belegt."
+      "text": "1) Rechenzentren: Moratorien und Pausen für neue Rechenzentren (genannt wurden Loudoun County und ein Moratorium in New York, laut Earnings Whispers, Zweitquelle) könnten Aufträge verzögern; die Konzernleitung sieht keine Abschwächung der Nachfrage. 2) Klumpen: Rund die Hälfte des Auftragsbestands hängt an Rechenzentren. 3) Hohe Erwartungen: Im Oktober 2025 fiel die Aktie trotz guter Zahlen an einem Tag um rund 17 %. 4) Projektgeschäft: Kosten und Verzögerungen drücken die Marge. 5) Konjunktur und Zinsen bremsen den Bau."
      },
      {
       "title": "Was die These widerlegt",
-      "text": "Die These (stetiges Wachstum bei vorübergehender Kursschwäche) wäre widerlegt, wenn der Umsatz im Q3 weniger als 12 % wächst, die operative Marge unter 9 % fällt, die Prognose 2026 gesenkt wird oder der Auftragsbestand sinkt."
+      "text": "Umsatzwachstum unter 12 %, operative Marge unter 9 %, Senkung der Jahresprognose (20,6 bis 21,0 Mrd. $) oder ein sinkender Auftragsbestand. Alle vier Punkte waren im Q3 deutlich erfüllt; die These steht und fällt mit dem Rechenzentrums-Geschäft."
      }
     ],
     "scenarios": [
      {
-      "name": "Vorsichtig (niedrigstes Analystenziel)",
-      "assumption": "Wachstum schwächt sich ab, Bewertung sinkt weiter. Entspricht dem niedrigsten Ziel.",
-      "price": "rund 885 $ (≈ 790 €)"
+      "name": "Vorsichtig",
+      "assumption": "Rechenzentren werden politisch gebremst, Wachstum schwächt sich ab. Niedrigstes Ziel liegt aktuell nicht vor; Wert aus August 2026 (veraltet).",
+      "price": "885 bis 885 USD (≈ 790 €)"
      },
      {
-      "name": "Basis (Ø-Ziel)",
-      "assumption": "Prognose 2026 wird erreicht, Wachstum bleibt bei rund 20 %. Entspricht dem Durchschnitt der 10 Ziele.",
-      "price": "rund 1.033 $ (≈ 922 €)"
+      "name": "Basis",
+      "assumption": "Prognose 2026 wird erreicht, Wachstum bleibt hoch. Entspricht dem Ø-Ziel von 11 Analysten.",
+      "price": "907 bis 907 USD (≈ 810 €)"
      },
      {
-      "name": "Optimistisch (höchstes Ziel)",
-      "assumption": "Rechenzentrums-Aufträge laufen weiter stark, Marge steigt. Entspricht dem höchsten Ziel.",
-      "price": "rund 1.200 $ (≈ 1.071 €)"
+      "name": "Optimistisch",
+      "assumption": "Rechenzentrums-Aufträge laufen weiter stark, Marge steigt. Höchstes Ziel aus August 2026 (veraltet).",
+      "price": "1200 bis 1200 USD (≈ 1.071 €)"
      }
     ],
-    "scenario_note": "Das sind Annahmen auf Basis der Analystenziele, keine Prognosen.",
+    "scenario_note": "Annahmen, keine Prognosen. Niedrigstes und höchstes Ziel stammen aus August 2026 und sind veraltet; nur das Ø-Ziel ist aktuell (09.11.2026).",
+    "price_driver": "Der Kurs fiel seit dem Hoch Anfang Oktober um rund ein Fünftel (Trefis, Zweitquelle), weil Anleger die Dauer und Bündelung des Rechenzentrums-Booms und politische Bremsen diskutieren. Die starken Zahlen vom 29.10. änderten daran bisher wenig.",
+    "drivers": [
+     {
+      "factor": "Umsatzwachstum",
+      "status": "treibt",
+      "value": "+28,8 % ggü. Vorjahr (Q3/2026)",
+      "text": "Sehr schnell für einen Baudienstleister (Markt wächst etwa 4 bis 5 %)."
+     },
+     {
+      "factor": "Umsatzbeschleunigung",
+      "status": "treibt",
+      "value": "+19,8 % im Q2 → +28,8 % im Q3",
+      "text": "Das Tempo steigt."
+     },
+     {
+      "factor": "Gewinnwachstum",
+      "status": "treibt",
+      "value": "Gewinn je Aktie 9,04 $ (GAAP) bzw. 9,60 $ bereinigt",
+      "text": "Der Gewinn wächst mit; erwartet für 2026 34,91 $ nach 28,19 $ im Vorjahr."
+     },
+     {
+      "factor": "Gewinnbeschleunigung",
+      "status": "unklar",
+      "value": "Vorjahres-Gewinn je Aktie des Q3 nicht geprüft",
+      "text": "Ohne belegten Vorjahreswert lässt sich das Tempo nicht sauber vergleichen."
+     },
+     {
+      "factor": "Marge",
+      "status": "treibt",
+      "value": "Operative Marge 9,8 % (Vorjahr 9,4 %)",
+      "text": "Für Baudienstleister gut und steigend."
+     },
+     {
+      "factor": "Free Cashflow",
+      "status": "treibt",
+      "value": "Erwartet ≈ 1,35 Mrd. € im laufenden Jahr (1.510 Mio. $)",
+      "text": "Positiv und wachsend."
+     },
+     {
+      "factor": "Verschuldung",
+      "status": "unklar",
+      "value": "Nicht in diesem Lauf geprüft",
+      "text": "Kein belegter aktueller Wert."
+     },
+     {
+      "factor": "Bewertung",
+      "status": "neutral",
+      "value": "Erwartetes KGV rund 18,5",
+      "text": "Für das Wachstum moderat, aber nicht billig für einen Baudienstleister."
+     },
+     {
+      "factor": "Erwartungen gegen Ergebnis",
+      "status": "treibt",
+      "value": "Prognose angehoben, Gewinn über Erwartung (Zacks, Zweitquelle)",
+      "text": "Emcor übertraf die Erwartungen und hob die Prognose an."
+     },
+     {
+      "factor": "Thema/Produkt/Sektor",
+      "status": "belastet",
+      "value": "Rechenzentren-Moratorien, Auftragsbestand dort 8,74 Mrd. $",
+      "text": "Politik und KI-Stimmung belasten, obwohl Aufträge steigen."
+     }
+    ],
     "sources": [
      {
-      "url": "https://stockanalysis.com/stocks/eme/",
-      "title": "StockAnalysis: Emcor Übersicht"
+      "url": "https://www.sec.gov/Archives/edgar/data/0000105634/000010563426000132/eme-ex991_2026930xq3.htm",
+      "title": "Emcor: Mitteilung Q3/2026 (SEC, 29.10.2026)"
      },
      {
       "url": "https://stockanalysis.com/stocks/eme/forecast/",
-      "title": "StockAnalysis: Prognosen und Kursziele"
+      "title": "StockAnalysis: Prognosen und Kursziele (10.11.2026)"
      },
      {
-      "url": "https://stockanalysis.com/stocks/eme/financials/?p=quarterly",
-      "title": "StockAnalysis: Quartalszahlen"
+      "url": "https://www.zacks.com/stock/news/3018928/emcor-q3-earnings-beat-on-construction-strength-26-outlook-raised",
+      "title": "Zacks: Q3 Beat, Prognose angehoben (Zweitquelle)"
      },
      {
-      "url": "https://emcorgroup.gcs-web.com/news-releases/news-release-details/emcor-group-inc-reports-second-quarter-2026-results/",
-      "title": "Emcor: Pressemitteilung Q2/2026"
+      "url": "https://www.panabee.com/news/emcor-earnings-q3-2026",
+      "title": "Panabee: Q3 Zusammenfassung (Zweitquelle)"
      },
      {
-      "url": "https://www.fool.com/investing/2025/10/30/why-emcor-group-plunged-today",
-      "title": "Motley Fool: Kursrutsch Oktober 2025"
+      "url": "https://www.trefis.com/stock/eme/articles/620975/can-emcor-stock-rally-50-after-this-dip/2026-10-28",
+      "title": "Trefis: Rücksetzer seit Oktober-Hoch (Zweitquelle)"
+     },
+     {
+      "url": "https://www.earningswhispers.com/article/EME/r866",
+      "title": "Earnings Whispers: Rechenzentrums-Debatte (Zweitquelle)"
      }
-    ]
+    ],
+    "note": "Teilweise aus bestehenden Daten und Zweitquellen erneuert (Stand 10.11.2026); Firmenmitteilungen nicht in jedem Fall gelesen, Verschuldung nicht neu geprüft."
    },
    "log": [
     {
@@ -50368,6 +50740,13 @@
      "price": 645.39,
      "status": "intakt",
      "source": "https://stockanalysis.com/stocks/eme/forecast/"
+    },
+    {
+     "date": "2026-11-10",
+     "type": "update",
+     "text": "Tiefenanalyse erneuert (teils Zweitquellen, siehe Hinweis in der Analyse).",
+     "price": 645.39,
+     "status": "intakt"
     }
    ],
    "beta": 1.12,
@@ -51602,70 +51981,130 @@
    "tags": [],
    "depot": true,
    "deep": {
-    "date": "2026-10-14",
-    "summary": "Hensoldt baut Sensoren für Streitkräfte und wächst mit den Verteidigungsbudgets. Der Auftragsbestand ist auf einem Rekord, aber die Aktie ist teuer und der Gewinn kommt spät im Jahr. Das Ø-Kursziel liegt nur 16 % über dem Kurs.",
+    "date": "2026-11-10",
+    "summary": "Hensoldt liefert Sensoren für Armeen und wächst mit den Verteidigungsbudgets; die Neunmonatszahlen vom 5.11. waren gut, die Umsatzprognose für 2026 wurde angehoben. Der Auftragsbestand steht auf einem Rekord. Die Aktie ist aber teuer bewertet, und Gewinn und Cashflow fallen traditionell im letzten Quartal an. Analysten sehen moderates Potenzial und sind sich uneinig.",
     "sections": [
      {
       "title": "Geschäftsmodell und Wettbewerb",
-      "text": "Hensoldt entwickelt Radar, Identifikationssysteme, elektronische Kampfführung und Optik für Militär und Sicherheitsbehörden (Segmente Sensors und Optronics, rund 9.700 Mitarbeiter). Die Aufträge laufen über Jahre, dazu kommen Wartung und Service. Konkurrenz sind Thales, Leonardo, Saab, Airbus Defence und US-Konzerne wie RTX. Hensoldt ist in Deutschland und Europa bei Radar Marktführer in Teilbereichen. Quelle: StockAnalysis."
+      "text": "Hensoldt baut Radar, Freund-Feind-Erkennung, elektronische Kampfführung und Optik für Militär und Sicherheitsbehörden. Aufträge laufen über Jahre, dazu kommen Wartung und Service. Konkurrenten sind Thales, Leonardo, Saab, Airbus Defence und US-Konzerne wie RTX. Fast alle Kunden sind Staaten; die Erlöse hängen daher an Budgets und Programmen."
      },
      {
       "title": "Zahlenqualität der letzten Quartale",
-      "text": "Q2/2026: Umsatz 671 Mio. € (+22 %), Betriebsergebnis 37 Mio. €, Nettogewinn 8 Mio. € (Vorjahr −12). Q1/2026: Umsatz 496 Mio. € (+26 %), Betriebsergebnis −4 Mio. €. Das 4. Quartal ist das stärkste (Q4/2025: Umsatz 919 Mio. €, Betriebsergebnis 176 Mio. €). Auftragseingang im Halbjahr rund 2,8 Mrd. € (verdoppelt), Auftragsbestand über 10 Mrd. € (Zeitungsberichte). Der bereinigte freie Cashflow im Halbjahr war −136 Mio. €."
+      "text": "Neun Monate 2026: Umsatz 1,863 Mrd. € (+21 %), Auftragsbestand 10,367 Mrd. € (Rekord), Auftragseingang 3,56 Mrd. € (+77 %). Bereinigte EBITDA-Marge im Q3 20,6 % (Vorjahr 17,6 %). Der bereinigte freie Cashflow lag nach neun Monaten bei −104 Mio. € (Vorjahr −119 Mio. €), im Q3 bei +32 Mio. € (Zeitungsberichte; Originalmitteilung nicht gefunden). Die Umsatzprognose wurde auf rund 2,8 Mrd. € angehoben. Zum Cashflow-Ziel (rund 50 % des bereinigten EBITDA) widersprechen sich Berichte, wann es angehoben wurde. Das 4. Quartal ist traditionell das stärkste. Quellen: Börsen-Zeitung 05.11.2026 sowie Zweitquellen."
      },
      {
       "title": "Bewertung",
-      "text": "Erwartetes KGV 36 bis 42 für 2026 (Gewinn je Aktie 1,90 €). Das Ø-Kursziel von 92,06 € liegt 15,8 % über dem Kurs von 79,48 € (16 Analysten, Spanne 62 bis 105 €). Der Kurs liegt 25,7 % unter dem Hoch von 107 €."
+      "text": "Erwartetes KGV rund 45 für 2026 auf bereinigter Basis (StockAnalysis, 10.11.2026); der Marktschnitt liegt grob bei 15 bis 18, die Aktie ist also teuer. Erwartet werden Gewinn je Aktie 1,87 € (2026) und 2,41 € (2027, +29 %). Das Ø-Ziel liegt bei 91,59 € (16 Analysten, 09.11.2026), Spanne 62 bis 105 € (Stand 16.10.2026, älter als 14 Tage)."
      },
      {
       "title": "Risiken",
-      "text": "1) Politik: Frieden in der Ukraine oder gekürzte Budgets. 2) Programmrisiko: Mit F126 fiel schon ein Auftrag weg (über 200 Mio. €). 3) Marge und Cashflow: Das Jahresziel hängt an einem starken 4. Quartal. 4) Bewertung: Bei einem KGV von rund 40 ist wenig Spielraum für Enttäuschungen. 5) Der Finanzchef sagte am 23.09.2026 gegenüber CNBC, die Branche habe es 'schwer'."
+      "text": "1) Politik: Friedensvereinbarungen oder gekürzte Budgets. 2) Programmrisiko: Der F126-Stopp kostete einen Auftrag von über 200 Mio. €. 3) Die hohe Bewertung lässt wenig Raum für Enttäuschungen. 4) Cashflow und Gewinn kommen spät im Jahr. 5) Starke Abhängigkeit von wenigen Staaten als Kunden."
      },
      {
       "title": "Was die These widerlegt",
-      "text": "Die These (Wachstum bei vorübergehender Kursschwäche) wäre widerlegt, wenn der Umsatz im Q3 weniger als 10 % wächst, die Prognose gesenkt wird, der Auftragsbestand unter 10 Mrd. € fällt oder das 4. Quartal die Jahresziele klar verfehlt."
+      "text": "Umsatzwachstum dauerhaft unter 10 %, ein Auftragsbestand unter 10 Mrd. €, eine gesenkte Jahresprognose oder ein 4. Quartal, das die Ziele (EBITDA-Marge 18,5 bis 19,0 %) klar verfehlt. Das Stop-Kriterium zu den Q3-Zahlen wurde am 05.11. nicht ausgelöst."
      }
     ],
     "scenarios": [
      {
-      "name": "Vorsichtig (niedrigstes Analystenziel)",
-      "assumption": "Marge bleibt unter dem Ziel, Branche bleibt schwach. Entspricht dem niedrigsten Ziel.",
-      "price": "rund 62 €"
+      "name": "Vorsichtig",
+      "assumption": "Marge bleibt unter dem Ziel, Branche bleibt schwach. Entspricht dem niedrigsten Analystenziel.",
+      "price": "62 bis 62 EUR"
      },
      {
-      "name": "Basis (Ø-Ziel)",
-      "assumption": "Prognose 2026 wird erreicht, Auftragseingang bleibt hoch. Entspricht dem Durchschnitt der 16 Ziele.",
-      "price": "rund 92 €"
+      "name": "Basis",
+      "assumption": "Jahresprognose wird erreicht, Auftragseingang bleibt hoch. Entspricht dem Ø-Ziel.",
+      "price": "92 bis 92 EUR"
      },
      {
-      "name": "Optimistisch (höchstes Ziel)",
+      "name": "Optimistisch",
       "assumption": "Aufträge und Marge übertreffen die Erwartungen. Entspricht dem höchsten Ziel.",
-      "price": "rund 105 €"
+      "price": "105 bis 105 EUR"
      }
     ],
-    "scenario_note": "Das sind Annahmen auf Basis der Analystenziele, keine Prognosen.",
+    "scenario_note": "Annahmen, keine Prognosen",
+    "price_driver": "Der Kurs hängt an der Stimmung zu Verteidigungsausgaben und Friedenshoffnungen sowie an Programmmeldungen. Gute Zahlen und Rekordaufträge stützen ihn.",
+    "drivers": [
+     {
+      "factor": "Umsatzwachstum",
+      "status": "treibt",
+      "value": "+21 % (9 Monate 2026)",
+      "text": "Deutlich über dem Branchenwachstum; Prognose auf rund 2,8 Mrd. € angehoben."
+     },
+     {
+      "factor": "Umsatzbeschleunigung",
+      "status": "neutral",
+      "value": "Q2 +22 %, 9 Monate +21 %",
+      "text": "Tempo etwa gleich."
+     },
+     {
+      "factor": "Gewinnwachstum",
+      "status": "treibt",
+      "value": "2026 erwartet +27 % je Aktie",
+      "text": "1,87 € nach 1,47 € (bereinigt, StockAnalysis); Erwartung, nicht gemeldet."
+     },
+     {
+      "factor": "Gewinnbeschleunigung",
+      "status": "unklar",
+      "value": "2027 erwartet +29 %",
+      "text": "Nur Analystenerwartung."
+     },
+     {
+      "factor": "Marge",
+      "status": "treibt",
+      "value": "bereinigte EBITDA-Marge Q3 20,6 %",
+      "text": "Vorjahr 17,6 %; Jahresziel 18,5 bis 19,0 %."
+     },
+     {
+      "factor": "Free Cashflow",
+      "status": "neutral",
+      "value": "9 Monate −104 Mio. €, Q3 +32 Mio. €",
+      "text": "Vor dem 4. Quartal üblich schwach; Q3 positiv dank höherer Anzahlungen."
+     },
+     {
+      "factor": "Verschuldung",
+      "status": "unklar",
+      "value": "nicht geprüft",
+      "text": "Keine belegte Zahl in diesem Lauf."
+     },
+     {
+      "factor": "Bewertung",
+      "status": "belastet",
+      "value": "erwartetes KGV rund 45",
+      "text": "Deutlich über dem Marktschnitt."
+     },
+     {
+      "factor": "Erwartungen gegen Ergebnis",
+      "status": "treibt",
+      "value": "Prognose angehoben",
+      "text": "Beat/Miss nicht systematisch belegt; die Anhebung spricht für ein Übertreffen."
+     },
+     {
+      "factor": "Thema/Produkt/Sektor",
+      "status": "treibt",
+      "value": "Verteidigung Europa",
+      "text": "Hohe Budgets und Rekord-Auftragsbestand; Risiko Friedenshoffnung."
+     }
+    ],
     "sources": [
      {
-      "url": "https://stockanalysis.com/quote/etr/HAG/",
-      "title": "StockAnalysis: Hensoldt Übersicht"
+      "url": "https://www.boersen-zeitung.de/unternehmen-branchen/hensoldt-erhoeht-prognose-nach-starkem-quartalsergebnis",
+      "title": "Börsen-Zeitung: Hensoldt erhöht Prognose (05.11.2026)"
+     },
+     {
+      "url": "https://ms-aktuell.de/welt/hensoldt-prognose-05-11-2026/",
+      "title": "ms-aktuell: Hensoldt erhöht Jahresprognose (Zweitquelle)"
+     },
+     {
+      "url": "https://goldesel.de/aktien/news/hensoldt-aktie-starke-neunmonatszahlen-treiben-jahresprognose-nach-oben",
+      "title": "Goldesel: Neunmonatszahlen (Zweitquelle)"
      },
      {
       "url": "https://stockanalysis.com/quote/etr/HAG/forecast/",
-      "title": "StockAnalysis: Prognosen und Kursziele"
-     },
-     {
-      "url": "https://stockanalysis.com/quote/etr/HAG/financials/?p=quarterly",
-      "title": "StockAnalysis: Quartalszahlen"
-     },
-     {
-      "url": "https://www.boerse-express.com/news/articles/hensoldt-aktie-margendruck-truebt-rekordquartal-934316",
-      "title": "Börse Express: Margendruck trübt Rekordquartal"
-     },
-     {
-      "url": "https://www.boerse-express.com/news/articles/hensoldt-aktie-200-millionen-auftrag-durch-f126-stopp-verloren-922526",
-      "title": "Börse Express: F126-Stopp"
+      "title": "StockAnalysis: Prognosen und Kursziele (10.11.2026)"
      }
-    ]
+    ],
+    "note": "Teilweise aus bestehenden Daten und Zweitquellen erneuert (Stand 10.11.2026); Firmenmitteilungen nicht in jedem Fall gelesen, Verschuldung nicht neu geprüft."
    },
    "log": [
     {
@@ -51731,6 +52170,13 @@
      "price": 83.86,
      "status": "intakt",
      "source": "https://stockanalysis.com/quote/etr/HAG/forecast/"
+    },
+    {
+     "date": "2026-11-10",
+     "type": "update",
+     "text": "Tiefenanalyse erneuert (teils Zweitquellen, siehe Hinweis in der Analyse).",
+     "price": 83.86,
+     "status": "intakt"
     }
    ],
    "beta": 0.49,
@@ -68058,129 +68504,134 @@
     "event": "Nächste Quartalszahlen: Termin noch nicht bestätigt"
    },
    "deep": {
-    "date": "2026-10-15",
-    "summary": "Winbond verdient plötzlich viel an knappen Spezialspeichern. Der Kurs liegt 34 % unter dem Hoch, die Bewertung ist niedrig. Hauptrisiko ist der Speicherzyklus.",
+    "date": "2026-11-10",
+    "summary": "Winbond verdient kräftig an knappen Spezialspeichern, und die neuen Zahlen vom 3. November sind noch besser als die davor. Die Preise für Speicher steigen weiter, nur etwas langsamer. Hauptrisiko bleibt, dass der Speicherzyklus kippt. Die Analysten sehen im Schnitt deutlich Luft nach oben, aber nur wenige decken die Aktie ab.",
     "sections": [
      {
       "title": "Geschäftsmodell und Wettbewerb",
-      "text": "Winbond baut Spezialspeicher: kundenspezifischen DRAM (53 % vom Umsatz) und Flash (33 %) für Auto, Industrie, Netzwerk und KI. Konkurrenten sind große Speicherhersteller (nicht verglichen). Kapazität laut Winbond bis 2027 gebucht (TrendForce, 02/2026)."
+      "text": "Winbond baut Spezialspeicher (DRAM und Flash) für Auto, Industrie, Netzwerk und KI-Geräte und verdient am Chipverkauf. Im Q3/2026 kam die Speichersparte auf 74,3 Mrd. TWD Umsatz bei 73,9 % Bruttomarge und voller Auslastung (Technews, 03.11.2026, Zweitquelle). Große Konkurrenten wie Samsung oder Nanya machen Standardspeicher; Winbond lebt von Nischen und knappem Angebot. Die neue Fabrik in Kaohsiung soll bis Jahresende 24.000 bis 25.000 Wafer im Monat erreichen (Technews, 04.11.2026, Zweitquelle)."
      },
      {
       "title": "Zahlenqualität der letzten Quartale",
-      "text": "Umsatz je Quartal 21,0 → 21,8 → 26,6 → 38,3 → 59,8 Mrd. TWD (Q2/25 bis Q2/26). Nettogewinn Q2 24,3 Mrd. TWD (≈ 675 Mio. €); EPS 5,40 TWD, Definition der Quelle nicht genannt. Gewinn kam aus Preiserhöhungen und besserem Mix."
+      "text": "Umsatz Q3/2026 82,3 Mrd. TWD (≈ 2,2 Mrd. €), +278 % zum Vorjahr, nach 59,8 Mrd. im Q2; operative Marge 53,2 %, Bruttomarge 70,6 % (Statementdog, 03.11.2026, Zweitquelle; Technews nennt dieselbe Bruttomarge). Die Beschleunigung ist klar, aber die Zahlen stammen aus Aggregatoren, nicht aus der Firmenmitteilung. GAAP und bereinigt sind bei StockAnalysis nicht trennbar. Der Gewinn war bis 2025 klein, die Reihe wächst also von sehr niedriger Basis."
      },
      {
       "title": "Bewertung",
-      "text": "Erwartetes KGV 3,9; Zum Maßstab: breiter Markt 15 bis 22. Ø-Ziel 245,38 TWD (≈ 6,8 €) liegt 58 % über dem Kurs, 8 Analysten, Spanne 200 bis 360."
+      "text": "Erwartetes KGV rund 5,7 (StockAnalysis, 10.11.2026). Das ist sehr niedrig; der breite Markt liegt bei 15 bis 22. Der Markt preist offenbar ein, dass Speichergewinne wieder fallen. Ø-Ziel 240,63 TWD (≈ 6,6 €), 8 Analysten, Spanne 200 bis 360 (Ø vom 09.11., Spanne vom 16.10.2026). Für 2026 rechnen 7 Analysten mit einem Gewinn je Aktie von 23,68 TWD."
      },
      {
       "title": "Risiken",
-      "text": "Erstens Zyklus. Zweitens wenige Analysten. Drittens Taiwan-Risiko. Viertens Klumpen mit anderen Speicherwerten (Nanya, Samsung)."
+      "text": "Erstens der Zyklus: Winbond erwartet selbst, dass die DRAM-Preisanstiege im Q4 langsamer werden. Zweitens wenige Analysten und breite Streuung der Schätzungen. Drittens das politische Risiko Taiwan. Viertens Klumpenrisiko mit anderen Speicherwerten und KI-Chips, die gemeinsam schwanken."
      },
      {
       "title": "Was die These widerlegt",
-      "text": "Operative Marge unter 30 %, Umsatz Q3 unter Q2, Ausblick gesenkt."
+      "text": "Operative Marge unter 30 %, Umsatz im nächsten Quartal unter dem des Vorquartals (82,3 Mrd. TWD) oder ein gesenkter Ausblick."
      }
     ],
     "scenarios": [
      {
-      "name": "Niedrig",
+      "name": "Vorsichtig",
       "assumption": "Niedrigstes Analystenziel",
-      "price": "200,00 TWD ≈ 6 € (+29,0 %)"
+      "price": "200 bis 200 TWD"
      },
      {
-      "name": "Mitte",
+      "name": "Basis",
       "assumption": "Ø-Ziel der 8 Analysten",
-      "price": "245,38 TWD ≈ 7 € (+58,3 %)"
+      "price": "240,63 bis 240,63 TWD"
      },
      {
-      "name": "Hoch",
+      "name": "Optimistisch",
       "assumption": "Höchstes Analystenziel",
-      "price": "360,00 TWD ≈ 10 € (+132,3 %)"
+      "price": "360 bis 360 TWD"
      }
     ],
-    "scenario_note": "Szenarien sind die niedrigsten, mittleren und höchsten Analystenziele (StockAnalysis, 15.10.2026). Annahmen, keine Prognosen. Umrechnung in Euro grob (1 € ≈ 36 TWD, Annahme (x-rates, Stand 01.01.2026, nicht tagesaktuell)). Euro-Beträge in den Texten mit 1 € ≈ 36 TWD gerechnet; am 15.10.2026 lag der Kurs bei 36,28 TWD je Euro (Trading Economics).",
-    "sources": [
-     {
-      "title": "StockAnalysis Quartalszahlen",
-      "url": "https://stockanalysis.com/quote/tpe/2344/financials/?p=quarterly"
-     },
-     {
-      "title": "StockAnalysis Prognosen und Kursziele",
-      "url": "https://stockanalysis.com/quote/tpe/2344/forecast/"
-     },
-     {
-      "title": "Winbond Q2 2026 (StorageNewsletter)",
-      "url": "https://www.storagenewsletter.com/?p=304583"
-     },
-     {
-      "title": "TrendForce: Winbond DRAM-Preise",
-      "url": "https://www.trendforce.com/news/2026/02/11/news-winbond-expects-dram-prices-to-jump-nearly-4x-by-june-2026-capacity-booked-through-2027/"
-     }
-    ],
-    "price_driver": "Der Kurs liegt 34 % unter dem Hoch (233,50 TWD); Zahlen sind stark, ein Einzelauslöser ist nicht belegt, vermutlich Sorge vor dem Ende des Speicherzyklus.",
+    "scenario_note": "Annahmen, keine Prognosen",
+    "price_driver": "Zahlen und Ausblick sind stark; der Kurs spiegelt vor allem die Sorge, dass der Speicherzyklus bald dreht. Ein einzelner Firmenauslöser ist nicht belegt.",
     "drivers": [
      {
       "factor": "Umsatzwachstum",
       "status": "treibt",
-      "value": "Q2/2026 +185 % (59,8 Mrd. TWD); 2026E +209 %",
+      "value": "Q3/2026 +278 % (82,3 Mrd. TWD)",
       "text": "Weit über dem Markt."
      },
      {
       "factor": "Umsatzbeschleunigung",
       "status": "treibt",
-      "value": "−2 % → +91 % → +185 % (Q2/25, Q1/26, Q2/26)",
-      "text": "Tempo steigt."
+      "value": "+91 % → +185 % → +278 %",
+      "text": "Das Tempo steigt weiter."
      },
      {
-      "factor": "Gewinnwachstum (mehrere Jahre)",
+      "factor": "Gewinnwachstum",
       "status": "treibt",
-      "value": "Nettogewinn 2023: −1,2; 2024: 0,6; 2025: 4,0 Mrd. TWD; 2026E 116 Mrd.",
-      "text": "Von klein auf sehr groß."
+      "value": "Q2 Nettogewinn 24,3 Mrd. TWD nach Verlust",
+      "text": "Von sehr kleiner Basis stark gewachsen."
      },
      {
       "factor": "Gewinnbeschleunigung",
       "status": "treibt",
-      "value": "EPS 0,76 → 2,25 → 5,40 TWD",
-      "text": "Quartal für Quartal mehr."
+      "value": "EPS 0,76 → 2,25 → 5,40 TWD (Q4/25 bis Q2/26)",
+      "text": "Q3-EPS nicht aus Primärquelle geprüft."
      },
      {
       "factor": "Marge",
       "status": "treibt",
-      "value": "Operative Marge 48 %, Bruttomarge 66,2 %",
-      "text": "Zyklusspitze."
+      "value": "Operativ 53,2 %, brutto 70,6 % (Q3)",
+      "text": "Zyklusspitze, kann wieder sinken."
      },
      {
       "factor": "Free Cashflow",
       "status": "treibt",
-      "value": "FCF 2025 4,7 Mrd. TWD; 2026E 62,7 Mrd.",
-      "text": "Stark steigend erwartet."
+      "value": "2026E ≈ 62,7 Mrd. TWD",
+      "text": "Erwartung, nicht gemeldet; 2025 nur 4,7 Mrd."
      },
      {
       "factor": "Verschuldung",
       "status": "unklar",
-      "value": "Bilanz nicht abgerufen",
-      "text": "unbekannt"
+      "value": "nicht geprüft",
+      "text": "In diesem Lauf nicht belegt."
      },
      {
-      "factor": "Bewertung (KGV/KUV/Kurs-FCF)",
+      "factor": "Bewertung",
       "status": "treibt",
-      "value": "Erwartetes KGV 3,9; nachlaufend 18,2",
-      "text": "Niedrig."
+      "value": "erwartetes KGV 5,7",
+      "text": "Sehr niedrig, gilt nur, wenn die Preise halten."
      },
      {
       "factor": "Erwartungen gegen Ergebnis",
-      "status": "neutral",
-      "value": "Konsens je Quartal nicht frei gefunden; 2026E EPS 25,42",
-      "text": "Unbekannt."
+      "status": "treibt",
+      "value": "Q3-Gewinn laut Technews über den Erwartungen",
+      "text": "Zweitquelle (Technews, 04.11.2026)."
      },
      {
       "factor": "Thema/Produkt/Sektor",
-      "status": "belastet",
-      "value": "Speicherzyklus, KI-Geräte, Taiwan",
-      "text": "Hängt am Preis."
+      "status": "treibt",
+      "value": "Knappe Speicher, KI-Nachfrage",
+      "text": "Q4-Preisanstiege laut Firma langsamer, Angebot bei NOR-Flash eng."
      }
-    ]
+    ],
+    "sources": [
+     {
+      "url": "https://finance.technews.tw/2026/11/03/winbond-electronics-gross-margin-surged-to-70-6-in-the-third-quarter-of-2026/",
+      "title": "Technews 03.11.2026 (Zweitquelle)"
+     },
+     {
+      "url": "https://finance.technews.tw/2026/11/04/winbond-electronics-third-quarter-profit-exceeded-expectations/",
+      "title": "Technews 04.11.2026 (Zweitquelle)"
+     },
+     {
+      "url": "https://statementdog.com/news/17983",
+      "title": "Statementdog 03.11.2026 (Zweitquelle)"
+     },
+     {
+      "url": "https://stockanalysis.com/quote/tpe/2344/forecast/",
+      "title": "StockAnalysis Prognosen"
+     },
+     {
+      "url": "https://www.storagenewsletter.com/2026/08/10/winbond-fiscal-2q26-financial-results/",
+      "title": "Winbond Q2/2026 (StorageNewsletter)"
+     }
+    ],
+    "note": "Teilweise aus bestehenden Daten und Zweitquellen erneuert (Stand 10.11.2026); Firmenmitteilungen nicht in jedem Fall gelesen, Verschuldung nicht neu geprüft."
    },
    "log": [
     {
@@ -68230,6 +68681,13 @@
      "price": 135.0,
      "status": "intakt",
      "source": "https://stockanalysis.com/quote/tpe/2344/forecast/"
+    },
+    {
+     "date": "2026-11-10",
+     "type": "update",
+     "text": "Tiefenanalyse erneuert (teils Zweitquellen, siehe Hinweis in der Analyse).",
+     "price": 135.0,
+     "status": "intakt"
     }
    ],
    "beta": 2.05,
@@ -72347,6 +72805,14 @@
      "price": 8565.0,
      "status": "beobachten",
      "source": "https://stockanalysis.com/quote/tpe/2059/forecast/"
+    },
+    {
+     "date": "2026-11-10",
+     "type": "hinweis",
+     "text": "Vorschau auf die nächsten Zahlen angelegt.",
+     "price": 8565.0,
+     "status": "beobachten",
+     "source": "https://quartr.com/events/king-slide-works-co-ltd-2059-q3-2025_F34dwmEO"
     }
    ],
    "beta": 0.91,
@@ -73158,7 +73624,27 @@
     }
    ],
    "kauf_these": "King Slide baut die Gleitschienen für KI-Server mit sehr hoher Marge und wächst mit dem Rechenzentrums-Ausbau, während der Kurs wegen Stimmung und eines schwächeren Septemberumsatzes nachgegeben hat.",
-   "deps": []
+   "deps": [],
+   "preview": {
+    "event": "Q3-2026-Zahlen",
+    "date": "2026-11-14",
+    "expectation": "Der Markt will sehen, ob der Umsatz im dritten Quartal klar über dem zweiten (10.830 Mio. TWD) liegt und die Marge hoch bleibt. Genauer Termin nicht gefunden; 14.11. ist die Meldefrist laut bisheriger These, Vorjahr kam die Meldung am 26.11.2025 laut Quartr.",
+    "watch": [
+     "Umsatzwachstum: Säule verlangt mindestens 50 % zum Vorjahr; letzter Stand 156 % (Q2/2026). Stop-Marke: Q3-Umsatz unter 14.000 Mio. TWD.",
+     "Operative Marge: Säule verlangt mindestens 60 %; letzter Stand 82,1 % (Q2/2026).",
+     "Monatsumsatz: September 4,46 Mrd. TWD, 31 % unter August; Oktoberumsatz unter 3.000 Mio. TWD wäre ein Stop-Signal.",
+     "Ausblick und Kundenstruktur: wenige Kunden und der KI-Server-Zyklus bestimmen das Geschäft."
+    ],
+    "scenarios": {
+     "better": "Umsatz deutlich über der Stop-Marke und Marge bleibt über 75 %: der Septemberrückgang war nur Schwankung.",
+     "inline": "Umsatz knapp über der Stop-Marke, Marge im Bereich 65 bis 80 %: Wachstum bleibt, aber das Tempo lässt nach.",
+     "worse": "Umsatz unter 14.000 Mio. TWD oder Marge unter 60 %: Stop-Kriterium wäre erfüllt, These prüfen."
+    },
+    "consensus": "nicht frei gefunden",
+    "implied_move": "nicht gefunden",
+    "as_of": "2026-11-10",
+    "source": "https://quartr.com/events/king-slide-works-co-ltd-2059-q3-2025_F34dwmEO"
+   }
   },
   {
    "id": "2360-chroma-ate",
@@ -81735,6 +82221,14 @@
      "price": 88.3,
      "status": "intakt",
      "source": "https://stockanalysis.com/quote/hkg/1801/forecast/"
+    },
+    {
+     "date": "2026-11-10",
+     "type": "hinweis",
+     "text": "Keine Zahlen in den nächsten 14 Tagen erwartet; Termin 25.11. nur geschätzt, keine Vorschau angelegt.",
+     "price": 88.3,
+     "status": "intakt",
+     "source": "https://www.itiger.com/news/1166628187"
     }
    ],
    "score_log": [
@@ -85716,6 +86210,14 @@
      "price": 241.5,
      "status": "intakt",
      "source": "https://stockanalysis.com/quote/tpe/2317/forecast/"
+    },
+    {
+     "date": "2026-11-10",
+     "type": "hinweis",
+     "text": "Vorschau auf die nächsten Zahlen angelegt.",
+     "price": 241.5,
+     "status": "intakt",
+     "source": "https://www.thestar.com.my/tech/tech-news/2026/10/05/foxconn-third-quarter-revenue-jumps-47-yy-beats-market-forecast"
     }
    ],
    "score_log": [
@@ -86447,7 +86949,27 @@
       }
      ]
     }
-   ]
+   ],
+   "preview": {
+    "event": "Q3-2026-Zahlen",
+    "date": "2026-11-12",
+    "expectation": "Hon Hai meldete am 05.10. einen Q3-Umsatz von 3,03 Billionen TWD, +47 % zum Vorjahr, über der Erwartung (LSEG: 2,83 Billionen). Jetzt geht es um Gewinn und Marge: Bleibt die Marge bei dünnen rund 3,8 %, und trägt der KI-Server-Bereich auch den Gewinn?",
+    "watch": [
+     "Umsatzwachstum: Säule verlangt mindestens 20 %; Q3-Umsatz schon gemeldet, +47 % (Q2: 40,8 %).",
+     "Operative Marge: Säule verlangt mindestens 3 %; letzter Stand 3,75 % (Q2/2026).",
+     "Gewinn je Aktie: Säule verlangt mindestens 20 % mehr zum Vorjahr; letzter Stand 4,24 TWD (+34 %, Q2/2026); Stop unter 3,16 TWD (Vorjahr Q2).",
+     "Großkunden: Kürzen KI-Server-Kunden Bestellungen, ist das Stop-Signal; Aussagen zum Ausblick beachten."
+    ],
+    "scenarios": {
+     "better": "Marge über 3,8 % und Gewinn je Aktie klar über 20 % Wachstum: Umsatzplus kommt beim Gewinn an.",
+     "inline": "Marge um 3 bis 3,8 %, Gewinnwachstum nahe 20 %: These hält, Gewinn bleibt der wunde Punkt.",
+     "worse": "Marge unter 3 % oder Gewinn je Aktie unter dem Vorjahr: Stop-Kriterium, These prüfen."
+    },
+    "consensus": "Umsatz: LSEG SmartEstimate 2,83 Billionen TWD (Quelle Reuters via The Star). Gewinn-Konsens nicht frei gefunden",
+    "implied_move": "nicht gefunden",
+    "as_of": "2026-11-10",
+    "source": "https://www.thestar.com.my/tech/tech-news/2026/10/05/foxconn-third-quarter-revenue-jumps-47-yy-beats-market-forecast"
+   }
   },
   {
    "id": "2327-yageo",
@@ -100677,8 +101199,8 @@
      {
       "name": "Erwartungen",
       "max": 10,
-      "points": 10,
-      "why": "Analysten erwarten Umsatz +77 % im laufenden Geschäftsjahr und Gewinn je Aktie +125 %; zuletzt gemeldet: Umsatz -23 %. Erwartung liegt auf oder über dem zuletzt gemeldeten Tempo. (Stand StockAnalysis 10.11.2026.)"
+      "points": 3,
+      "why": "Erwartung stammt von nur 1 Analysten (StockAnalysis, 10.11.2026), Gewinnzahlen weichen von der Presse ab; nicht belastbar, Teilnote bleibt wie im Lauf davor."
      }
     ]
    },
@@ -100693,67 +101215,134 @@
     "note": "Ø-Ziel und Anzahl Analysten vom 09.11.2026 (StockAnalysis); niedrigstes/höchstes Ziel vom 2026-10-21."
    },
    "deep": {
-    "date": "2026-10-20",
-    "summary": "Da-Li baut Immobilien in Taiwan und den USA und ist sehr niedrig bewertet (erwartetes KGV 5,9, Dividende 6,3 %). Analysten sehen im Schnitt 27 % Potenzial, die Aktie liegt 17 % unter dem Hoch. Das Geschäft schwankt stark, der Jahresumsatz fiel 2025 um 23 %, und der Kurs ist von Mitte August.",
+    "date": "2026-11-10",
+    "summary": "Da-Li baut und verkauft Immobilien in Taiwan und den USA; die Gewinne kommen in Schüben, wenn Projekte übergeben werden. 2026 ist wegen mehrerer Übergaben bisher stark. Die Bewertung ist sehr niedrig, aber die Schätzungen stützen sich auf sehr wenige Analysten und sind schwer zu prüfen. Neue Zahlen für das 3. Quartal liegen noch nicht vor.",
     "sections": [
      {
       "title": "Geschäftsmodell und Wettbewerb",
-      "text": "Da-Li Development baut und verkauft Wohn- und Gewerbeimmobilien in Taiwan und den USA, vermietet Wohnungen und Kaufhäuser und betreibt Immobilienanlage und Vermittlung; zwei Segmente: Entwicklung und Bau (StockAnalysis, Profil). Gegründet 1977, Sitz Taipei."
+      "text": "Da-Li (taiwanisch Daly, Börsenname Da-Li Development) entwickelt Wohn- und Gewerbeimmobilien in Taiwan und den USA, vermietet Flächen und vermittelt. Umsatz entsteht, wenn Projekte übergeben werden. Für 2026 nennt die Firma Übergaben mit knapp 20 Mrd. TWD Gesamtvolumen, darunter Projekte mit 5,2 Mrd., 4,6 Mrd. (über 80 % verkauft) und 6,6 Mrd. TWD (über 75 % verkauft) (Presse und Fugle zur Investorenkonferenz vom 12.05.2026, Zweitquelle). Konkurrenz sind andere taiwanische Bauträger."
      },
      {
       "title": "Zahlenqualität der letzten Quartale",
-      "text": "Umsatz je Quartal zwischen 495 (Juni 2025) und 6.854 Mio. TWD (Dezember 2024); Juni 2026 3.466 Mio. TWD, operativer Gewinn 874 Mio., Nettogewinn 708,6 Mio., Gewinn je Aktie 1,46 TWD. Bruttomarge sank von 50,1 % (März 2026) auf 32,9 % (Juni 2026). In den Segmentdaten steht eine große Abzugsposition (−1.078 Mio. TWD im Juni 2026), ohne Erklärung."
+      "text": "Die Datenqualität ist schwach. Halbjahr 2026: Nettogewinn 2,376 Mrd. TWD, EPS 5,37; Q1 laut Presse EPS 3,53, StockAnalysis zeigt Q1 3,44 und Q2 1,46 (zusammen 4,90), also etwa 0,5 TWD Abweichung (Aktienzahl oder Definition, nicht geklärt). Umsatz Q2 3,47 Mrd. TWD (≈ 96 Mio. €) nach 4,84 Mrd. im Q1. Die Schätzungen springen stark: 2026 Umsatz 16,9 Mrd. TWD (+77 %) und EPS 8,64, laut StockAnalysis von nur 1 Analysten, obwohl 3 Kursziele existieren; der EPS dort ist bereinigt. Q3-Zahlen sind noch nicht gemeldet (Stand 10.11.2026)."
      },
      {
       "title": "Bewertung",
-      "text": "Erwartetes KGV 5,9; Ø-Kursziel 59,67 (≈ 1,64 €), +27 %, 3 Analysten (Spanne nicht angegeben, Währung unklar). Dividende 3,00 TWD (6,3 %)."
+      "text": "Erwartetes KGV 4,95 (StockAnalysis, 10.11.2026), aber auf der Schätzung eines einzigen Analysten. Ø-Ziel 61,67, Spanne 50 bis 69, 3 Analysten (die Quelle nennt „$“, die Währung ist vermutlich TWD, nicht belegt). Bauträger werden üblicherweise niedrig bewertet, weil Gewinne schwanken."
      },
      {
       "title": "Risiken",
-      "text": "Erstens die Projektabhängigkeit: Gewinne fallen in einzelnen Quartalen an. Zweitens negativer freier Cashflow 2024 und 2025. Drittens Zinsen und Markt in Taiwan und den USA. Viertens wenige Analysten, Kursziel nicht eindeutig."
+      "text": "Erstens Projektabhängigkeit: einzelne Quartale ohne Gewinn. Zweitens negativer freier Cashflow 2024 und 2025. Drittens Zinsen, Wohnungsmarkt und politische Eingriffe in Taiwan. Viertens sehr dünne Analystenabdeckung und uneinheitliche Zahlenquellen."
      },
      {
       "title": "Was die These widerlegt",
-      "text": "Zwei Quartale operativer Verlust in Folge, eine Dividendenkürzung oder Umsatz FY2026 unter dem von 2025 bei sinkender Marge."
+      "text": "Zwei Quartale in Folge operativer Verlust, eine Dividendenkürzung oder Umsatz 2026 unter dem von 2025 (9.531 Mio. TWD) bei sinkender Marge."
      }
     ],
     "scenarios": [
      {
-      "name": "Niedrig",
-      "assumption": "52-Wochen-Tief: Immobilienmarkt kühlt ab",
-      "price": "41,15 TWD ≈ 1 € (-12,4 %)"
+      "name": "Vorsichtig",
+      "assumption": "Niedrigstes Analystenziel",
+      "price": "50 bis 50 TWD"
      },
      {
-      "name": "Mitte",
-      "assumption": "52-Wochen-Hoch: Gewinne halten das Niveau",
-      "price": "56,6 TWD ≈ 2 € (+20,4 %)"
-     },
-     {
-      "name": "Hoch",
+      "name": "Basis",
       "assumption": "Ø-Ziel der 3 Analysten",
-      "price": "59,67 TWD ≈ 2 € (+27,0 %)"
+      "price": "61,67 bis 61,67 TWD"
+     },
+     {
+      "name": "Optimistisch",
+      "assumption": "Höchstes Analystenziel",
+      "price": "69 bis 69 TWD"
      }
     ],
-    "scenario_note": "Szenarien sind 52-Wochen-Tief, 52-Wochen-Hoch und das Ø-Ziel von 3 Analysten (StockAnalysis, 14.08.2026; Währung des Ziels nicht eindeutig). Annahmen, keine Prognosen.",
-    "price_driver": "Der Kurs liegt 17 % unter dem 52-Wochen-Hoch (56,60 TWD). Einen belegten Auslöser habe ich nicht gefunden; die schwächere Bruttomarge im Juni-Quartal könnte eine Rolle spielen, ist aber nicht geprüft.",
+    "scenario_note": "Annahmen, keine Prognosen",
+    "price_driver": "Ein belegter Auslöser für den Kursabstand fehlt. Das Geschäft liefert 2026 starke Zahlen; der Markt misstraut vermutlich der Wiederholbarkeit der Projektgewinne (nicht geprüft).",
+    "drivers": [
+     {
+      "factor": "Umsatzwachstum",
+      "status": "treibt",
+      "value": "H1/2026 8,3 Mrd. TWD nach 1,1 Mrd.",
+      "text": "Hängt an Übergaben, nicht an stetigem Wachstum."
+     },
+     {
+      "factor": "Umsatzbeschleunigung",
+      "status": "unklar",
+      "value": "Q1 4,8 → Q2 3,5 Mrd. TWD",
+      "text": "Die Quartale schwanken zu stark für eine Aussage."
+     },
+     {
+      "factor": "Gewinnwachstum",
+      "status": "treibt",
+      "value": "H1 Nettogewinn 2,38 Mrd. TWD; 2025 gesamt 1,80 Mrd.",
+      "text": "Schon im Halbjahr über dem Vorjahr."
+     },
+     {
+      "factor": "Gewinnbeschleunigung",
+      "status": "unklar",
+      "value": "EPS Q1 3,4 bis 3,5, Q2 1,5 bis 1,8",
+      "text": "Die Quellen weichen ab."
+     },
+     {
+      "factor": "Marge",
+      "status": "neutral",
+      "value": "operativ 25,2 % (Q2), Bruttomarge fiel auf 32,9 %",
+      "text": "Q1 war höher, die Marge schwankt."
+     },
+     {
+      "factor": "Free Cashflow",
+      "status": "belastet",
+      "value": "2025 −344 Mio. TWD",
+      "text": "2024 −3,4 Mrd.; für 2026 keine Zahl."
+     },
+     {
+      "factor": "Verschuldung",
+      "status": "unklar",
+      "value": "nicht geprüft",
+      "text": "In diesem Lauf nicht belegt."
+     },
+     {
+      "factor": "Bewertung",
+      "status": "treibt",
+      "value": "erwartetes KGV 4,95",
+      "text": "Sehr niedrig, aber auf 1 Analysten gestützt."
+     },
+     {
+      "factor": "Erwartungen gegen Ergebnis",
+      "status": "unklar",
+      "value": "Q3 noch nicht gemeldet",
+      "text": "Kein Beat/Miss belegt."
+     },
+     {
+      "factor": "Thema/Produkt/Sektor",
+      "status": "neutral",
+      "value": "Taiwan-Wohnungsbau, Übergaben im 2. Halbjahr",
+      "text": "Mehrere Großprojekte sollen im 2. Halbjahr abgerechnet werden (Firmenaussage, Zweitquelle)."
+     }
+    ],
     "sources": [
      {
-      "title": "StockAnalysis Kurs und Kennzahlen",
-      "url": "https://stockanalysis.com/quote/tpe/6177/"
+      "url": "https://stockanalysis.com/quote/tpe/6177/forecast/",
+      "title": "StockAnalysis Prognosen, 10.11.2026"
      },
      {
-      "title": "StockAnalysis Quartalszahlen",
-      "url": "https://stockanalysis.com/quote/tpe/6177/financials/?p=quarterly"
+      "url": "https://stockanalysis.com/quote/tpe/6177/financials/?p=quarterly",
+      "title": "StockAnalysis Quartalszahlen"
      },
      {
-      "title": "StockAnalysis Jahreszahlen",
-      "url": "https://stockanalysis.com/quote/tpe/6177/financials/"
+      "url": "https://blog.fugle.tw/post/earnings-call-6177-2026-05-12",
+      "title": "Fugle Investorenkonferenz 12.05.2026 (Zweitquelle)"
      },
      {
-      "title": "EZB / FX-Tabelle der Seite (1 € = 36,28 TWD)",
-      "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
+      "url": "https://wantrich.chinatimes.com/news/20260820900207-420101",
+      "title": "Chinatimes 20.08.2026 (Zweitquelle)"
+     },
+     {
+      "url": "https://histock.tw/stock/6177/%E6%AF%8F%E6%9C%88%E7%87%9F%E6%94%B6",
+      "title": "HiStock Monatsumsatz (Zweitquelle)"
      }
-    ]
+    ],
+    "note": "Teilweise aus bestehenden Daten und Zweitquellen erneuert (Stand 10.11.2026); Firmenmitteilungen nicht in jedem Fall gelesen, Verschuldung nicht neu geprüft."
    },
    "log": [
     {
@@ -100775,7 +101364,14 @@
     {
      "date": "2026-11-10",
      "type": "update",
-     "text": "Schwelle wieder erreicht: Score von 74 auf 81. Auslöser: neue Analysten-Erwartungen.",
+     "text": "Tiefenanalyse erneuert (teils Zweitquellen, siehe Hinweis in der Analyse).",
+     "price": 42.75,
+     "status": "beobachten"
+    },
+    {
+     "date": "2026-11-10",
+     "type": "hinweis",
+     "text": "Neue Erwartungen stammen von nur 1 Analysten; Teilnote Erwartungen nicht erhöht, Score bleibt 74.",
      "price": 42.75,
      "status": "beobachten"
     }
@@ -101226,8 +101822,8 @@
      "run": "2026-11-10T23:12",
      "date": "2026-11-10",
      "time": "23:12",
-     "score": 81,
-     "why": "Schwelle wieder erreicht: Score von 74 auf 81. Auslöser: neue Analysten-Erwartungen.",
+     "score": 74,
+     "why": "Unverändert: Erwartungen nur von 1 Analysten, nicht belastbar.",
      "parts": [
       {
        "name": "Wachstum",
@@ -101268,8 +101864,8 @@
       {
        "name": "Erwartungen",
        "max": 10,
-       "points": 10,
-       "why": "Analysten erwarten Umsatz +77 % im laufenden Geschäftsjahr und Gewinn je Aktie +125 %; zuletzt gemeldet: Umsatz -23 %. Erwartung liegt auf oder über dem zuletzt gemeldeten Tempo. (Stand StockAnalysis 10.11.2026.)"
+       "points": 3,
+       "why": "Erwartung stammt von nur 1 Analysten (StockAnalysis, 10.11.2026), Gewinnzahlen weichen von der Presse ab; nicht belastbar, Teilnote bleibt wie im Lauf davor."
       }
      ]
     }
