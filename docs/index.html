@@ -246,9 +246,10 @@ const IC = {
   depot: '<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="3"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>',
   chancen: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
   verlauf: '<svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>',
+  dax: '<svg viewBox="0 0 24 24"><rect x="4" y="12" width="4" height="8" rx="1"/><rect x="10" y="6" width="4" height="14" rx="1"/><rect x="16" y="9" width="4" height="11" rx="1"/></svg>',
   mehr: '<svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>'
 };
-const TABS = [["markt", "Markt"], ["depot", "Depot"], ["chancen", "Chancen"], ["verlauf", "Verlauf"], ["mehr", "Mehr"]];
+const TABS = [["markt", "Markt"], ["depot", "Depot"], ["chancen", "Chancen"], ["dax", "DAX"], ["verlauf", "Verlauf"], ["mehr", "Mehr"]];
 
 /* ---------- Markt: Regeln und Warnungen (alles aus lage.json, Regeln sichtbar) ---------- */
 let R = {};
@@ -401,6 +402,44 @@ function renderChancen(q) {
   list = list.filter(v => !q || (v.name + v.ticker + (v.sector || "")).toLowerCase().includes(q));
   const note = chMode === "top" && !q && DATA.chancen_note ? `<div class="tile"><div class="card"><div class="state"><div class="ico">⚖️</div><div class="m">${esc(DATA.chancen_note)}</div><div class="muted">Lieber weniger Treffer als ein Klumpen.</div></div></div></div>` : "";
   return list.length ? list.map(stockTile).join("") + note : emptyState("Nichts gefunden", "Versuche einen anderen Namen oder Ticker.");
+}
+/* ---------- DAX: alle 40 Werte, Daten aus dax-data.json (StockAnalysis, Zweitquelle) ---------- */
+let DAXD = null, daxErr = false, daxMode = "dd";
+const DAX_THESEN = ["RHM", "SAP", "IFX", "G24", "ENR"];
+function loadDax() { if (DAXD || daxErr) return; fetch("dax-data.json?t=" + Date.now(), { cache: "no-store" }).then(r => { if (!r.ok) throw 0; return r.json(); }).then(d => { DAXD = d; if (tab === "dax") draw(); }).catch(() => { daxErr = true; if (tab === "dax") draw(); }); }
+const dx = (x, u, d = 1) => x == null ? "–" : nf(x, d) + (u || "");
+function daxTile(x) {
+  const dd = x.abstand_hoch_pct, zone = dd != null && dd <= -20;
+  const kz = x.kursziel, up = kz && kz.mean && x.kurs ? (kz.mean / x.kurs - 1) * 100 : null;
+  const lo = Math.min(x.tief52 ?? x.kurs, x.kurs), hi = Math.max(x.hoch52 ?? x.kurs, x.kurs), pos = v => Math.max(0, Math.min(100, (v - lo) / ((hi - lo) || 1) * 100));
+  const stale = kz && days(kz.datum) > 14;
+  const J = (x.jahre || []).slice().sort((a, b) => a.jahr - b.jahr), mx = Math.max(1, ...J.map(j => j.umsatz || 0));
+  const bars = J.map(j => `<div style="flex:1;text-align:center"><div style="height:44px;display:flex;align-items:flex-end"><i style="display:block;width:100%;height:${Math.max(4, (j.umsatz || 0) / mx * 100)}%;background:var(--accent);opacity:.75;border-radius:4px 4px 0 0"></i></div><small class="muted">${j.jahr}</small><div style="font-size:11px">${j.nettogewinn == null ? "–" : nf(j.nettogewinn / 1000, 1)}</div></div>`).join("");
+  const hv = (x.halbjahre_oder_quartale || []).map(h => `<tr><td>${esc(h.label)}</td><td style="text-align:right">${nf(h.umsatz, 0)}</td><td style="text-align:right">${dx(h.nettogewinn, "", 0)}</td><td style="text-align:right">${dx(h.eps, "", 2)}</td></tr>`).join("");
+  const nt = x.naechster_termin, termin = nt ? nt.slice(8, 10) + "." + nt.slice(5, 7) + "." + nt.slice(2, 4) : "offen";
+  const ur = x.rueckgangs_ursache, urT = ur ? (typeof ur === "string" ? ur : (ur.text || ur.ursache || "")) : "";
+  return `<div class="tile"><div class="card"><div class="row"><span class="chip info">DAX</span>${zone ? '<span class="chip warn">Rückgang ab 20 %</span>' : ""}<span class="sp"></span><span class="chip" title="Kursdaten vom ${esc(x.stand)}">Kurs ${esc(ago(x.stand))}</span></div>
+    <div class="verdict" style="align-items:flex-start;gap:12px"><div style="flex:1;min-width:0"><div class="m">${esc(nm(x.name))}</div><div class="muted">${esc(x.sym)} · ${dx(x.kurs, " €", 2)} · Börsenwert ${dx(x.boersenwert_mrd, " Mrd. €", 1)}</div></div><div class="ring" style="--p:${Math.max(0, Math.min(100, 100 + (dd ?? 0)))};width:60px;height:60px;flex:none"><b style="font-size:15px">${dd == null ? "–" : nf(dd, 0)}</b></div></div>
+    <div class="band ${stale ? "stale" : up != null && up < 0 ? "neg" : ""}"><div class="main"><div><div class="lab">Bis zum Kursziel</div><div class="pct">${up == null ? "keine Daten" : pct(up, 0)}</div></div><div class="r">Ø-Ziel ${dx(kz && kz.mean, " €", 0)}<br>${kz && kz.analysten ? kz.analysten + " Analysten" : "Anzahl: keine Daten"}<br>${stale ? "⚠ " : ""}Ziele: ${kz && kz.datum ? dm(kz.datum) + kz.datum.slice(0, 4) : "keine Daten"}</div></div></div>
+    <div class="scale" role="img" aria-label="Kurs zwischen 52-Wochen-Tief und -Hoch"><i class="kurs" style="left:${pos(x.kurs)}%"></i></div><div class="scale-l"><span>52W-Tief ${dx(x.tief52, " €", 0)}</span><span class="legend"><span><i class="k"></i>Kurs</span></span><span>52W-Hoch ${dx(x.hoch52, " €", 0)}</span></div>
+    <div class="facts"><div class="fact"><small>zum Hoch</small><b>${pct(dd, 0)}</b></div><div class="fact"><small>KGV erwartet</small><b>${dx(x.kgv_erwartet, "", 1)}</b></div><div class="fact"><small>Dividende</small><b>${dx(x.rendite_pct, " %", 1)}</b></div></div>
+    <div class="facts"><div class="fact"><small>Betriebsmarge</small><b>${dx(x.op_marge_pct, " %", 1)}</b></div><div class="fact"><small>Cashflow-M.</small><b>${dx(x.fcf_marge_pct, " %", 1)}</b></div><div class="fact"><small>Zahlen am</small><b>${esc(termin)}</b></div></div>
+    ${urT ? `<div class="m">Ursache des Rückgangs: ${esc(urT)}</div>` : (zone ? '<div class="chip warn" style="white-space:normal">Ursache des Rückgangs: nicht belegt</div>' : "")}
+    <details><summary>Zahlen der letzten Jahre</summary><div style="display:flex;gap:6px;margin:6px 0">${bars}</div><div class="muted">Balken = Umsatz, Zahl = Nettogewinn in Mrd. €</div>
+      ${hv ? `<table style="width:100%;font-size:12px;margin-top:8px"><tr class="muted"><td>${x.periode === "quartal" ? "Quartal" : "Halbjahr"}</td><td style="text-align:right">Umsatz</td><td style="text-align:right">Gewinn</td><td style="text-align:right">EPS</td></tr>${hv}</table><div class="muted">Mio. €; EPS in €</div>` : ""}</details>
+    <details><summary>Lücken und Quellen</summary>${(x.luecken || []).map(l => `<p>• ${esc(l)}</p>`).join("") || "<p>Keine Lücken gemeldet.</p>"}<p class="muted">Quelle: StockAnalysis (Zweitquelle), keine Firmenmitteilung gelesen.</p></details>
+    </div></div>`;
+}
+function renderDax(q) {
+  loadDax();
+  if (daxErr) return errorState;
+  if (!DAXD) return skeleton(3);
+  let l = DAXD.items.filter(x => !q || (x.name + x.sym).toLowerCase().includes(q));
+  l = l.slice().sort((a, b) => daxMode === "dd" ? (a.abstand_hoch_pct ?? 0) - (b.abstand_hoch_pct ?? 0) : String(a.name).localeCompare(String(b.name), "de"));
+  const ids = DAX_THESEN.map(t => Object.entries(DATA.all).find(([, a]) => a.k && a.k.ticker === t)).filter(Boolean);
+  const hint = !q ? `<div class="tile"><div class="card"><div class="m">Weitere DAX-Werte mit eigener These</div><div class="muted">${ids.map(([id, a]) => `<span class="chip info" data-open="${esc(id)}">${esc(nm(a.k.name))}</span>`).join(" ")}</div><div class="muted">Stand der Daten: ${esc(tb(DAXD.generated))} Uhr. ${esc(DAXD.quelle)}.</div></div></div>` : "";
+  const seg = `<div class="seg" style="margin:0 0 8px"><button data-dm="dd" class="${daxMode === "dd" ? "on" : ""}">Größter Rückgang</button><button data-dm="az" class="${daxMode === "az" ? "on" : ""}">A bis Z</button></div>`;
+  return (l.length ? seg + l.map(daxTile).join("") : emptyState("Nichts gefunden", "Versuche einen anderen Namen.")) + hint;
 }
 function renderVerlauf() {
   const st = DATA.status, run = DATA.run;
@@ -640,15 +679,16 @@ const main = $("#main");
 function draw() {
   const hd = $("#hd");
   const searchBox = `<label class="search"><span aria-hidden="true">⌕</span><input id="q" type="search" placeholder="Suchen" value="${esc(q)}" aria-label="Suchen"></label>`;
-  hd.innerHTML = `<span class="brand">st<em>0</em>cks</span><span class="sp"></span>` + (tab === "depot" || tab === "chancen" ? searchBox : `<span class="title">${esc(TABS.find(t => t[0] === tab)[1])}</span>`);
+  hd.innerHTML = `<span class="brand">st<em>0</em>cks</span><span class="sp"></span>` + (tab === "depot" || tab === "chancen" || tab === "dax" ? searchBox : `<span class="title">${esc(TABS.find(t => t[0] === tab)[1])}</span>`);
   const seg = tab === "chancen" ? `<div class="seg"><button data-mode="top" class="${chMode === "top" ? "on" : ""}">Top 10</button><button data-mode="sek" class="${chMode === "sek" ? "on" : ""}">Nach Sektoren</button></div>` : "";
-  const body = { markt: renderMarkt, depot: () => renderDepot(q), chancen: () => renderChancen(q), verlauf: renderVerlauf, mehr: renderMehr }[tab]();
+  const body = { markt: renderMarkt, depot: () => renderDepot(q), chancen: () => renderChancen(q), dax: () => renderDax(q), verlauf: renderVerlauf, mehr: renderMehr }[tab]();
   main.innerHTML = `${seg}<div class="screen on ${tab === "verlauf" || tab === "mehr" ? "list" : ""}" style="${seg ? "top:52px" : ""}" id="scr">${body}</div>`;
   $("#nav").innerHTML = TABS.map(([k, n]) => `<button data-tab="${k}" class="${k === tab ? "on" : ""}" aria-label="${n}">${IC[k]}<span>${n}</span>${k === "depot" && DATA.depot.some(v => v.verdict === "widerlegt") ? '<i class="dot" title="Eine Depot-These ist widerlegt"></i>' : ""}</button>`).join("");
-  const qi = $("#q"); if (qi) { qi.oninput = e => { q = e.target.value.trim().toLowerCase(); const c = main.querySelector("#scr"); c.innerHTML = tab === "depot" ? renderDepot(q) : renderChancen(q); }; }
+  const qi = $("#q"); if (qi) { qi.oninput = e => { q = e.target.value.trim().toLowerCase(); const c = main.querySelector("#scr"); c.innerHTML = tab === "depot" ? renderDepot(q) : tab === "dax" ? renderDax(q) : renderChancen(q); }; }
 }
 document.addEventListener("click", e => {
   const t = e.target.closest("[data-tab]"); if (t) { tab = t.dataset.tab; q = ""; draw(); return; }
+  const dmb = e.target.closest("[data-dm]"); if (dmb) { daxMode = dmb.dataset.dm; draw(); return; }
   const m = e.target.closest("[data-mode]"); if (m) { chMode = m.dataset.mode; draw(); return; }
   const o = e.target.closest("[data-open]"); if (o) { openDetail(o.dataset.open); return; }
   const gm = e.target.closest("[data-gm]"); if (gm && cur) { gmMode = gm.dataset.gm; const b = $("#gblock"); if (b) b.innerHTML = safe(() => CH.growth(cur.k || {}, gmMode)); return; }
